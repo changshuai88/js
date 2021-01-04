@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://changjinshuai.com" id="form">
+        用户名: <input type="text" name = "username">
+        <hr>
+        <input type="checkbox" name="copyright"> 接收协议
+        <hr>
+        <input type="submit">
+    </form>
+    <script>
+        function query(el){
+            return document.querySelector(el);
+        }
+        query("#form").addEventListener("submit",function(event){
+            let username = query('input[name="username"]').value;
+            let copyright = query('input[name="copyright"]').checked;
+            console.log(!!username);
+            if(!username || copyright ===false){
+                alert("请填写用户名并接收协议");
+                event.preventDefault();
+            }
+        }) ;
+    </script>
+</body>
+</html>

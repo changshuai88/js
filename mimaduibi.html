@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name="password">
+    <input type="text" name="confirm_password">
+    <br>
+    <span name="msg"></span>
+    <script>
+        function queryByName(name){
+            return document.querySelector(`[name='${name}']`);
+        }
+        let inputs = document.querySelectorAll(
+            "[name='password'],[name='confirm_password']"
+        );
+        [...inputs].map(item=>{
+            item.addEventListener("keyup",()=>{
+                let msg ="";
+                if(queryByName("password").value != queryByName("confirm_password").value || queryByName("password").value.length<5){
+                    msg ="两次密码不一致或密码长度错误";
+                }
+                queryByName("msg").innerHTML = msg;
+            });
+           
+        });
+    </script>
+
+</body>
+</html>
