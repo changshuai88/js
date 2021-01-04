@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="password" name="title">
+    <span></span>
+    <script>
+        let input = document.querySelector("[name='title']");
+        input.addEventListener("keyup",function(){
+            let length = this.value.length;
+            let msg;
+            if(length > 10){
+                msg = "密码已经无敌了";
+
+            }else if(length >6){
+                msg = "密码安全性中级";
+            }else{
+                msg = "这密码，要完的节奏";
+            }
+            document.querySelector("span").innerHTML = msg;
+        });
+    </script>
+</body>
+</html>
