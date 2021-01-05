@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>switch</title>
+</head>
+<body>
+    <script>   
+        let name = '视频';
+        switch (name){
+            case '产品':
+                console.log('白日依山尽');
+                break;
+            case '视频':
+                console.log('黄河入海流');
+                break;
+            default:
+                console.log('欲穷千里目');
+
+        }
+
+        // case合并实例
+        let error = 'warning';
+        switch (error) {
+            case 'notice':
+            case 'warning':
+                console.log('警告或提示信息');
+                break;
+            case 'error':
+                console.log('错误信息');
+        }
+
+        function message(age){
+            switch (true){
+                case age <15:
+                    console.log("children");
+                    break;
+                case age <25:
+                    console.log("young people");
+                    break;
+                case age < 40:
+                    console.log("people");
+                    break;
+                case age <60:
+                    console.log("中年");
+                    break;
+                case age < 100:
+                    console.log("老年");
+                    break;
+                default:
+                    console.log("年龄输入错误");
+            }
+        }
+        message(35);
+
+        // 缺少break
+        switch (1){
+            case 1:
+                console.log(1);
+            case 2: 
+                console.log(2);
+            default: 
+                console.log("default");
+        }
+    </script>
+</body>
+</html>

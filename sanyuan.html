@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sanyuan</title>
+
+</head>
+<body>
+    <script>    
+        let n = true ? 9 : 2;
+        console.log(n);
+
+        let f = true ? (1 == true ? 'yes' : 'no') : 3;
+        console.log(f);
+
+        function div(options = {}){
+            let div = document.createElement("div");
+            div.style.width = options.width ? options.width : "100px";
+            div.style.height = options.height ? options.height : "100px";
+            div.style.backgroundColor = options.backgroundColor ? options.backgroundColor : "yellow";
+            document.body.appendChild(div);
+        }
+        div();
+    </script>
+</body>
+</html>
