@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>label</title>
+</head>
+
+<body>
+    <script>
+        // 取 i+n大于15时推出循环
+        chang: for (let i = 1; i <= 10; i++) {
+            shuai: for (let n = 1; n <= 10; n++) {
+                if (n % 2 != 0) {
+                    continue shuai;
+                }
+                console.log(i, n);
+                if (i + n > 15) {
+                    break chang;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

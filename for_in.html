@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for in</title>
+</head>
+
+<body>
+    <script>
+        let hd = [
+            { title: "蓦然回首，那人却在灯火阑珊处", lesson: 3 },
+            { title: "道可道，非常道", lesson: 5 },
+            { title: "斯是陋室，惟吾德馨", lesson: 10 }
+        ];
+        document.write(
+            `
+            <table border="1" width="100%">
+            <thead><tr><th>标题</th><th>课程表</th></thead>
+            `);
+        for (let key in hd) {
+            document.write(
+                `
+                <tr>
+                    <td>${hd[key].title}</td>
+                    <td>${hd[key].lesson}</td>
+                </td>
+                `);
+        }
+        document.write("</table>");
+
+        // 遍历对象操作
+        let info = {
+            name: "常",
+            url: "changshuai.com"
+        };
+        for (const key in info) {
+            if (info.hasOwnProperty(key)) {
+                console.log(info[key]);
+            }
+        }
+
+        // 遍历window对象的所有属性
+        for (name in window) {
+            console.log(window[name]);
+        }
+    </script>
+</body>
+
+</html>

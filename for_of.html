@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for of</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        li {
+            width: 200px;
+            padding: 10px;
+            border: solid 1px red;
+
+        }
+    </style>
+</head>
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<body>
+    <script>
+        // 使用for of来遍历DOM元素
+        let lis = document.querySelectorAll("li");
+        for (const li of lis) {
+            li.addEventListener("click", function () {
+                this.style.backgroundColor = "yellow";
+            });
+        }
+        // 遍历数组
+        let arr = [1, 2, 3];
+        for (const interator of arr) {
+            console.log(interator);
+        }
+        // 遍历字符串
+        let str = "changshuai";
+        for (const iterator of str) {
+            console.log(iterator);
+        }
+        // 用迭代特性遍历数组
+        const cj = ["chang", "shuai"];
+        for (const [key, value] of cj.entries()) {
+            console.log(key, value);
+        }
+
+
+    </script>
+</body>
+
+</html>
