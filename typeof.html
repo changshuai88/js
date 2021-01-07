@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类型检测</title>
+</head>
+
+<body>
+    <script>
+        let a = 1;
+        console.log(typeof a);
+
+        let b = "1";
+        console.log(typeof b);
+
+        var shuai;
+        console.log(typeof shuai);
+
+        function run() { }
+        console.log(typeof run);
+
+        let c = [1, 2, 3];
+        console.log(typeof c);
+
+        let d = { name: "changshuai" };
+        console.log(typeof d);
+    </script>
+    <script>
+        let chang = [];
+        let cs = {};
+        console.log(chang instanceof Array);
+        console.log(cs instanceof Array);
+
+        console.log(c instanceof Array);
+
+        console.log(d instanceof Object);
+
+        function User() { }
+
+        let s = new User();
+        console.log(s instanceof User);
+
+    </script>
+    <script>
+        let o = "libai";
+        let f = new String("dufu");
+        console.log(typeof o, typeof f)
+        console.log(o.length);
+        console.log(f.length);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>string</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        li {
+            padding: 5px;
+            width: 200px;
+            /* margin: 5px; */
+            border: solid 1px gray;
+        }
+
+        li:nth-child(odd) {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="a"></div>
+    <script>
+        let a = new String("libai");
+        console.log(a.length);
+        console.log(a.toString());
+
+        let d = 'dufu';
+        console.log(d);
+
+        let l = 'libai\'litaibai\'';
+        console.log(l);
+
+        let year = 2010,
+            name = "libai";
+        console.log(name + '出生于' + year + '年');
+
+        let ld = 'libai';
+        ld += 'dufu';
+        console.log(ld);
+
+        // 模板字面量
+
+        let ldb = '李白、杜甫、白居易';
+        console.log(`著名诗人${ldb}`);
+
+        document.write(`著名诗人${ldb}`);
+
+        document.write(`
+        我国的著名诗人有很多，${ldb}是
+
+        其中最有代表性的三位是`);
+
+        function show(title) {
+            return "李白";
+        }
+        console.log(`${show()}`);
+    </script>
+    <script>
+        let lessons = [
+            { title: '媒体查询响应式布局' },
+            { title: 'FLEX弹性盒模型' },
+            { title: 'GRID 栅格系统' }
+        ];
+        function template() {
+            return `<ul>
+                ${lessons.map((item) => `
+                    <li>${item.title}</li>
+                    `).join(``)}
+                </ul>`;
+        }
+
+        document.body.innerHTML = template();
+
+    </script>
+    <script>
+        let lesson = 'css';
+        let web = 'houdunren';
+        tag`访问${web}学习${lesson}前端知识`;
+
+        function tag(strings, ...values) {
+            console.log(strings);
+            console.log(values);
+        }
+    </script>
+</body>
+
+</html>
