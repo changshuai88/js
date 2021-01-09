@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>boolean 布尔类型</title>
+</head>
+<script>
+    console.log(new Boolean(true));
+    console.log(new Boolean(false));
+
+    let t = true;
+
+    console.log(3 == true);
+    console.log(0 == false);
+
+    console.log(Number("libai"));
+    console.log(Boolean("libai"));
+    console.log("libai" == true);
+    console.log("1" == true);
+
+    // 数组转Boolean
+    console.log(Number([]));
+    console.log(Number([3]));
+    console.log(Number([1, 2, 3]));
+    console.log([] == false);
+    console.log([1] == false);
+    console.log([1, 2, 3] == true);
+
+    if ([]) console.log("true");
+    if ({}) console.log("true");
+
+
+    // 显示转换
+    let li = "";
+    console.log(!!li);
+    console.log(Boolean(li));
+
+    let du = 0;
+    console.log(!!du);
+    console.log(Boolean(du));
+    let bai = null;
+    console.log(!!bai);
+    console.log(Boolean(bai));
+    let su = new Date("2020-8-9 17:18");
+    console.log(!!su);
+    console.log(Boolean(su));
+
+    // 实例操作
+    while (true) {
+        let n = prompt("请输入中华人民共和国成立年份").trim();
+        if (!n) continue;
+        alert(n == 1949 ? "回答正确" : "答案错误！请问问老师");
+        break;
+    }
+
+
+
+</script>
+
+<body>
+
+</body>
+
+</html>

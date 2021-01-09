@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let li = new Number(3);
+        console.log(li + 3);
+
+        let du = 99;
+        console.log(typeof du);
+
+        console.log(Number.isInteger(1.2));
+
+        console.log((16.666).toFixed(2));
+
+        console.log(Number("libai"));
+        console.log(2 / 'dufu');
+        var res = 2 / 'dufu';
+        if (Number.isNaN(res)) {
+            console.log('Error');
+        }
+
+        var bai = 2 / 'baijuyi';
+        console.log(Object.is(bai, NaN));
+        // 类型转换
+        console.log(Number('baijuyi'));
+        console.log(Number(true));
+        console.log(Number(false));
+        console.log(Number('9'));
+        console.log(Number([]));
+        console.log(Number([5]));
+        console.log(Number([5, 2]));
+        console.log(Number({}));
+        // parseInt 
+        console.log(parseInt('   98libai'));
+        console.log(parseInt('16.88'));
+        // parseFloat
+        console.log(parseFloat('  99baijuyi'));
+        console.log(parseFloat('19.996'));
+
+        // 实例
+
+
+
+
+
+
+    </script>
+    <input type="text" name="num" value="66">
+    <script>
+        let ji = document.querySelector("[name='num']").value;
+        console.log(ji + 5);
+        console.log(ji * 1 + 5);
+    </script>
+
+    <script>
+        // 舍入操作
+        console.log(1.556.toFixed(2));
+        // 浮点精度
+        let su = 0.1 + 0.2;
+        console.log(su);
+        console.log((0.1).toString(2));
+        console.log((0.2).toString(2));
+        console.log(su.toFixed(2));
+        console.log(1.0 - 0.9);
+        console.log((1.0 - 0.9).toFixed(2));
+
+    </script>
+
+    <script>
+        // 小数转化为整数进行计算再转为小数
+        Number.prototype.add = function (num) {
+            let n1 = this.toString().split('.')[1].length;
+            let n2 = num.toString().split('.')[1].length;
+            let m = Math.pow(10, Math.max(n1, n2));
+            return (this * m + num * m) / m;
+        }
+        console.log((0.15).add(0.2));
+
+        let n1 = 0.2.toString().split('.')[1].length;
+        let n2 = 0.15.toString().split('.')[1].length;
+        console.log(n1);
+        console.log(n2);
+        let m = Math.pow(10, Math.max(n1, n2));
+        console.log(m);
+        let m1 = Math.max(n1, n2);
+        console.log(m1);
+        c = (n1 * m + n2 * m) / m;
+        console.log(c);
+
+
+
+    </script>
+    <!-- 算学库 -->
+    <script src="http://cdn.bootcss.com/decimal.js/10.2.0/decimal.min.js"></script>
+    <script>
+        console.log(Decimal.add(0.151, 0.2).valueOf());
+    </script>
+</body>
+
+</html>
