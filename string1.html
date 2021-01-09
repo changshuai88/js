@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串方法</title>
+</head>
+
+<body>
+    <script>
+        console.log("changshuai".length);
+
+        console.log('changshuai'.toUpperCase());
+
+        console.log('CHANGSHUAI'.toLowerCase());
+
+        let str = '  li bai ';
+        console.log(str.length);
+        console.log(str.trim().length);
+
+        let name = '  dufu   ';
+        console.log(name);
+        console.log(name.trimLeft());
+        console.log(name.trimRight());
+
+        // 获取单字符
+        console.log('baijuyi'.charAt(3));
+
+        console.log('baijuyi'[3]);
+
+        // 截取字符串
+        let lb = 'libaidufubaijuyi';
+        console.log(lb.slice(3));
+        console.log(lb.substr(3));
+        console.log(lb.substring(3));
+
+        console.log(lb.slice(3, 6));
+        console.log(lb.substring(3, 6));
+        console.log(lb.substring(3, 0));
+        console.log(lb.substr(3, 6));
+
+        console.log(lb.slice(3, -1));
+        console.log(lb.slice(-2));
+        console.log(lb.substring(3, -9));
+        console.log(lb.substr(-3, 2));
+
+        // 查找字符串
+        console.log('libaidufubaijuyi'.indexOf('u'));
+        console.log('libaidufubaijuyi'.indexOf('u', 10));
+        console.log('libaidufubaijuyi'.lastIndexOf('u'));
+        console.log('libaidufubaijuyi'.lastIndexOf('u', 7));
+
+        let ld = 'libaidufubaijuyi';
+        console.log(ld.search('ju'));
+        console.log(ld.search(/\juyi/i));
+
+        console.log('libaidufu'.includes('i'));
+        console.log('libaidufu'.includes('i', 4));
+        console.log("");
+        console.log('baijuyiwangwei'.startsWith('b'));
+        console.log('baijuyiwangwei'.startsWith('a', 1));
+        console.log('baijuyiwangwei'.endsWith('i'));
+        console.log('baijuyiwangwei'.endsWith('a', 2));
+
+        // 查找关键词
+        const words = ['libai', 'dufu'];
+        const title = "libai和dufu都是我国古代的著名诗人";
+        const status = words.some(word => { return title.includes(word); });
+        console.log(status);
+
+        // 替换字符串
+        let du = "dufubaijuyi";
+        web = du.replace("dufu", "libai");
+        console.log(web);
+
+        let time = "2025/05/09";
+        console.log(time.replace(/\//g, "-"));
+
+
+        const shi = ["李白", "杜甫"];
+        const ju = "我喜欢的古代诗人有李白和杜甫";
+        const so = shi.reduce((pre, word) => { return pre.replace(word, `<a href="?w=${word}">${word}</a>`); }, ju);
+        document.body.innerHTML += so;
+
+        let res = "dufulishangyin".replace(/u/g, str => { return "@"; });
+        console.log(res);
+
+        // 重复生成
+        function xing(num = 3) {
+            return '*'.repeat(num);
+        }
+        console.log(xing());
+        // 模糊后三位电话号码
+        let hua = "13852516985";
+        console.log(hua.slice(0, -3) + "*".repeat(3));
+
+        // 类型转换
+
+        let a = "liuyongsudongpo";
+        console.log(a.split(""));
+        console.log("1-2-3-6-8".split("-"));
+        let id = 99 + "";
+        console.log(typeof id);
+
+        let b = 99;
+        console.log(typeof String(b));
+        let c = 99;
+        console.log(typeof c.toString());
+
+        let arr = ['李白', '杜甫'];
+        console.log(typeof arr.toString());
+
+    </script>
+</body>
+
+</html>
