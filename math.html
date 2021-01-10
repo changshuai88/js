@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>math对象</title>
+</head>
+
+<body>
+    <script>
+        console.log(Math.min(1, 2, 3));
+        console.log(Math.max(1, 2, 3));
+
+        console.log(Math.max.apply(Math, [1, 2, 3, 4, 99]));
+        // console.log(apply(Math, [1, 2, 3, 4]))
+
+        // 舍入处理
+        console.log(Math.ceil(1.111));
+        console.log(Math.floor(1.68));
+        // 四舍五入
+        console.log(Math.round(1.111));
+
+        // random随机数
+        const number = Math.floor(Math.random() * 5);
+        console.log(number);
+
+
+        // 返回0~5的随机数，包括5
+        let a = Math.floor(Math.random() * (5 + 1));
+        console.log(a);
+        // 取2-5的随机数不包括5，公式：min+Math.floor(Math.random()*(max-min))
+        let b = Math.floor(Math.random() * (5 - 2)) + 2;
+        console.log(b);
+
+        // 取2-5的随机数，包括5，公式：min+Math.floor(Math.random()*(max-min+1))
+        let c = Math.floor(Math.random() * (5 - 2 + 1)) + 2;
+        console.log(c);
+
+        // 随机点名实例
+        let names = ['李白', '杜甫', '白居易'];
+        let id = Math.floor(Math.random() * names.length);
+        console.log(names[id]);
+
+        // 随机取第二到第三之间的学生，即1-2的值
+        let name = ['李白', '杜甫', '白居易', '苏东坡', '王维'];
+        let pos = Math.floor(Math.random() * (3 - 1)) + 1;
+        console.log(name[pos]);
+    </script>
+</body>
+
+</html>
