@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>date日期处理</title>
+</head>
+
+<body>
+    <script>
+        let now = new Date();
+        console.log(now);
+        console.log(typeof now);
+        console.log(now * 1);
+
+        let time = Date();
+        console.log(time);
+        console.log(typeof time);
+        console.log(time * 1);
+        // 直接使用函数获取当前时间
+        console.log(Date());
+        console.log(typeof Date());
+
+        // 计算脚本执行时间
+        let start = Date.now();
+        for (let i = 0; i < 20000000; i++) { }
+        let end = Date.now();
+        console.log(end - start);
+        // 控制台测试
+        console.time("testFor");
+        for (let i = 0; i < 20000000; i++) { }
+        console.timeEnd("testFor");
+
+        // 根据指定的日期和时间定义日期对象
+        let xz = new Date('2025-02-23 03:45:56');
+        console.log(xz);
+
+        let zt = new Date(2026, 5, 9, 1, 58, 35);
+        console.log(zt);
+        // 使用展示运算符处理更方便
+        let info = [2028, 6, 19, 12, 12, 12];
+        let date = new Date(...info);
+        console.log(date);
+
+        // 类型转换
+        let du = new Date("2012-12-30 15:35:30");
+        console.log(du * 1);
+
+        console.log(Number(du));
+        console.log(du.valueOf());
+        console.log(du.getTime());
+        // 时间戳转换为标准时间
+        let yi = [1985, 12, 17, 15, 30, 45];
+        let bai = new Date(...yi);
+        console.log(bai);
+        let ju = bai.getTime();
+        console.log(ju);
+        console.log(new Date(ju));
+
+        // 对象方法
+        let fu = new Date();
+        console.log(`${fu.getFullYear()}-${fu.getMonth()}-${fu.getDate()} ${fu.getHours()}:${fu.getMinutes()}:${fu.getSeconds()}`);
+
+        // 封装函数用于复用
+        function dateFormat(date, formate = "YYYY-MM-DD HH:mm:ss") {
+            let config = {
+                YYYY: date.getFullYear(),
+                MM: date.getMonth() + 1,
+                DD: date.getDate(),
+                HH: date.getHours(),
+                mm: date.getMinutes(),
+                ss: date.getSeconds()
+            };
+            for (const key in config) {
+                formate = formate.replace(key, config[key]);
+            }
+            return formate;
+        }
+        let su = new Date("1985-12-11")
+        console.log(dateFormat(su, "YYYY年MM月DD日"));
+
+        // moment.js
+
+    </script>
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment.min.js">
+
+    </script>
+    <script>
+        console.log(moment().format("YYYY-MM-DD HH:mm:ss"));
+        console.log(moment("1985-12-17 09:45:12").format("YYYY-MM-DD HH:mm:ss"));
+        console.log(moment().add(10, "days").format("YYYY-MM-DD HH:mm:ss"));
+    </script>
+</body>
+
+</html>
