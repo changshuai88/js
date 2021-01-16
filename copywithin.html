@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>copywithin</title>
+</head>
+
+<body>
+    <script>
+        let li = ["libai", "dufu", "baijuyi", "wangwei", "jiadao", "su", "huang"];
+        let du = li.copyWithin(4, 3, 5);
+
+        console.table(du);
+
+        console.log(li.find(function (item) {
+            // 找到返回值，没找到返回undifined
+            return item == "dufu";
+        }));
+    </script>
+</body>
+
+</html>
