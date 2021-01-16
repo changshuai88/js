@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 对象创建数组
+        console.log(new Array(1, 'libai', 'dufu'));
+
+        // 使用字面量创建数组
+        const shiren = ["libai", "dufu", "baijuyi"];
+        console.log(shiren);
+
+        // 多维数组
+        const xueke = [["yuwen", "lishi"], ["wuli", "huaxue"]];
+        console.log(xueke[1][0]);
+
+        // 数组为引用类型可以用const声明并修改它的值
+        const shi = ["minbong", "jiangjinjiu"];
+        shi.push("shudaonan");
+        console.log(shi);
+
+        // 使用原型的length属性可以获取数组元素数量
+        let li = ["libai", "liqingzhao"];
+        console.log(li.length);
+
+        // 数组可以设置任何值，下面是使用索引添加数组
+        let bai = ["baijuyi"];
+        bai[3] = "baiyanbing";
+        console.log(bai.length);
+
+        // 声明多个空元素的数组
+        let win = new Array(3);
+        console.log(win.length);
+        console.log(win);
+
+        // Array.of
+        let jiu = Array.of(3);
+        console.log(jiu);
+
+        jiu = Array.of(1, 2, 3);
+        console.log(jiu);
+
+        // 类型检测
+        // 检测变量是否是数组类型
+        console.log(Array.isArray([1, "libai", "dufu"]));
+        console.log(Array.isArray(9));
+
+        // 类型转换
+        // 数组转字符串，3种方法
+        console.log(([1, 2, 3]).toString());
+        console.log(String([1, 2, 3]));
+        console.log([1, 2, 3].join("-"));
+
+        // 使用arra。from可将类数组转换为数组，类数组是指包含length属性或可迭代的对象
+        let a = "将进酒";
+        console.log(Array.from(a));
+
+        let user = {
+            0: "libai",
+            '1': 18,
+            length: 2
+        }
+        console.log(Array.from(user));
+
+    </script>
+</body>
+
+</html>
