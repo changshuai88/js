@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>array</title>
+</head>
+
+<body>
+    <script>
+        "use strict";
+        // 数组合并
+        let a = [1, 2, 3];
+        let b = ["libai", "dufu", ...a];
+        console.table(b);
+
+        // 解构赋值
+        // let [title, author] = ["将进酒", "李白"];
+        // console.log(title, author);
+        // let [author, ...title] = ["李白", "将进酒", "蜀道难"];
+        // console.log(title);
+
+        // fill()方法
+        console.log([1, 2, 3, 4].fill("李白", 3, 4));
+
+        // slice()
+
+        console.log([1, 2, 3, 1, 4].slice(1, 3));
+        let author = ["libai", "dufu", "baijuyi"];
+        console.log(author.indexOf("dufu"));
+        console.log(author.includes("dufu"));
+        console.log(author.find(function (item) {
+            return item == "dufu";
+        }));
+        console.log(author.findIndex(function (item) {
+            return item == "dufu";
+        }));
+
+        console.log(author.reverse());
+
+        console.log([1, 5, 8, 4, 6, 3, 5].sort());
+
+        let lessons = [
+            { title: "将进酒", author: "李白" },
+            { title: "蜀道难", author: "李白" },
+            { title: "蜀相", author: "杜甫" },
+            { title: "卖炭翁", author: "白居易" }
+
+        ];
+        for (let i = 0; i < lessons.length; i++) {
+            lessons[i] = `唐诗：${lessons[i].title}`;
+        }
+        console.table(lessons);
+
+        function arrayMax(array) {
+            let max = array[0];
+            for (const elem of array) {
+                max = max > elem ? max : elem;
+            }
+            return max;
+        }
+
+        console.log(arrayMax([1, 5, 6, 8, 12, 4, 8]));
+
+        // "use strict";
+        const libai = ["将进酒", "蜀道难", "绝句"];
+        const keys = libai.keys();
+        console.log(keys.next());
+        console.log(keys.next());
+        console.log(keys.next());
+        console.log(keys.next());
+
+        for (const key of libai.keys()) {
+            console.log(key);
+        }
+
+        for (const value of libai.values()) {
+            console.log(value);
+        }
+
+        for (const [key, value] of libai.entries()) {
+            console.log(key, value);
+        }
+
+        /* while (({ value, done } = libai.keys()) && done === false) {
+            console.log(value);
+        } */
+
+    </script>
+</body>
+
+</html>

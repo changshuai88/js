@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    .hide {
+        color: gray;
+    }
+</style>
 
 <body>
     <script>
@@ -68,6 +73,19 @@
         }
         console.log(Array.from(user));
 
+
+
+    </script>
+
+    <div>将进酒</div>
+    <div>蜀道难</div>
+    <script>
+        let divs = document.querySelectorAll("div");
+        [...divs].map(function (div) {
+            div.addEventListener("click", function () {
+                this.classList.toggle("hide");
+            });
+        });
     </script>
 </body>
 

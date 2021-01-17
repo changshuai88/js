@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>every some filter</title>
+</head>
+
+<body>
+    <script>
+        const user = [
+            { name: "李白", js: 89 },
+            { name: "杜甫", js: 65 },
+            { name: "王维", js: 78 }
+        ];
+        const result = user.every(user => user.js >= 60);
+        // 返回一个布尔值
+        console.log(result);
+
+        let words = ["李白", "杜甫", "白居易"];
+        let title = "诗圣是我国古代大诗人杜甫";
+        let state = words.some(function (item, index, array) {
+            return title.indexOf(item) >= 0;
+        });
+        if (state) console.log("标题中含有关键词");
+
+        let lessons = [
+            { name: "李白", job: "诗人" },
+            { name: "杜甫", job: "诗人" },
+            { name: "王安石", job: "政治家" }
+        ];
+        let shiren = lessons.filter(function (item, index, array) {
+            /* console.log(item);
+            console.log(index);
+            console.log(array); */
+
+            if (item.job == "诗人") {
+                return true;
+            }
+        });
+        console.table(shiren);
+
+        function except(array, excepts) {
+            const newArray = [];
+            for (const elem of array)
+                if (!(excepts.includes(elem))) newArray.push(elem);
+            return newArray;
+        }
+        const arr = [1, 2, 3, 4, 5, 2, 6, 9, 7];
+        console.log(except(arr, [2, 3]));
+
+        console.log(lessons.map(item => item.job));
+
+        lessons = lessons.map(function (item, index, array) {
+            item.name = `古人${item["name"]}`;
+            return item;
+        });
+        console.table(lessons);
+
+        function countArrayElem(array, elem) {
+            return array.reduce((total, cur) => (total += cur == elem ? 1 : 0), 0);
+        }
+        console.log(countArrayElem(arr, 2));
+
+        function arratMax(array) {
+            return array.reduce((max, elem) => (max > elem ? max : elem), array[0]);
+        }
+        console.log(arratMax(arr));
+
+        let cart = [
+            { name: "桌子", price: 200 },
+            { name: "椅子", price: 150 },
+            { name: "床", price: 1300 }
+        ];
+        function maxPrice(array) {
+            return array.reduce(
+                (goods, elem) => (goods.price > elem.price ? goods : elem), array[0]
+            );
+        }
+        console.log(maxPrice(cart));
+
+        const total = cart.reduce(
+            (total, goods) => total += goods.price, 0
+        );
+        console.log(total);
+
+        function getNameByPrice(array, price) {
+            return array.reduce((goods, elem) => {
+                if (elem.price > price) {
+                    goods.push(elem);
+                }
+                return goods;
+            }, []).map(elem => elem.name);
+        }
+        console.table(getNameByPrice(cart, 1000));
+
+        let filterArr = arr.reduce((pre, cur, index, attay) => {
+            if (pre.includes(cur) === false) {
+                pre = [...pre, cur];
+            }
+            return pre;
+        }, [])
+        console.table(filterArr);
+    </script>
+</body>
+
+</html>

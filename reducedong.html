@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reduce.donghua</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: cornflowerblue;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        div {
+            color: darkblue;
+            font-size: 5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+
+        }
+
+        div>span {
+            position: relative;
+            display: inline-block;
+        }
+
+        .changeColor {
+            animation-name: changeColor;
+            animation-duration: 1s;
+            animation-direction: alternate;
+            animation-direction: 2;
+            animation-timing-function: linear;
+        }
+
+        @keyframes changeColor {
+            50% {
+                color: darkorange;
+                transform: scale(1.5);
+            }
+
+            to {
+                color: fuchsia;
+                transform: scale(0.5);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>baijuyi</div>
+</body>
+<script>
+    let div = document.querySelector("div");
+    [...div.textContent].reduce((pre, cur, index) => {
+        pre == index && (div.innerHTML = "");
+        let span = document.createElement("span");
+        span.textContent = cur;
+        div.appendChild(span);
+        span.addEventListener("mouseover", function () {
+            this.classList.add("changeColor");
+        });
+        span.addEventListener("animationend", function () {
+            this.classList.remove("changeColor");
+        });
+    }, 0);
+</script>
+
+</html>
