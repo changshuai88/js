@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>symbol</title>
+</head>
+
+<body>
+    <script>
+        let li = Symbol();
+        let du = Symbol();
+        console.log(li);
+        // 类型就是Symbol
+        console.log(typeof li);
+        console.log(du);
+        // Symbol不能添加属性
+        du.name = "dufu";
+        console.log(du.name);
+        // 描述参数
+        let libai = Symbol("李白");
+        let dufu = Symbol("诗圣杜甫");
+        console.log(libai);
+        console.log(dufu.toString());
+
+        let shixian = Symbol("李白");
+        // 即使传入的参数相同，Symbol也是独立唯一的
+        console.log(libai == shixian);
+        // 使用description可以获取传入的描述参数
+        console.log(dufu.description);
+        // Symbol.for,根据描述获取Symbol，如果不存在就创建一个
+        let bai = Symbol.for("白居易");
+        let baijuyi = Symbol.for("白居易");
+        console.log(bai == baijuyi);
+
+        // Symbol.keyFor根据使用Symbol.for登记Symbol返回描述，若找不到返回undefined
+        let su = Symbol.for("苏东坡");
+        console.log(Symbol.keyFor(su));
+
+        let wang = Symbol("王维");
+        console.log(Symbol.keyFor(wang));
+
+        // Symbol的对象属性，Symbol声明和访问使用[]（变量）形式操作，不能使用.语法。
+        let shiren = Symbol("诗人");
+        let tang = {
+            // 对
+            [shiren]: "李白",
+            // 错
+            shiren: "杜甫"
+        };
+        console.log(tang);
+
+        // Symbol不能使用for/in、for/of遍历操作
+        let symbol = Symbol("诗人");
+        let obj = {
+            name: "sushi",
+            [symbol]: "sudongpo"
+        };
+        for (const key in obj) {
+            console.log(key);
+        }
+        for (const key of Object.keys(obj)) {
+            console.log(key);
+        }
+        // 可以使用Object.getOwnPropertySymbols获取所有Symbol属性
+        for (const key of Object.getOwnPropertySymbols(obj)) {
+            console.log(key);
+        }
+
+        // 也可以使用Reflect.ownKeys获取所有属性包含Symbol
+        for (const key of Reflect.ownKeys(obj)) {
+            console.log(key);
+        }
+    </script>
+
+    <Script>
+        // 实例
+        class Cache {
+            static data = {};
+            static set(name, value) {
+                this.data[name] = value;
+            }
+            static get(name) {
+                return this.data[name];
+            }
+        }
+
+        let user = {
+            name: "李白",
+            key: Symbol("shiren")
+        };
+        let cart = {
+            name: "jiangjinjiu",
+            key: Symbol("shi")
+        };
+        console.log(user.key);
+        console.log(user);
+
+        Cache.set(user.key, user);
+        Cache.set(cart.key, cart);
+        console.log(Cache.get(user.key));
+    </Script>
+</body>
+
+</html>
