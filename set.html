@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>set</title>
+</head>
+
+<body>
+    <script>
+        // 对象的属性最终都会转化为字符串
+        let obj = {
+            1: "libai",
+            "1": "dufu"
+        };
+        console.log(obj);
+        let hd = {
+            [obj]: "baijuyi"
+        };
+        console.log(hd);
+
+        let li = new Set(["libai", "dufu"]);
+        console.log(li.values());
+
+        let du = new Set();
+        du.add(1);
+        du.add("1");
+        console.log(du);
+
+        let bai = new Set();
+        bai.add("libai");
+        bai.add("dufu");
+        bai.add("dufu");
+        console.log(bai.values());
+        // 获取元素数量
+        console.log(bai.size);
+        // 检测元素是否存在
+        console.log(bai.has("dufu"));
+        // 删除元素
+        console.log(bai.delete("libai"));
+        console.log(bai.values());
+        console.log(bai.has("libai"));
+
+        bai.clear();
+        console.log(bai.values());
+
+        // 数组转换
+        const wang = new Set(["wangwei", "sudongpo"]);
+        console.log([...wang]);
+        console.log(Array.from(wang));
+        // 移除set中大于5的值
+        let su = new Set("123456789");
+        su = new Set([...su].filter(item => item < 5));
+        console.log(su);
+        // 去除字符串重复
+        console.log([...new Set("wangwei")].join(""));
+        // 去除数组重复
+        const yan = [1, 2, 3, 4, 5, 3, 4, 2, 2];
+        console.log(...new Set(yan));
+
+        // 遍历数据
+        console.log(wang.values());
+        console.log(wang.keys());
+        console.log(wang.entries());
+
+    </script>
+</body>
+
+</html>
