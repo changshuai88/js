@@ -5,6 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>set</title>
+    <style>
+        body {
+            padding: 200px;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        input {
+            width: 200px;
+            border: solid 1px #d63031;
+            outline: none;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style: none;
+            width: 200px;
+            padding-top: 20px;
+
+        }
+
+        ul li {
+            border: olive solid 1px;
+            padding: 10px;
+            margin-bottom: -1px;
+        }
+
+        ul li:nth-child(odd) {
+            background: orchid;
+        }
+    </style>
 </head>
 
 <body>
@@ -64,6 +99,51 @@
         console.log(wang.keys());
         console.log(wang.entries());
 
+        wang.add("libai");
+        wang.forEach((item, key) => console.log(item, key));
+
+        for (const interator of wang) {
+            console.log(interator);
+        }
+
+    </script>
+
+    <input type="text">
+    <ul></ul>
+    <script>
+        let xm = {
+            words: new Set(),
+            set keyword(word) {
+                this.words.add(word);
+            },
+            show() {
+                let ul = document.querySelector('ul');
+                ul.innerHTML = '';
+                this.words.forEach((item) => {
+                    ul.innerHTML += ('<li>' + item + '</li>');
+                })
+            }
+        }
+        document.querySelector('input').addEventListener('blur', function () {
+            xm.keyword = this.value;
+            xm.show();
+        });
+
+        //交集
+        let a = new Set(['bai', 'bing']);
+        let b = new Set(['bai', 'juyi']);
+        let c = new Set(
+            [...a].filter(item => b.has(item))
+        );
+        console.log(c);
+        // 差集
+        let d = new Set(
+            [...a].filter(item => !b.has(item))
+        );
+        console.log(d);
+        // 并集
+        let e = new Set([...a, ...b]);
+        console.log(e);
     </script>
 </body>
 
