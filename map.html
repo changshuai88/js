@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let m = new Map([
+            ['libai', 'dufu'],
+            ['wangwei', 'baijuyi']
+        ]);
+        console.log(m);
+        console.log(m.get('libai'));
+
+        // 使用set方法添加元素
+        let map = new Map();
+        let obj = {
+            name: 'libai'
+        };
+        map.set(obj, 'dufu').set('name', 'baijuyi');
+        console.log(map.entries());
+        // 读取元素
+        console.log(map.get(obj));
+        // 删除元素
+        map.delete(obj);
+        console.log(map.get(obj));
+        // 使用new map创建map
+        const hd = new Map();
+        const arr = [["tangshi", "libai"], ["songci", "sushi"]];
+        arr.forEach(([key, value]) => {
+            hd.set(key, value);
+        });
+        console.log(hd);
+
+        // 对于键是对象的map，键保存的是内存地址，值相同但内存地址不同的视为两个键
+        let shi = ["jiangjinjiu"];
+        const bai = new Map();
+        bai.set(shi, "libai");
+        console.log(bai.get(shi));
+        // console.log(bai.get([jiangjinjiu])); 报错后面的代码就不再执行
+        // 获取数量
+        console.log(bai.size);
+        // 检测元素是否存在
+        console.log(bai.has(shi));
+        console.log(bai.has('jiangjinjiu'));
+        // 使用clear方法清除map所有元素
+        let guwen = new Map();
+        let shi1 = {
+            name: "jiangjinjiu"
+        }
+        let shi2 = {
+            name: "shuxiang"
+        }
+        guwen.set(shi1, {
+            author: "libai"
+        });
+        guwen.set(shi2, {
+            author: "dufu"
+        });
+        console.log(guwen);
+        console.log(guwen.size);
+        console.log(guwen.clear());
+        console.log(guwen.size);
+        // 遍历数据
+        // 使用keys()/values()/entries()都可以返回可遍历的迭代对象
+        let gushi = new Map([["shudaonan", "libai"], ["shuxiang", "dufu"]]);
+        console.log(gushi.keys());
+        console.log(gushi.values());
+        console.log(gushi.entries());
+        // 可以使用keys/values函数遍历键与值
+        for (const shi of gushi.keys()) {
+            console.log(shi);
+        }
+        for (const author of gushi.values()) {
+            console.log(author);
+        }
+        // 使用for/of遍历操作，遍历map等同于使用foreach函数
+        for (const [shi, author] of gushi) {
+            console.log(`${shi}=>${author}`);
+        }
+        // 使用foreach遍历操作
+        gushi.forEach((shi, author) => {
+            console.log(`${shi}=>${author}`);
+        });
+
+        // 数组转换
+        console.log(...gushi);
+        console.log(...gushi.entries());
+        console.log(...gushi.values());
+        console.log(...gushi.keys());
+        // 检索包含shuxiang的值组成新map
+        let newshi = [...gushi].filter(function (shi) {
+            // console.log(item);
+            return shi[0].includes("shuxiang");
+        });
+        gushi = new Map(newshi);
+        console.log(...gushi.keys());
+
+
+    </script>
+    <div desc="libai">shudaonan</div>
+    <div desc="dufu">shuxaing</div>
+    <script>
+        // 节点集合,map的key可以为任意类型，下面使用DOM节点作为键来记录数据
+        const divMap = new Map();
+        const divs = document.querySelectorAll("div");
+
+        divs.forEach(div => {
+            divMap.set(div, {
+                content: div.getAttribute("desc")
+            });
+        });
+        console.log(...divMap.values());
+        divMap.forEach((config, elem) => {
+            elem.addEventListener("click", function () {
+                alert(divMap.get(this).content);
+            });
+        });
+    </script>
+</body>
+
+</html>
