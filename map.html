@@ -121,6 +121,33 @@
             });
         });
     </script>
+    <form action="" onsubmit="return post()">
+        接受协议：
+        <input type="checkbox" name="agreement" message="请接受协议" />
+        我是学生：
+        <input type="checkbox" name="student" message="网址只对学生开放" />
+        <input type="submit">
+    </form>
+    <script>
+        function post() {
+            let map = new Map();
+
+            let inputs = document.querySelectorAll("[message]");
+            // 使用set设置数据
+            inputs.forEach(item =>
+                map.set(item, {
+                    message: item.getAttribute("message"),
+                    status: item.checked
+                })
+            );
+            // 遍历map数据
+            return [...map].every(([tiem, config]) => {
+                config.status || alert(config.message);
+                return config.status;
+            });
+        }
+    </script>
+
 </body>
 
 </html>
