@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>function</title>
+</head>
+
+<body>
+    <script>
+        // Function类创建
+        let li = new Function("libai", "console.log(libai)");
+        li("dufu");
+        // 标准语法
+        function du(num) {
+            return --num;
+
+        }
+        console.log(du(6));
+
+        // 对象字面量属性函数简写
+        let bai = {
+            name: null,
+            getName: function (name) {
+                return this.name;
+            },
+            // 简写模式
+            setName(value) {
+                this.name = value;
+            }
+        }
+        bai.setName("baijuyi");
+        console.log(bai.getName());
+
+        console.log(window.screenX);
+
+        // 当我们定义了名为screenX函数就会覆盖window.screenX方法
+        function screenX() {
+            return "shudaonan";
+        }
+        console.log(screenX());
+        // 使用let/const定义function时不会压入window
+        let wang = function () {
+            console.log("wangwei");
+        };
+        // window.wang();//not a function
+        // 匿名函数
+        let su = function (num) {
+            return ++num;
+        };
+        console.log(su instanceof Object);
+        let huang = su;
+        console.log(huang(5));
+
+        // 标准声明的函数优先级更高，解析器会优先提取函数并放在代码树的顶端
+        console.log(cai(8));
+        function cai(num) {
+            return ++num;
+        };
+
+        // 标准声明优先级高于赋值声明
+        var cai = function () {
+            return "cai";
+        };
+
+        // 程序中使用匿名函数的情况非常普遍
+        function sum(...args) {
+            return args.reduce((a, b) => a + b);
+        }
+        console.log(sum(1, 2, 3, 4));
+        //  立即执行
+        "use strict";
+        (function () {
+            var web = "wangwei";
+        })();
+        // console.log(web); web is not defined
+
+        // 使用let/const有块作用域特性
+        {
+            let libai = "shudaonan";
+            console.log(libai);
+
+        }
+        // console.log(libai); libai is not defined
+        // 函数提升
+        console.log(sushi());
+        function sushi() {
+            return "大江东去，浪淘尽，多少英雄人物";
+        }
+        // 变量函数定义不会备提升
+        var sushi = function () {
+            return "人生如梦";
+        }
+        // 形参实参
+        // 形参数量大于实参时，没有传参的形参值为undefined
+        // 实参的数量大于形参时，多余的实参将忽略并不会报错
+        function sum(a1, a2) {
+            return a1 + a2;
+        }
+        console.log(sum(5, 9));
+        // 没有传递参数时值为undefined
+        console.log(sum(5));
+
+    </script>
+</body>
+
+</html>
