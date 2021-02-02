@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>function</title>
+</head>
+
+<body>
+    <script>
+        // 默认参数
+        // total：总价，year：年数
+        function avg(total, year) {
+            year = year || 1;
+            return Math.round(total / year);
+        }
+        console.log(avg(2000, 3));
+
+        // 使用新版本默认参数方法
+        function jun(total, year = 1) {
+            return Math.round(total / year);
+        }
+        console.log(jun(3000, 3));
+
+        // 下面通过排序来体验新版默认参数的处理方式
+        function sortArray(arr, type = "asc") {
+            return arr.sort((a, b) => type == "asc" ? a - b : b - a);
+        }
+        console.log(sortArray([1, 3, 2, 6], "desc"));
+
+        // 默认参数要放在最后
+        // total:价格，discount：折扣，dis：折后折
+        function sum(total, discount = 0, dis = 0) {
+            return total * (1 - discount) * (1 - dis);
+
+        }
+        console.log(sum(2000, undefined, 0.3));
+    </script>
+    <button>订阅</button>
+    <script>
+        // 函数参数
+        document.querySelector('button').addEventListener('click', function () {
+            alert('感谢订阅');
+        })
+
+        // 函数可以最为参数传递
+        function filterFun(item) {
+            return item <= 3;
+        }
+        let li = [1, 2, 3, 4, 5, 6].filter(filterFun);
+        console.log(li);
+
+
+        // arguments是函数获得所有参数的集合
+        function sum() {
+            return [...arguments].reduce((total, num) => {
+                return (total += num);
+            }, 0);
+        }
+        console.log(sum(2, 3, 4, 2, 6));
+
+        // 用展开语法写以上函数
+        function sum(...args) {
+            return args.reduce((a, b) => a + b);
+        }
+        console.log(sum(2, 5, 8, 7, 4, 1));
+
+        // 箭头函数
+        // 箭头函数时函数声明的简写模式，在使用递归调用，构造函数，事件处理器时不建议使用箭头函数
+        // 无参数是使用空括号即可
+        let du = () => {
+            return 1 + 3;
+        }
+        console.log(du());
+        // 函数体为三一表达式时不需要return返回处理，系统会自动返回表达式计算结果
+        let bai = () => 1 + 5;
+        console.log(bai());
+        // 多参数传递与普通声明函数一样使用逗号分隔
+        let su = [1, 8, 3, 5].filter((item, index) => {
+            return item <= 3;
+        });
+        console.log(su);
+
+        // 只有一个参数时可以额省略括号
+        let huang = [1, 8, 3, 5].filter(item => item <= 3);
+        console.log(huang);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>递归函数</title>
+</head>
+
+<body>
+    <script>
+        // 递归指函数内部调用自身的方式
+        // 只要用于数量不确定的循环操作
+        // 要有退出时机，否则会陷入死循环
+        function factorial(num = 3) {
+            return num == 1 ? num : num * factorial(--num);
+        }
+        console.log(factorial(6));
+        // 累加计算方法
+        function leijia(...num) {
+            return num.length == 0 ? 0 : num.pop() + leijia(...num);
+        }
+        console.log(leijia(1, 2, 3, 4, 5, 6, 7));
+
+        // 递归打印倒三角
+        function star(row = 5) {
+            // console.log(row);
+            if (row == 0) return "";
+
+            document.write("*".repeat(row) + "</br>");
+
+            star(--row);
+        }
+        star(15);
+
+        // 使用递归修改课程点击数
+        let lessons = [
+            {
+                title: "唐诗",
+                click: 88
+            },
+            {
+                title: "宋词",
+                click: 66
+            },
+            {
+                title: "元曲",
+                click: 22
+            },
+
+        ];
+        function change(lessons, num, i = 0) {
+            if (i == lessons.length) {
+                return lessons;
+            }
+            lessons[i].click += num;
+            return change(lessons, num, ++i);
+        }
+        console.log(change(lessons, 100));
+    </script>
+</body>
+
+</html>
