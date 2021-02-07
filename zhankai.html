@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>展开语法</title>
+</head>
+
+<body>
+    <script>
+        let li = [1, 2, 3];
+        let [a, b, c] = [...li];
+        console.log(a);
+        console.log(b);
+        console.log(c);
+        [...du] = [2, 3, 4];
+        console.log(du);
+
+        // 使用展示语法可以代替arguments来接收任意数量的参数
+        function bai(...args) {
+            console.log(args);
+
+        }
+        bai(1, 2, 3, "libai");
+
+        // 使用...可以接收传入的多个参数合并为数组，下面是使用点语法进行求和计算
+        function sum(...params) {
+            console.log(params);
+            return params.reduce((pre, cur) => pre + cur);
+        }
+        console.log(sum(1, 2, 3, 4));
+
+        // 多个参数时...参数必须放在后面，下面计算购物车商品折扣
+        function sum(discount = 0, ...prices) {
+            let total = prices.reduce((pre, cur) => pre + cur);
+            return total * (1 - discount);
+        }
+        console.log(sum(0.1, 100, 200, 400));
+
+        // 标签函数
+        // 使用函数来解析标签字符串，第一个参数是字符串值的数组，其余的参数为标签变量
+        function su(str, ...values) {
+            console.log(str);
+            console.log(values);
+
+        }
+        let name = '后盾人', url = 'houdunren.com';
+        su`站点${name}-${url}`;
+    </script>
+</body>
+
+</html>

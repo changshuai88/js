@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回调函数</title>
+</head>
+
+<body>
+    <button id="libai">button</button>
+    <script>
+        document.getElementById('libai').addEventListener('click', () => alert('通过回调函数调用'));
+    </script>
+
+    <script>
+        let du = ([1, 2, 3]).map(item => item + 10);
+        console.log(du);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this</title>
+</head>
+
+<body>
+    <script>
+        // 调用函数时this会隐式传递给函数调用时的关联对象，也称之为函数的上下文
+        console.log(this == window);
+
+        // 使用严格模式时在全局函数内this为undefined
+        var li = 'libai';
+        function get() {
+            "use strict"
+            return this.li;
+        }
+        console.log(get());
+    </script>
+</body>
+
+</html>
