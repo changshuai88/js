@@ -18,7 +18,149 @@
             "use strict"
             return this.li;
         }
-        console.log(get());
+        // console.log(get());
+
+        // 方法调用
+        // 使用构造函数创建对象，构造函数主要用来生成对象，里面的this默认就是指当前对象
+        function User() {
+            this.name = 'libai';
+            this.say = function () {
+                console.log(this);
+                return this.name;
+
+            };
+
+        }
+        let dufu = new User();
+        console.log(dufu.say());
+
+        // 对象字面量-下例中的du函数不属于对象方法所以只想window，show属于对象方法指向obj对象
+        let obj = {
+            site: "dufu",
+            show() {
+                console.log(this.site);
+                console.log(`this in show method:${this}`);
+                function du() {
+                    console.log(typeof this.site);
+                    console.log(`this in du function:${this}`);
+                };
+                du();
+            }
+        };
+        obj.show();
+
+        // 在方法中使用函数时有些函数可以改变this如foreach，当然也可以使用后面介绍的apply/call/bind；
+        // let lesson = {
+        //     site: 'baijuyi',
+        //     lists: ["maitanweng", "pipaxing", "changhenge"],
+        //     show() {
+        //         return this.lists.map(function (title) {
+        //             return `${this.site}-${title}`;
+        //         }, this);
+        //     }
+        // };
+        // console.log(lesson.show());
+
+        // 也可以在父作用域中定义引用this的变量
+        let lesson = {
+            site: 'baijuyi',
+            lists: ["maitanweng", "pipaxing", "changhenge"],
+            show() {
+                const self = this;
+                return this.lists.map(function (title) {
+                    return `${this.site}-${title}`;
+                });
+            }
+        };
+        console.log(lesson.show());
+
+        // 箭头函数没有this，也可以理解为箭头函数的this会继承定义函数时的上下文，可以理解为何外层函数指向同一个this
+        // 如果想使用函数定义时的上下文中的this，那就使用箭头函数
+
+        // var name = 'sushi';
+        // var ci = {
+        //     name: 'suxun',
+        //     getName: function () {
+        //         return function () {
+        //             return this.name;
+        //         }
+        //     }
+        // }
+        // console.log(ci.getName()());
+
+        // 以往解决办法会匿名函数调用处理定义变量，然后在匿名函数中使用
+        // var name = 'sushi';
+        // var ci = {
+        //     name: 'suxun',
+        //     getName: function () {
+        //         var self = this;
+        //         return function () {
+        //             return self.name;
+        //             // return this.name;  显示sushi
+        //         }
+        //     }
+        // }
+        // console.log(ci.getName()());
+
+        // 使用箭头函数后this为定义该函数上下文，也可以理解为定义时父作用域中的this
+        var name = 'sushi';
+        var ci = {
+            name: 'suxun',
+            getName: function () {
+                var self = this;
+                return () => {
+                    // return self.name;
+                    return this.name;
+                }
+            }
+        }
+        console.log(ci.getName()());
+
+
+
+    </script>
+    <button desc="baijuyi">button</button>
+    <script>
+        // 事件中使用箭头函数结果不是我们想要的：1，事件函数可理解为onclick设置值，所以函数声明是this为当前对象；2，但使用箭头函数时this为声明函数上下文
+        // 下面体验使用普通时间函数时this指向元素对象，使用普通函数时this为当前DOM对象
+        // let Dom = {
+        //     site: "tangshi",
+        //     bind() {
+        //         const button = document.querySelector("button");
+        //         button.addEventListener("click", function () {
+        //             alert(this.getAttribute("desc"));
+
+        //         });
+        //     }
+        // };
+        // Dom.bind();
+        // 下面使用箭头函数时this指向上下文对象
+        // let Dom = {
+        //     site: "tangshi",
+        //     bind() {
+        //         const button = document.querySelector("button");
+        //         button.addEventListener("click", event => {
+        //             alert(this.site + event.target.innerHTML);
+
+        //         });
+        //     }
+        // };
+        // Dom.bind();
+
+        // 使用handleEvent绑定事件处理器是，this指向当前对象而不是Dom元素
+        let Dom = {
+            site: "tangshi",
+            handleEvent: function (event) {
+                console.log(this);
+            },
+            bind() {
+                const button = document.querySelector("button");
+                button.addEventListener("click", this);
+
+            }
+
+        };
+        Dom.bind();
     </script>
 </body>
 
