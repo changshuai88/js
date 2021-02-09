@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实现构造函数属性继承</title>
+</head>
+
+<body>
+    <script>
+        // 实现构造函数属性继承
+        "use strict"
+        function Request() {
+            this.get = function (params = {}) {
+                //组合请求参数
+                let option = Object.keys(params).map(i => i + "=" + params[i]).join("&");
+                return `获取数据 API：${this.url}?${option}`;
+            };
+        }
+        // 文章控制器
+        function Article() {
+            this.url = "article/index";
+            Request.apply(this, []);
+        }
+        let hd = new Article();
+        console.log(
+            hd.get({
+                row: 10,
+                start: 3
+            })
+        );
+        // 课程控制器
+        function Lesson() {
+            this.url = "lesson/index";
+            Request.call(this);
+        }
+        let js = new Lesson();
+        console.log(
+            js.get({
+                row: 20
+            })
+        );
+    </script>
+</body>
+
+</html>
