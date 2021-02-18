@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域</title>
+</head>
+
+<body>
+    <script>
+        function count() {
+            let total = 0;
+        }
+        count();
+        // 函数每次调用都会创建一个新作用域
+        let site = '唐诗';
+        function a() {
+            let li = 'libai';
+            function b() {
+                let du = 'dufu';
+                console.log(li);
+                console.log(site);
+            }
+            b();
+        }
+        a();
+    </script>
+    <script>
+        // 如果子函数被使用时父级环境将被保留
+        function fu() {
+            let n = 1;
+            return function () {
+                let b = 1;
+                return function () {
+                    console.log(++n);
+                    console.log(++b);
+                };
+            };
+        }
+        let zi = fu()();
+        zi();
+        zi();
+    </script>
+    <script>
+        // 构造函数也是很好的环境例子，子函数被外部使用父级环境将被保留
+        function User() {
+            let aa = 1;
+            this.show = function () {
+                console.log(aa++);
+            };
+        }
+        let a1 = new User();
+        a1.show();
+        a1.show();
+        let b1 = new User();
+        b1.show();
+    </script>
+</body>
+
+</html>
