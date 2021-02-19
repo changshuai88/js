@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域第二季</title>
+</head>
+
+<body>
+    <script>
+        // 使用let/const可以将变量声明在块作用域中
+        {
+            let a = 9;
+
+        }
+        // console.log(a);
+        if (true) {
+            var i = 1;
+        }
+        console.log(i);
+
+        // 也可以通过下面的定时器函数来体验
+        for (let i = 0; i < 7; i++) {
+            setTimeout(() => {
+                console.log(i);
+            }, 500);
+        }
+
+        // 在for循环中使用let/const会在每次迭代中重新生成不同的变量
+        let arr = [];
+        for (let i = 0; i < 10; i++) {  //如果这里用var则后面输出10
+            arr.push((() => i));
+        }
+        console.log(arr[4]());
+
+        // 在没有let/const的历史中使用以下方式产生作用域
+        // 自行构建闭包
+        var shuzu = [];
+        for (var i = 0; i < 10; i++) {
+            (function (a) {
+                shuzu.push(() => a);
+            })();
+        }
+        console.log(arr[5]());
+
+
+    </script>
+    <p>闭包指子函数可以访问外部作用域变量的函数特性，即使在子函数作用域外也可以访问。如果没有闭包那么在处理时间绑定，异步请求时都会变得困难。</p>
+    <p>js中的所有函数都是闭包，闭包一般在子函数本身作用域外执行，即延伸作用域。</p>
+</body>
+
+</html>
