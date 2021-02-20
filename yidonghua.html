@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动动画</title>
+    <style>
+        button {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <p>计时器中使用闭包来获取独有变量</p>
+    <button message="libai">人一能之</button>
+    <!-- <button message="dufu">吾百之</button> -->
+    <script>
+        let btns = document.querySelectorAll("button");
+        btns.forEach(function (item) {
+            let bind = false;
+            item.addEventListener("click", function () {
+                if (!bind) {
+                    let left = 1;
+                    bind = setInterval(function () {
+                        item.style.left = left++ + "px";
+                    }, 100);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // 下例使用闭包按指定字段排序
+        let lessons = [
+            {
+                title: "李太白文集",
+                click: 89,
+                price: 55
+            },
+            {
+                title: "杜工部文集",
+                click: 45,
+                price: 150
+            },
+            {
+                title: "白居易诗集",
+                click: 19,
+                price: 67
+            },
+            {
+                title: "苏轼文集",
+                click: 29,
+                price: 300
+            }
+
+        ];
+        function order(field) {
+            return (a, b) => (a[field] > b[field] ? 1 : -1);
+        }
+        console.table(lessons.sort(order("click")));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包问题</title>
+</head>
+
+<body>
+    <p>闭包特性中上下级作用域会为函数保存数据，从而造成的本例所示的内存泄漏问题</p>
+    <div desc="libai">李太白诗集</div>
+    <div desc="dufu">杜工部文集</div>
+    <button desc="libai">李太白诗集</button>
+    <button desc="dufu">杜工部文集</button>
+    <script>
+        let divs = document.querySelectorAll("div");
+        divs.forEach(function (item) {
+            item.addEventListener("click", function () {
+                console.log(item.getAttribute("desc"));
+                console.log(item);
+            });
+        });
+    </script>
+    <script>
+        // 下面通过清除不需要的数据解决内存泄漏问题
+        let divs1 = document.querySelectorAll("button");
+        divs1.forEach(function (item) {
+            let desc = item.getAttribute("desc");
+            item.addEventListener("click", function () {
+                console.log(desc);
+                console.log(item);
+            });
+            item = null;
+        });
+    </script>
+
+    <script>
+        // this指向，this总是指向调用该函数的对象，即函数在搜索this时只会搜索到当前活动对象，下面是函数因为是在全局环境下调用的，所以this指向window，这不是我们想要的。使用箭头函数可以解决这个问题
+        let hd = {
+            user: "后盾人",
+            get: function () {
+                return function () {
+                    return this.user;
+                };
+            }
+        };
+        console.log(hd.get()());
+        // 箭头函数解决问题
+        let libai = {
+            user: "后盾人",
+            get: function () {
+                return () => this.user;
+
+            }
+        };
+        console.log(libai.get()());
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域实例</title>
+</head>
+
+<body>
+    <script>
+        function li() {
+            let name = 'libai';
+            return function () {
+                return name;
+            }
+        }
+        let libai = li();
+        console.log(libai());
+
+        // ------------------------------------------------------
+        let shuzu = [2, 3, 5, 8, 4, 7, 6,];
+        function between(a, b) {
+            return function (v) {
+                return v >= a && v <= b;
+            };
+        }
+        console.log(shuzu.filter(between(2, 6)));
+    </script>
+    <button message="libai">button</button>
+    <button message="dufu">button</button>
+    <script>
+        var btns = document.querySelectorAll("button");
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].onclick = (function (i) {
+                return function () {
+                    alert(`点击了第${i + 1}个按钮`);
+                };
+            })(i);
+        }
+    </script>
+
+
+</body>
+
+</html>
