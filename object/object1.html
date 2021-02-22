@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面向对象编程</title>
+</head>
+
+<body>
+    <p>下面使用对象编程的代码结构清晰，也减少了函数的参数传递，也不用担心函数名的覆盖</p>
+    <script>
+        let user = {
+            name: "李白",
+            grade: [
+                { lesson: "jiangjinjiu", fen: 99 },
+                { lesson: "shudaonan", fen: 71 }
+            ],
+            average() {
+                const total = this.grade.reduce((t, a) => t + a.fen, 0);
+                return this.name + ":" + total / this.grade.length + "分";
+
+            }
+        };
+        console.log(user.average());
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>object</title>
+</head>
+
+<body>
+    <p>对象时包括属性和方法的数据类型，js中大部分类型都是对象，如string/number/math/regexp/date等。</p>
+    <script>
+        // 面向过程的编程
+        let name = "libai";
+        let grade = [
+            { lesson: "jiangjinjiu", fen: 95 },
+            { lesson: "shudaonan", fen: 85 }
+        ];
+        function average(grade, name) {
+            const total = grade.reduce((t, a) => t + a.fen, 0);
+            return name + ":" + total / grade.length + "分";
+        }
+        console.log(average(grade, name));
+    </script>
+</body>
+
+</html>

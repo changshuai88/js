@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作属性</title>
+</head>
+
+<body>
+    <script>
+        // 使用点语法获取
+        let user = {
+            name: "libai"
+        };
+        console.log(user.name);
+
+        // 使用[]获取
+        console.log(user["name"]);
+        // 可以砍树使用.操作属性更简洁，[]主要用于通过变量定义属性的场景
+        let yonghu = {
+            name: "sushi"
+        };
+        let shuxing = "name";
+        console.log(yonghu[shuxing]);
+
+        // 如果属性名不是很乏变量名就必须使用括号的形式了
+        let sushi = {};
+        sushi["nian-ji"] = 20;
+        console.log(sushi["nian-ji"]);
+
+        // 对象和方法的属性可以动态的添加和删除
+        const su = {
+            name: "sushi"
+        };
+        su.age = "35";
+        su.show = function () {
+            return `${this.name}已经${this.age}岁了`;
+        };
+        console.log(su.show());
+        console.log(su);
+        delete su.show;
+        delete su.age;
+        console.log(su);
+        console.log(su.age);
+    </script>
+</body>
+
+</html>
