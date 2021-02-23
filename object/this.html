@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象中的this</title>
+</head>
+
+<body>
+    <script>
+        // this指当前对象的引用，始终建议在代码内部使用this，而不要使用对象名，不同对象的this指指向当前对象
+
+        // 下例是不使用this时发生的错误场景
+        // 1.删除了li变量，但在函数体内还在使用li变量造成错误
+        // 2.使用this后始终指向到引用地址，就不会有这个问题
+        let li = {
+            name: "libai",
+            show() {
+                // return li.name; 返回错误
+                return this.name; //使用this一切正常
+            }
+        };
+        let du = li;
+        li = null;
+        console.log(du.show());
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>对象转换</title>
+</head>
+
+<body>
+    <p>对象直接参与计算时，系统会根据计算的场景在string/number/default间转换</p>
+    <li>如果声明需要字符串类型，调用顺序为tostring>valueof</li>
+    <li>如果场景需要数值类型，调用顺序为valueof>tostring</li>
+    <li>声明不确定时使用default，大部分对象的default会当数值使用</li>
+    <script>
+        // 下面的数值对象会在数学运算时转换为number
+        let li = new Number(1);
+        console.log(li + 3);
+
+        // 如果参数字符串运算时会转为string
+        let du = new Number(1);
+        console.log(du + "3");
+
+        // 下面当不确定转换声明是使用default，大部分default转换使用number转换
+        let su = new Number(1);
+        console.log(su == "1");
+
+        // Symbol.toPrimitive,内部自定义Symbol.toPrimitive方法用来处理所有的转换场景
+        let bai = {
+            num: 1,
+            [Symbol.toPrimitive]: function () {
+                return this.num;
+            }
+        };
+        console.log(bai + 3);
+
+        // valueof/toString,可以自定义valueof与tostring方法来转换，转换并不限制返回类型
+        let wang = {
+            name: "wangwei",
+            num: 1,
+            valueOf: function () {
+                console.log("valueOf");
+                return this.num;
+            },
+            toString: function () {
+                console.log("toString");
+                return this.name;
+            }
+        };
+        // console.log(wang.valueOf());
+        console.log(wang + 3);
+        console.log(`${wang}王维`);
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解构赋值</title>
+</head>
+
+<body>
+    <p>解构是一种更简洁的赋值特性，可以理解为分解一个数据的结构，在数组章节已经介绍过</p>
+    <script>
+        // 基本使用
+        let li = { name: "libai", url: "libai.com" };
+        let { name: n, url: u } = li;
+        console.log(n);
+
+        // 如果属性名与变量相同可以省略属性定义
+        let { name, url } = { name: "libai", url: "libai.com" };
+        console.log(name);
+
+        // 函数返回值直接结构到变量
+        function du() {
+            return {
+                name: "dufu",
+                url: "dufu.com"
+            };
+        }
+        let { name: m, url: l } = du();
+        console.log(m);
+
+        // 函数传参
+        // "use strict";
+        function bai({ name, age }) {
+            console.log(name, age);
+        }
+        bai({ name: "xiaobai", age: "18" });
+
+        // 系统函数结构练习，这没有什么意义，只是加深结构印象
+        const { random } = Math;
+        console.log(random());
+
+        // 严格模式
+        // 非严格模式可以不使用声明指令，严格模式下必须使用声明，所以建议使用let声明
+        "use strict";
+        ({ mingzi, lianjie } = { mingzi: "libai", lianjie: "libai.com" });
+        console.log(mingzi, lianjie);
+    </script>
+</body>
+
+</html>

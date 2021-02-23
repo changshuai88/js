@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>展开语法</title>
+</head>
+
+<body>
+    <p>使用...可以展示对象的结构，下面是实现对象合并的实例</p>
+    <script>
+        let li = { name: "libai", shi: "jiangjinjiu" };
+        let du = { ...li, zi: "taibai" };
+        console.log(du);
+
+
+        // 下面是函数参数合并的实例
+        function upload(params) {
+            let config = {
+                type: "*.jpeg,*.png",
+                size: 10000
+            };
+            params = { ...config, ...params };
+            console.log(params);
+        }
+        upload({ size: 999 });
+    </script>
+</body>
+
+</html>
