@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性管理</title>
+</head>
+
+<body>
+    <script>
+        // 添加属性--可以为对象添加属性
+        let li = { name: "libai" };
+        li.zi = "taibai";
+        console.log(li);
+        // 删除属性
+        delete li.name;
+        console.log(li.name);
+
+        // 检测属性--hasOwnProperty检测对象吱声是否包含指定的属性，不检测原型链上继承的属性
+        li.age = 62;
+        console.log(li.hasOwnProperty("age"));
+        console.log(li.hasOwnProperty("name"));
+
+    </script>
+</body>
+
+</html>

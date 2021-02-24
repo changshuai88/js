@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数参数</title>
+</head>
+
+<body>
+    <script>
+        // 数组参数的使用
+        function li([a, b]) {
+            console.log(a, b)
+        }
+        li(["libai", "dufu"]);
+
+        // 对象参数使用方法
+        function du({ name, zi, shi = "shuxiang" }) {
+            console.log(name, zi, shi);
+        }
+
+        du({ name: "dufu", zi: "zimei" });
+
+        // 对象结构传参
+        function ci(wangyue, { xijiangyue, shengshengman } = {}) {
+            console.log(wangyue, xijiangyue, shengshengman);
+        }
+        ci("liuyong", { xijiangyue: "chibihuaigu", shengshengman: "xunxunmimi" });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解构赋值</title>
+</head>
+
+<body>
+    <script>
+        // 简洁定义，如果属性名与赋值的变量名相同可以更简洁
+        let web = { name: "libai", shi: "jiangjinjiu" };
+        let { name, shi } = web;
+        console.log(name);
+
+        // 只赋值部分变量
+        let [, shi1] = ["libai", "jiangjinjiu"];
+        console.log(shi1);
+
+        let { shiren } = { shiren: "libai", age: 18 };
+        console.log(shiren);
+
+        // 可以直接使用变量赋值对象属性
+        let li = "libai ", du = "dufu";
+        let tang = { name: li, du: du };
+        console.log(tang);
+
+        // 如果属性和值变量同名可以写成一下简写模式
+        let han = { li, du };
+        console.log(han);
+    </script>
+</body>
+
+</html>
