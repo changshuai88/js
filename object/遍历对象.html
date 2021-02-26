@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遍历对象</title>
+</head>
+
+<body>
+    <script>
+        // 获取内容--使用系统提供的API可以方便获取对象属性与值
+        const yh = {
+            name: "libai",
+            age: 50
+        };
+        console.log(Object.keys(yh));
+        console.log(Object.values(yh));
+        console.table(Object.entries(yh));
+
+        // for/in--使用for/in遍历对象属性
+        for (let key in yh) {
+            console.log(key, yh[key]);
+        }
+
+        // for/of--用于遍历迭代对象，不能直接操作对象，但object对象的keys方法返回的是迭代对象
+
+        for (const key of Object.keys(yh)) {
+            console.log(key);
+        }
+
+        // 获取所有对象属性
+        for (const key of Object.values(yh)) {
+            console.log(key);
+        }
+
+        // 同时获取属性名与值
+        for (const array of Object.entries(yh)) {
+            console.log(array);
+        }
+        // 使用扩展语法同时获取属性名与值
+        for (const [key, value] of Object.entries(yh)) {
+            console.log(key, value);
+        }
+        // 添加元素DOM练习
+        let wangchao = [
+            { dai: "tang", year: 100 },
+            { dai: "song", year: 300 }
+        ];
+        let ul = document.createElement("ul");
+        for (const val of wangchao) {
+            let li = document.createElement("li");
+            li.innerHTML = `王朝${val.dai},历史:${val.year}年`;
+            ul.appendChild(li);
+        }
+        document.body.appendChild(ul);
+    </script>
+</body>
+
+</html>

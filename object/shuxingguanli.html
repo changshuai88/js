@@ -23,6 +23,79 @@
         console.log(li.hasOwnProperty("age"));
         console.log(li.hasOwnProperty("name"));
 
+        // 下面通过数组查看
+        let arr = ["诗人"];
+        console.log(arr);
+        console.log(arr.hasOwnProperty("length"));
+        console.log(arr.hasOwnProperty("concat"));
+        console.log("concat" in arr);
+
+        // 使用in可以在原型对象上检测
+        let obj = { mingzi: "李白" };
+        let du = {
+            web: "dufu.com"
+        };
+        // 设置du为obj的新原型
+        Object.setPrototypeOf(obj, du);
+        console.log(obj);
+
+        console.log("web" in obj);
+        console.log(obj.hasOwnProperty("web"));
+
+        // 获取属性名--使用object.getownpropertynames可以获取对象的属性名合集
+        let ci = { song: "sushi", age: 16 }
+        const names = Object.getOwnPropertyNames(ci);
+        console.log(names);
+
+        // assign 以往我们使用类似jquery.extend等方法设置属性，现在可以使用object.assign静态方法--从一个或多个对象复制属性
+        "use strict";
+        let ming = { huangdi: "zhuyuanzhang", dachen: "liubowen" };
+        ming = Object.assign(ming, { nong: 1 }, { gong: 3 });
+        console.log(ming);
+
+        // 计算属性--对象属性可以通过表达式计算定义，这在动态设置属性或执行属性方法时很好用
+        let id = 0;
+        const user = {
+            [`id-${id++ + 1}`]: id,
+            [`id-${id++ + 1}`]: id,
+            [`id-${id++ + 1}`]: id,
+
+        };
+        console.log(user);
+
+        // 使用计算属性为文章定义键名
+        const lessons = [
+            {
+                guo: "tang",
+                huangdi: "lishimin"
+            },
+            {
+                guo: "song",
+                huangdi: "zhaokuangyin"
+            },
+            {
+                guo: "yuan",
+                huangdi: "hubilie"
+            }
+
+        ];
+        let lessonObj = lessons.reduce((obj, cur, index) => {
+            obj[`${cur["huangdi"]}-${index}`] = cur;
+            return obj;
+        }, {});
+        console.log(lessonObj);
+        console.log(lessonObj["lishimin-0"]);
+
+        // 传值操作--对象时引用类型赋值是传址操作，后面会介绍对象的深、浅拷贝操作
+        let hua = {
+            yanse: "red"
+        };
+        let cao = {
+            red: hua
+        };
+        cao.red.yanse = "huangse";
+        console.log(hua.yanse);
+
     </script>
 </body>
 
