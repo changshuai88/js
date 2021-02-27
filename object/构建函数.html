@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构建函数</title>
+</head>
+
+<body>
+    <p>
+        构建函数--对象可以通过内置或自定义的构造函数创建
+    </p>
+    <h1>
+        工厂函数
+    </h1>
+    <p>在函数中返回对象的函数称为工厂函数，工厂函数有以下优点</p>
+    <li>减少重复创建相同类型的对象的代码</li>
+    <li>修改工厂函数的方法影响所有同类对象</li>
+    <script>
+        // 使用字面量创建对象需要复制属性与方法结构
+        const yuangong = {
+            name: "xiaobai",
+            show() {
+                console.log(this.name);
+            }
+        };
+        const chanpin = {
+            name: "luntai",
+            show() {
+                console.log(this.name);
+            }
+        };
+        // 使用工厂函数可以简化这个过程
+        function stu(name) {
+            return {
+                name,
+                show() {
+                    console.log(this.name);
+                }
+            };
+        }
+
+        const xiaobai = stu("小白");
+        xiaobai.show();
+        const daoban = stu("刀板");
+        daoban.show();
+
+
+    </script>
+    <hr>
+    <h1>构造函数</h1>
+    <p>和工厂函数相似，构造函数也用于创建对象，他的上下文为新的对象实例</p>
+    <li>构造函数名每个单词首字母大写，即Pascal命名规范</li>
+    <li>this指当前创建的对象</li>
+    <li>不需要放回this系统会自动完成</li>
+    <li>需要使用new关键词生成对象</li>
+
+    <script>
+        "use strict";
+        function Kehu(name) {
+            this.name = name;
+            this.show = function () {
+                console.log(this.name);
+            };
+            // 不需要返回，系统会自动返回
+            // return this;
+        }
+        const yuanjunping = new Kehu("袁俊平");
+        yuanjunping.show();
+        const lisi = new Kehu("李四");
+        lisi.show();
+
+
+
+        // 如果构造函数返回对象，实例化后的对象将是此对象
+        function ArrayObject(...values) {
+            const arr = new Array();
+            arr.push.apply(arr, values);
+            arr.string = function (sym = "|") {
+                return this.join(sym);
+            };
+            return arr;
+        }
+        const array = new ArrayObject(1, 2, 3);
+        console.log(array);
+        console.log(array.string("*"));
+
+        // 严格模式--在严格模式下方法中的this值为undefined，这是为了防止无意的修改window对象
+        function Shiren() {
+            this.show = function () {
+                console.log(this);
+            };
+        }
+        let libai = new Shiren();
+        libai.show();
+        let dufu = libai.show;
+        dufu();
+
+        // 内置构造--JS中大部分数据类型都是通过构造函数创建的
+        const num = new Number(88);
+        console.log(num.valueOf());
+
+        const string = new String("李白");
+        console.log(string.valueOf());
+
+        const boolean = new Boolean(true);
+        console.log(boolean.valueOf());
+
+        const date = new Date();
+        console.log(date.valueOf() * 1);
+
+        const regexp = new RegExp("\\d+");
+        console.log(regexp.test(99));
+
+        let shen = new Object();
+        shen.name = "taishanglaojun";
+        console.log(shen);
+
+        // 字面量创建的对象，内部也是调用了object构造函数 
+        const sheng = {
+            name: "wangyangming"
+        };
+        console.log(sheng.constructor);
+
+        // 下面是使用构造函数创建对象
+        const mingxing = new Object();
+        mingxing.mingzi = "jiangshuying";
+        console.log(mingxing);
+
+        // 对象函数--在js中，函数也是一个对象
+        function sha(name) { }
+        console.log(sha.toString());
+        console.log(sha.length);
+
+        // 函数时由系统内置的Function构造函数创建的
+        function jiu(ren) { }
+        console.log(jiu.constructor);
+
+        // 下面使用内置构造函数串讲的函数
+        const Hushi = new Function(`name`, `
+            this.name=name;
+            this.show=function(){
+                return this.name;
+            };
+        `);
+
+        const wangwei = new Hushi("王维");
+        console.log(wangwei.show());
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象拷贝</title>
+</head>
+
+<body>
+    <script>
+        // 对象赋值时复制的内存地址，所以一个对象的改变直接影响另一个
+        let li = {
+            name: "libai",
+            jianli: {
+                name: "litaibai"
+            }
+        }
+
+        let a = li;
+        let b = li;
+        a.name = "dufu";
+        console.log(b.name);
+
+        // 浅拷贝--使用for/in执行对象拷贝
+        let du = { name: "dufu" };
+
+        let fu = {};
+        for (const key in fu) {
+            fu[key] = du[key];
+        }
+
+        // console.log(fu);
+        // console.log(du);
+
+        fu.name = "fukangan";
+        console.log(fu);
+        console.log(du);
+
+        // Object.assign函数可简单的实现浅拷贝，它是将两个对象的属性叠加，后面对象属性会覆盖前面对象同名属性
+        "use strict";
+        let user = {
+            name: "lishimin"
+        };
+        let hd = {
+            stu: Object.assign({}, user)
+        };
+        hd.stu.name = "lijiancheng";
+        console.log(user.name);
+        // console.log();
+
+        // 使用展示语法也可以实现浅拷贝
+        let tang = {
+            wang: "liyuan",
+            jiang: "qinqiong",
+            fa: {
+                fa1: "zhenguanlv",
+                shi: "tangshi"
+            }
+        };
+        let song = { ...tang };
+        song.wang = "zhaokuangyin";
+        song.fa.fa1 = null;
+        console.log(song);
+        console.log(tang);
+
+        // 深拷贝--浅拷贝不会将深层的数据复制
+        let part = {
+            ming: "油缸",
+            shuxing: {
+                partnumber: "7301200514"
+            }
+        }
+
+        let aa = part;
+        let bb = part;
+
+        function copy(object) {
+            let obj = {};
+            for (const key in object) {
+                obj[key] = object[key];
+            }
+            return obj;
+        }
+
+        let newObj = copy(part);
+        console.log(newObj);
+        newObj.ming = "轮胎"; //提前
+        newObj.shuxing.partnumber = "984568214";//此属性会出现在新旧两个对象中
+        console.log(newObj);
+        console.log(part);
+
+        // 下例是深拷贝--是完全的复制一个对象，两个对象时完全独立的对象
+        let yuangong = {
+            mingzi: "xiaobai",
+            zhize: {
+                zhjiwu: "jingli"
+            },
+            kehu: []
+        };
+        function shencopy(object) {
+            let obj = object instanceof Array ? [] : {};
+            for (const [k, v] of Object.entries(object)) {
+                obj[k] = typeof v == "object" ? shencopy(v) : v;
+            }
+            return obj;
+        }
+
+        let wu = shencopy(yuangong);
+        wu.kehu.push("changcheng");
+        console.log(JSON.stringify(wu, null, 2));
+        console.log(JSON.stringify(yuangong, null, 2));
+
+    </script>
+</body>
+
+</html>
