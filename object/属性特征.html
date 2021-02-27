@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        td {
+            border: cyan solid 1px;
+        }
+    </style>
+    <title>属性特征</title>
+</head>
+
+<body>
+    <p>js中可以对属性的访问特性进行控制</p>
+    <script>
+        // 查看特征--使用object.getOwnPropertyDescriptor查看对象属性的描述
+        "use strict";
+        const user = {
+            name: "libai",
+            age: 62
+        };
+        let desc = Object.getOwnPropertyDescriptor(user, "name");
+        console.log(JSON.stringify(desc, null, 2));
+
+        // 使用object.getOwnPropertyDescriptors查看对象所有属性的描述
+        let desc1 = Object.getOwnPropertyDescriptors(user);
+        console.log(JSON.stringify(desc1, null, 2));
+    </script>
+    <table style="border: coral solid 1px;">
+        <thead>
+            <td>特性</td>
+            <td>说明</td>
+            <td>默认值</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>configurable</td>
+                <td>能否使用delete、能否需改属性特性、能否修改访问器属性</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>enumerable</td>
+                <td>对象属性是否可通过for-in循环，或object。keys()读取</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>writable</td>
+                <td>对象属性是否可修改</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>value</td>
+                <td>对象属性的默认值</td>
+                <td>undefined</td>
+            </tr>
+        </tbody>
+        <hr>
+        <h1>设置特性</h1>
+        <p>使用object.defineProperty方法修改属性特性，通过下面的设置属性name将不能被遍历、删除、修改</p>
+        <script>
+            "use strict";
+            const newUser = {
+                name: "李渊"
+            };
+            Object.defineProperty(newUser, "name", {
+                value: "李世民",
+                writable: false,
+                enumerable: false,
+                configurable: false
+            });
+        // 通过执行以下代码对上面配置进行测试，请分别打开注释进行测试
+
+        </script>
+    </table>
+</body>
+
+</html>
