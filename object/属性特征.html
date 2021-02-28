@@ -67,12 +67,83 @@
             };
             Object.defineProperty(newUser, "name", {
                 value: "李世民",
-                writable: false,
-                enumerable: false,
+                writable: false,  //修改
+                enumerable: false, //遍历
                 configurable: false
             });
-        // 通过执行以下代码对上面配置进行测试，请分别打开注释进行测试
+            // 通过执行以下代码对上面配置进行测试，请分别打开注释进行测试
 
+            // 不允许修改
+            // newUser.name = "李渊";
+
+            // 不能遍历
+            // console.log(Object.keys(newUser));
+
+            // 不允许删除
+            // delete newUser.name;
+            // console.log(newUser);
+
+            // 不允许配置
+            // Object.defineProperty(newUser, "name", {
+            //     value: "李治",
+            //     writable: true,
+            //     enumerable: false,
+            //     configurable: false
+            // });
+
+            // 使用object.defineproperties可以一次设置多个属性，具体参数和上面介绍的一样
+
+            let shiren = {};
+            Object.defineProperties(shiren, {
+                name: { value: "libai", writable: false },
+                age: { value: 62 }
+            });
+            console.log(shiren);
+            // shiren.name = "dufu";
+
+
+            // 禁止添加
+            // Object.preventExtensions禁止向对象添加属性
+            const chaodai = {
+                name: "tang"
+            };
+            Object.preventExtensions(chaodai);
+            // changdai.nian = 265;
+
+            // Object.isExtensible判断是否能向对象中添加属性
+            const ciren = {
+                name: "sushi"
+            };
+            Object.preventExtensions(ciren);
+            console.log(Object.isExtensible(ciren));
+
+            // 封闭对象
+            // Object.seal()方法封闭一个对象，阻止添加新属性并将所有现有属性标记为configurable:false
+            const student = {
+                name: "小白",
+                age: 18
+            };
+            Object.seal(student); //封闭对象
+            console.log(JSON.stringify(Object.getOwnPropertyDescriptors(student), null, 2));
+            // Object.isSealed如果对象是密封的则返回true，属性都具有configurable:false。
+            Object.seal(student);
+            console.log(Object.isSealed(student)); //是否封闭了对象
+            // delete student.name; //删除已经不能用
+
+            // 冻结对象
+            // Object.freeze冻结对象后不允许添加、删除、修改属性，writable,configurable都标记为false
+            const yuangong = {
+                name: "小白"
+            };
+            Object.freeze(yuangong);
+            // yuangong.name = "xin";
+
+            // Object.isFrozen()方法判断一个对象是否被冻结
+            const teacher = {
+                name: "小白"
+            };
+            Object.freeze(teacher);
+            console.log(Object.isFrozen(teacher));
         </script>
     </table>
 </body>

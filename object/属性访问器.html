@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性访问器</title>
+</head>
+
+<body>
+    <h1>
+        属性访问器
+    </h1>
+    <p>getter方法用于获取属性值，setter方法用于设置属性，这是js提供的存取器特性即使用函数来管理属性</p>
+    <li>用于避免错误的赋值</li>
+    <li>需要动态监测值的改变</li>
+    <li>属性只能在访问器和普通属性任选其一，不能共同存在</li>
+    <script>
+        // getter/setter--向对的用户的年龄数据使用访问器监控控制
+        "use strict";
+        const student = {
+            data: { name: "xiaobai", age: null },
+            set age(value) {
+                if (typeof value != "number" || value > 100 || value < 10) {
+                    throw new Error("年龄格式错误");
+                }
+                this.data.age = value;
+            },
+            get age() {
+                return `${this.data.name}的年龄是：${this.data.age}`;
+            }
+
+        };
+
+        student.age = 90;
+        console.log(student.age);
+
+
+        // 下面使用getter设置只读的课程总价
+        let Lesson = {
+            lists: [
+                { name: "js", price: 100 },
+                { name: "mysql", price: 120 },
+                { name: "php", price: 200 }
+            ],
+            get total() {
+                return this.lists.reduce((t, b) => t + b.price, 0);
+            }
+
+        };
+        console.log(Lesson.total);
+        // Lesson.total = 30;
+        console.log(Lesson.total);
+
+        // 下面通过设置网站名称与网址体验getter/setter批量设置属性的使用
+        const web = {
+            name: "baidu",
+            url: "baidu.com",
+            get site() {
+                return `${this.name}${this.url}`;
+            },
+            set site(value) {
+                [this.name, this.url] = value.split(",");
+            }
+        };
+        web.site = "sina-,sina.com";
+        console.log(web.site);
+
+        // 下面是设置token存取的实例，将业务逻辑使用getter/setter处理更方便，也方便其他业务的复用
+        let Request = {
+            get token() {
+                let con = localStorage.getItem('token');
+                if (!con) {
+                    alert("请登录后获取token")
+                } else {
+                    return con;
+                }
+            },
+            set token(con) {
+                localStorage.setItem('token', con);
+            }
+        };
+        Request.token = "shen";
+        console.log(Request.token);
+
+        // 定义内部私有属性
+        const teacher = {
+            get name() {
+                return this._name;
+            },
+            set name(value) {
+                if (value.length <= 3) {
+                    throw new Error("用户名不能少于三位");
+                }
+                this._name = value;
+            }
+        };
+        teacher.name = "baijie";
+        console.log(teacher.name);
+
+        // 访问器描述符--使用 defineproperty可以模拟定义私有属性，从而使用面向对象的抽象特性
+        function Chao(name, year) {
+            let data = { name, year };
+            Object.defineProperties(this, {
+                name: {
+                    get() {
+                        return data.name;
+                    },
+                    set(value) {
+                        if (value.trim() == "") throw new Error("无效的用户名");
+                        data.name = value;
+                    }
+                },
+                year: {
+                    get() {
+                        return data.year;
+                    },
+                    set(value) {
+                        if (value.trim() == "") throw new Error("无效的年数");
+                        data.year = value;
+                    }
+                }
+            });
+        }
+
+        let tang = new Chao("唐", 360);
+        console.log(tang.name);
+        // tang.haungdi = "liyuan";
+        // console.log(tang.haungdi);
+        // console.log(tang.name);
+        // delete tang.haungdi;
+        tang.name = "lishimin";
+        console.log(tang.name);
+
+        // 以上代码也可以使用语法糖class定义
+        const DATA = Symbol();
+        class Yuangong {
+            constructor(name, age) {
+                this[DATA] = { name, age };
+            }
+            get name() {
+                return this[DATA].name;
+            }
+            set name(value) {
+                if (value.trim() == "") throw new Error("无效的用户名");
+                this[DATA].name = value;
+            }
+            get age() {
+                return this[DATA].age;
+            }
+            set age(value) {
+                if (value.trim() == "") throw new Error("无效的用户名");
+                this[DATA].age = value;
+            }
+        }
+
+        let xiaobai = new Yuangong("xiaobai", 18);
+        console.log(xiaobai.name);
+        xiaobai.name = "baixiaobing";
+        console.log(xiaobai.name);
+        console.log(xiaobai);
+    </script>
+</body>
+
+</html>
