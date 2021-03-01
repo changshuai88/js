@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代理拦截</title>
+</head>
+
+<body>
+    <h1>代理拦截</h1>
+    <p>
+        代理（拦截器）是对象的访问控制，setter/getter是对单个对象属性的控制，而代理是对整个对象的控制。
+    </p>
+    <li>读写属性时代码更简洁</li>
+    <li>对象的多个属性控制统一交给代理完成</li>
+    <li>严格模式下set必须返回布尔值</li>
+    <script>
+        "use strict"
+        const li = { name: "libai" };
+        // 设置一个代理proxy。
+        const proxy = new Proxy(li, {
+            get(obj, property) {
+                return obj[property];
+            },
+            set(obj, property, value) {
+                obj[property] = value;
+                return true;
+            }
+        });
+        // 通过代理修改
+        proxy.age = 18;
+        proxy.sex = "男";
+        // 打印对象
+        console.log(li);
+        // let du = { name: "dufu" };
+        // du.age = 18;
+        // du.sex = "女";
+        // console.log(du);
+    </script>
+</body>
+
+</html>

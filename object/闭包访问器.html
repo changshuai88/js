@@ -14,7 +14,28 @@
     <li>下例中访问器定义在函数中，并接收参数v</li>
     <li>在get()中通过闭包返回v</li>
     <li>在set()中修改了v,这会影响get()访问的闭包数据v</li>
-
+    <script>
+        let data = {
+            name: "libai",
+        }
+        for (const [key, value] of Object.entries(data)) {
+            observer(data, key, value)
+        }
+        function observer(data, key, v) {
+            Object.defineProperty(data, key, {
+                get() {
+                    return v
+                },
+                set(newValue) {
+                    v = newValue
+                },
+            })
+        }
+        data.name = "dufu";
+        // data.name = "wangwei";
+        console.dir(data.name);
+        console.log(data);
+    </script>
 </body>
 
 </html>
