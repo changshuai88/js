@@ -38,6 +38,50 @@
         // du.age = 18;
         // du.sex = "女";
         // console.log(du);
+
+        // 代理函数--如果代理以函数方式执行是，会执行代理中定义apply方法
+        // 参数说明：函数，上下文对象，参数
+        // 下面使用apply计算函数执行时间
+        function factorial(num) {
+            return num == 1 ? 1 : num * factorial(num - 1);
+        }
+        let proxy2 = new Proxy(factorial, {
+            apply(func, obj, args) {
+                console.time("run");
+                func.apply(obj, args);
+                console.timeEnd("run");
+                // console.log(obj);
+            }
+        });
+        proxy2.apply(this, [7000]);
+
+
+        // 截取字符--下例对数组进行代理，用于截取标题操作
+        const stringDot = {
+            get(target, key) {
+                // console.log(target[key]);
+                const title = target[key].title;
+                const len = 5;
+                return title.length > len ? title.substr(0, len) + ".".repeat(3) : title;
+
+            }
+        };
+        const lessons = [
+            {
+                title: "媒体查询响应式布局",
+                category: "css"
+            },
+            {
+                title: "FLEX 弹性盒模型",
+                category: "css"
+            },
+            {
+                title: "MYSQL多表查询随意操作",
+                category: "mysql"
+            }
+        ];
+        const stringDotProxy = new Proxy(lessons, stringDot);
+        console.log(stringDotProxy[2]);
     </script>
 </body>
 
