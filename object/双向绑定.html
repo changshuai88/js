@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双向绑定</title>
+    <style>
+        div {
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>下面通过代理实现Vue等前端框架的数据绑定特性</p>
+    <input type="text" v-model="title">
+    <input type="text" v-model="title">
+    <div v-bind="title"></div>
+    <script>
+        function View() {
+            // 设置代理拦截
+            let proxy = new Proxy({}, {
+                get(obj, property) { },
+                set(obj, property, value) {
+                    obj[property] = value;
+                    document.querySelectorAll(`[v-model="${property}"],[v-bind="${property}"]`).forEach(el => {
+                        el.innerHTML = value;
+                        el.value = value;
+                    });
+
+                }
+            });
+            // 初始化绑定元素事件
+            this.run = function () {
+                const els = document.querySelectorAll("[v-model]");
+                els.forEach(item => {
+                    item.addEventListener("keyup", function () {
+                        proxy[this.getAttribute("v-model")] = this.value;
+                    });
+                });
+            };
+        }
+        let view = new View().run();
+    </script>
+</body>
+
+</html>

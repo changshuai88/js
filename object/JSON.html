@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+</head>
+
+<body>
+    <h1>JSON</h1>
+    <li>json是一种轻量级的数据交换格式，易于人阅读和编写</li>
+    <li>使用json数据格式是替换xml的最佳方式，主流语言都很友好的支持json格式，所以json也是前后台传输数据的主要格式</li>
+    <li>json标准中要求使用双引号包裹属性，虽然有些语言不强制，单使用双引号可避免多程序件传输放生错误语言错误的发生</li>
+
+    <script>
+        // 声明定义--基本结构
+        let bai = {
+            "name": "xiaobai",
+            "url": "baixiaobing.com",
+            "zhiwu": {
+                "zhicheng": "fanyiguan",
+            }
+        }
+        console.log(bai.zhiwu.zhicheng);
+
+        // 数组结构
+        let shi = [
+            {
+                "title": "梦游天姥吟留别",
+                "zuozhe": "libai",
+                "click": 199
+            },
+            {
+                "title": "maitanweng",
+                "zuozhe": "baijuyi",
+                "click": 268
+            },
+            {
+                "title": "再别康桥",
+                "zuozhe": "xuzhimo",
+                "click": 26
+            }
+        ];
+        console.log(shi[0].title);
+
+
+        // 序列化--序列化是将json转换为字符串，一般用来向其他语言传递使用
+        let ci = {
+            "title": "xijiangyue",
+            "zuozhe": "yanjidao",
+            "jianjie": {
+                "guanzhi": "zaixiangerzi",
+            }
+        }
+        console.log(JSON.stringify(ci));
+        // 根据第二个参数指定保存的属性
+        console.log(JSON.stringify(ci, ["title", "zuozhe"]));
+        // 第三个参数用来控制tab数量，如果字符串则为前导字符
+        console.log(JSON.stringify(ci, null, 2));
+        console.log(JSON.stringify(ci, null, 6));//查看区别
+
+        // 为数据添加toJSON方法来自定义返回格式
+        let songci = {
+            "title": "xijiangyue",
+            "zuozhe": "yanjidao",
+            "jianjie": {
+                "guanzhi": "zaixiangerzi",
+            },
+            "toJSON": function () {//注意不能写错toJSON
+                return {
+                    "title": this.zuozhe,
+                    "guanzhi": this.jianjie.guanzhi
+                };
+            }
+
+
+        }
+        console.log(JSON.stringify(songci));
+
+        // 反序列化--使用JSON.parse将字符串json解析成对象
+        //以上面ci为例
+        let ciStr = JSON.stringify(ci);
+        // let ciObj = JSON.parse(ciStr);
+        // console.log(ciObj.title);
+        console.log(JSON.parse(ciStr));
+
+
+        // 使用JSON.parse(json字符串，第二个参数函数)第二个参数函数来对返回的数据二次处理
+        console.log(JSON.parse(ciStr, (key, value) => {
+            if (key == "title") {
+                return `[推荐]${value}`;
+            }
+            return value;
+        }));
+
+    </script>
+</body>
+
+</html>
