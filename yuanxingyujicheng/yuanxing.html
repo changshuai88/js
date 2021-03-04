@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型基础</title>
+</head>
+
+<body>
+    <h1>原型对象</h1>
+    <p>每个对象都有一个原型prototype对象，通过函数创建的对象也将拥有这个原型对象。原型是一个指向对象的指针</p>
+    <li>可以将原型理解为对象的父亲，对象从原型对象继承来属性</li>
+    <li>原型就是对象除了是某个对象的父母外没有什么特别之处</li>
+    <li>所有函数的原型默认是object的实例，所以可以使用tostring/tovalue/inprototypeof等方法的原因</li>
+    <li>使用原型对象为多个对象共享属性或方法</li>
+    <li>如果对象本身不存在属性或方法将到原型上查找</li>
+    <li>使用原型可以解决，通过构建函数创建对象时赋值多个函数造成的内存占用问题</li>
+    <li>原型包含constructor属性，指向构造函数</li>
+    <li>对象包含__proto__指向他的原型对象</li>
+    <script>
+        // 下例使用的就是数组原型对象的concat方法完成的连接操作
+        let li = ["a"];
+        console.log(li.concat("b"));
+        console.log(li);
+
+        // 默认情况下创建的对象都有原型
+        let du = { name: "dufu" };
+        console.log(du);
+
+        // 一下x、y的原型都为元对象object，即js中的根对象
+        let x = {};
+        let y = {};
+        console.log(Object.getPrototypeOf(x) == Object.getPrototypeOf(y));
+        // 我们也可以创建一个极简对象（纯数据字典对象）没有原型（原型为null）
+        console.log(du.hasOwnProperty("name"));  //通过hasOwnProperty方法检测du对象是否包含name属性
+        let su = Object.create(null, {  //创建极简对象su
+            name: {
+                value: "sushi"  //su对象中设置name属性
+            },
+            zi: {
+                value: "ziyou"
+            }
+
+        });
+        // console.log(su.hasOwnProperty("name"));//报错，hasOwnProperty不是一个方法，因为su没有父级，没有继承到hasOwnProperty方法，所以不能用。
+        // Object.keys是静态方法，不是原型方法，所以是可以使用的
+        console.log(Object.keys(su)); //不报错，返回一个数组。。。
+
+        // 函数拥有多个原型，prototype用于实例对象使用，__proto__用于函数对象使用
+        function User() { }  //创建一个函数对象user
+        //看看user的
+
+        User.__proto__.view = function () {  //在user的原型__proto__中定义view方法
+            console.log("User function view method");
+        };
+        User.view(); //user函数对象调用原型__proto__中的view方法
+        console.dir(User);
+        User.prototype.show = function () {  // 在函数对象user的prototype原型上定义show方法
+            console.log("小白真白");
+        };
+        let bai = new User(); //定义对象bai 实例化user。
+        bai.show();  //bai 继承了user原型prototype，并且继承了show方法
+        // bai.view();bai 并没有继承到user原型__proto__中的方法，报错
+        console.log(bai);
+        console.log(User.prototype == bai.__proto__);
+
+
+
+        let yan = new Object();
+        yan.name = "yanshu";
+        Object.prototype.show = function () {
+            console.log("yanjidao");
+        };
+        yan.show();
+        console.dir(yan.prototype);//undefined
+        // 下面是使用构造函数创建对象的原型体现
+        // 1.构造函数拥有原型
+        // 2.创建对象时构造函数把原型赋予对象
+        function Wang() { }
+        let xj = new Wang();
+        xj.show();
+        Wang.show();
+        console.dir(xj.__proto__ == Wang.prototype);
+        console.log(Wang == Wang.prototype.constructor);
+        console.log(xj.__proto__ == Wang.prototype);
+        console.log(Object.getPrototypeOf(xj) == Wang.prototype);
+
+        // 下面使用数组会产生多级继承即原型链
+        let libai = [];
+        console.log(libai);
+        console.log(libai.__proto__ == Array.prototype);
+
+        let dufu = "";
+        console.log(dufu.__proto__ == String.prototype);
+
+        // 下面使用setPrototypeOf与getPrototypeOf获取与设置原型
+        let sushi = {};
+        let suxun = { name: "suxun" };
+        Object.setPrototypeOf(sushi, suxun);
+        console.log(sushi);
+        console.log(Object.getPrototypeOf(sushi));
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
