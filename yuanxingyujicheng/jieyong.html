@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>借用原型</title>
+</head>
+<body>
+    <script>
+        // 借用原型--使用call或apply可以借用其他原型方法完成功能
+        // 下面的li对象不能使用max方法，但可以借用du对象的原型方法
+        let du={
+            data:[1,2,3,6,8,7,5]
+        };
+        Object.setPrototypeOf(du,{
+            max:function(){
+                return this.data.sort((a,b)=>b-a)[0];
+            }
+        });
+        console.log(du.max());
+        console.log(du.__proto__);
+        let li={
+            lessons:{js:100,php:78,node:90,linux:125},
+            get data(){
+                return Object.values(this.lessons);
+              
+            }
+        };
+        console.log(du.__proto__.max.apply(li));
+
+    // 上例中如果方法可以传参，那就可以不在li对象中定义getter方法了
+    let su={
+            data:[1,2,3,6,8,7,5]
+        };
+    Object.setPrototypeOf(su,{
+            max:function(data){ 
+                    return data.sort((a,b)=>b-a)[0];
+            }
+        });
+    console.log(du.max(du.data));
+    let wang={
+        lessons:{js:100,php:78,node:90,linux:125}
+    };
+    let a=Object.values(wang.lessons);
+    // console.log(wang.lessons);
+    console.log(a );
+    console.log(su.__proto__.max.call(wang,a)); //call方法的第二个参数为数组方法sort的参数，所以此处a为数组类型。
+
+    // 因为Math.max就是获取最大值得方法，所以代码可以再次优化
+    let sushi={
+        data:[1,2,3,4,5]
+    };
+    console.log(Math.max.apply(null,Object.values(sushi.data)));
+
+    let suxun={
+        lessons:{js:100,php:78,node:90,linux:125}
+     };
+     console.log(Math.max.apply(suxun,Object.values(suxun.lessons)));
+
+    // 下面是获取设置了class属性的按钮，当DOM节点不能直接使用数组的filter等方法，但借用数组的原型方法就可以操作了
+
+    </script>
+
+    <button message="libai" class="red">礼拜日</button>
+    <button message="dufu">sunday</button>
+    <script>
+        let btns=document.querySelectorAll("button");
+        console.dir(btns);
+        btns = Array.prototype.filter.call(btns,item=>{
+        //    console.log(item);
+           return item.hasAttribute("class");
+        });
+        console.log(btns);
+
+    // this--this不受原型继承影响，this指向调用属性时使用的对象
+    let x = {
+        name:"weizhi"
+    };
+    let y={
+        name:"libai",
+        show(){
+            return this.name;
+        }
+    };
+    x.__proto__=y;
+    console.log(x.show());
+    // x.show();
+    </script>
+</body>
+</html>

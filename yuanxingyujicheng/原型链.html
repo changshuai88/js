@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承</title>
+</head>
+<body>
+    <script>
+        // constructor存在于prototype原型中，用于指向构建函数的引用
+    function hd(){
+        this.show=function(){
+            return "show method";
+        };
+    }
+    const obj=new hd();
+    console.log(obj instanceof hd);
+
+    const obj2 =new obj.constructor();
+    console.dir(obj2.show());
+
+    // 使用对象的constructor 创建对象
+    function User(name,age) { //创建一个构造函数
+        this.name=name;
+        this.age=age;
+    }
+    //定义一个方法
+    function createByObject(obj,...args){ //两个参数，一个对象，一个数组
+        //定义一个参数constructor值为对象obj的原型中的constructor方法
+
+        const constructor=Object.getPrototypeOf(obj).constructor;
+        //此时constructor就等于构造函数User；
+        console.log(constructor);
+        //传参数给constructor。根据构造函数user创建一个对象
+        return new constructor(...args);
+    }
+    let li= new User("libai");
+    let dufu=createByObject(li,"fugu",58);
+    console.log(dufu);
+    // 原型链--通过引用类型的原型，继承另一个引用类型的属性与方法，这就是实现继承的步骤。
+
+    // 使用object.setPrototypeOf可设置对象的原型，下面的示例中继承关系为suxun>sushi>suzhe。
+    // Object.getPrototypeOf用于获取一个对象的原型
+    let suzhe={ name:"ziyou"};
+    let sushi={ web:"borther"};
+    let suxun={ soft:"father"};
+    // 让suzhe继承sushi，即设置suzhe的原型为sushi
+    Object.setPrototypeOf(suzhe,sushi);
+    Object.setPrototypeOf(sushi,suxun);
+    console.log(suzhe.web);
+    console.log(Object.getPrototypeOf(sushi)==suxun);
+    console.log(suzhe);
+
+    // 原型检测--instanceof检测构造函数的prototype属性是否出现在某个实例对象的原型链上
+
+    function A(){};
+    function B(){};
+    function C(){};
+
+    const c =new C();
+    B.prototype=c;
+    const b=new B();
+    A.prototype=b;
+    const a=new A();
+    console.log(a instanceof A);
+    console.log(a instanceof B);
+    console.log(a instanceof C);
+    console.log(b instanceof C);
+    console.log(c instanceof B);
+    console.log(a);
+    console.log(b);
+    console.log(c);
+
+    // 使用isPrototypeOf检测一个对象是否是另一个对象的原型链中
+    const aa={};
+    const bb={};
+    const cc={};
+
+    Object.setPrototypeOf(aa,bb); //bb是aa的原型链
+    Object.setPrototypeOf(bb,cc); //cc是bb的原型链
+
+    console.log(bb.isPrototypeOf(aa));
+    console.log(cc.isPrototypeOf(aa));
+    console.log(cc.isPrototypeOf(bb));
+
+    // 属性遍历--使用in检测原型链上是否存在属性，使用hasOwnProperty只检测当前对象
+    let x={url:"changshuai.com"};
+    let y={name:"zhangsanfeng"};
+    // 设置y为x的原型
+    Object.setPrototypeOf(x,y);
+    console.log("name" in x);
+    console.log(x.hasOwnProperty("name")); //hasOwnProperty只检测对象不检测原型链，所以为false
+    console.log(x.hasOwnProperty("url"));
+    // 使用for/in遍历时同时会遍历原型上的属性如下例
+    let bai={name:"xiaobai"};
+    let wang=Object.create(bai,{
+        url:{
+            value:"wangwei",
+            enumerable:true
+        }
+    });
+    for (const key in wang) {
+       console.log(key);
+    }
+    for (const key in wang) {
+        if (wang.hasOwnProperty.call(wang, key)) {
+            const element = wang[key];
+            console.log(key);
+            
+        }
+    }
+
+    
+
+
+
+</script>
+</body>
+</html>
