@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型总结</title>
+</head>
+<body>
+    <p>
+        prototype--函数也是对象也有原型，函数有prototype属性指向他的原型
+        为构造函数设置的原型指，当使用构造函数创建对象时把这个原型赋予给这个对象
+    </p>
+    <script>
+        function User(name){
+            this.name=name;
+        }
+        User.prototype={
+            show(){
+                return  this.name;
+            }
+        };
+        let xj=new User("libai");
+        console.log(xj.show());
+    </script>
+</body>
+</html>
