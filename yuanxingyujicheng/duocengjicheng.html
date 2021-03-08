@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多层继承</title>
+</head>
+<body>
+    <script>
+        // 下面通过改变对象的__proto__原型对象来实现继承，继承可以实现多层
+        let li={
+            name:"libai"
+        };
+        let du={
+            show(){
+                return this.name;
+            }
+        };
+        let bai={
+            handle(){
+                return `用户：${this.name}`;
+            }
+        };
+        du.__proto__=bai; //设置bai为du的原型
+        li.__proto__=du;   //设置du为li的原型，所以bai是爷，du是父，li是子
+        console.log(li.show());
+        console.log(li.handle());
+        console.log(li);
+    </script>
+
+    <script>
+        // 构造函数中的__proto__的使用
+        function User(name,age){
+            this.name=name;
+            this.age=age;
+        }
+        User.prototype.show=function(){
+            return `姓名：${this.name},年龄：${this.age}`;
+        };
+        let lisi=new User("李四",12);
+        let xiaoming=new User("小明",32);
+        // 判断实例化对象lisi的__proto__是否就是构造函数的prototype，返回为真
+        console.log(lisi.__proto__==User.prototype);
+
+        // 可以使用__proto__或Object.setPrototypeOf设置对象的原型，使用Object.getPrototypeOf获取对象原型
+        function Person(){
+            this.getName=function(){
+                return this.name;
+            };
+        }
+
+        function Teacher(name,age){
+            this.name=name;
+            this.age=age;
+        }
+
+        let chen=new Teacher("陈老师",35); //实例化对象chen
+        Object.setPrototypeOf(chen,new Person()); //给对象chen设定一个父级Person.
+        console.log(chen.getName());//结果结构为：chen-->Person-->Object-->null
+        console.log(chen);
+
+    </script>
+
+    <script>
+        // 对象设置属性，只修改对象属性并不会修改原型属性，使用hasOwnProperty判断对象背身是否含有属性，并不会检测原型
+        function Bing(){}
+        const sanduo=new Bing();
+        const chengcai=new Bing();
+
+        sanduo.name="许三多";
+        console.log(sanduo.name);
+        console.log(sanduo.hasOwnProperty("name"));
+
+        // 修改原型属性后
+        sanduo.__proto__.name="袁朗";
+        console.log(chengcai.name); //chengcai的name属性被设置为袁朗
+        // 删除对象属性后
+        delete sanduo.name;
+        console.log(sanduo.hasOwnProperty("name")); //false
+        console.log(sanduo.name);  //显示为袁朗，自己的属性被删除了，就去找父级中的属性，并调用
+
+
+        // 使用in会检测原型和对象，而hasOwnProperty只检测对象本身，所以结合后可判断属性是否在原型中
+        function Di(){name:{value:"皇帝"}}
+        Di.prototype.name="秦始皇";
+        const liubang=new Di();
+        //in 会在原型中检测
+        console.log("name" in liubang); 
+        //hasOwnProperty检测对象本身
+        console.log(liubang.hasOwnProperty("name"));
+
+
+    </script>
+<h1>
+    使用建议
+</h1>
+    <p>通过前介绍，我们知道可以使用多种方法设置原型，下面是按时间顺序的排列</p>
+    <ol>
+        <li>prototype构造函数的原型属性</li>
+        <li>Object.create创建对象时指定原型</li>
+        <li>__proto__声明自定义的非标准属性设置原型，解决之前通过Object.create定义原型，没有提供获取方法</li>
+        <li>Object.setPropertyOf设置对象原型</li>
+
+    </ol>
+    <p>这几种方式都可以管理原型，一般我个人情况来讲使用prototype更改构造函数原型，使用object.setPrototypeOf与object.getPrototypeOf设置或获取原型</p>
+</body>
+</html>

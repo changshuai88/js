@@ -22,6 +22,91 @@
         };
         let xj=new User("libai");
         console.log(xj.show());
+
+        // 函数默认prototype指包含一个属性constructor的对象，constructor指向当前构造函数
+        function Teacher(name){
+            this.name=name;
+        }
+        let chen=new Teacher("chenyuan");
+        console.log(chen);
+        console.log(Teacher.prototype.constructor==Teacher);
+        console.log(chen.__proto__==Teacher.prototype);
+
+        let wang=new chen.constructor("wangwei");
+        console.log(wang.__proto__==chen.__proto__);
+
+        // 原型中保存引用类型会造成对象共享属性，所以一般只会在原型中定义方法
+         function Bing(){}  //定义构造函数
+         Bing.prototype={  //构造函数在原型里设置属性
+             jineng :["sheji","kaipao"]
+         };
+         //实例化一个对象qiushaoyun
+         const qiushaoyun=new Bing();
+        //  实例化一个对象lisi
+         const lisi=new Bing();
+        //  改变qiushaoyun的技能属性
+         qiushaoyun.jineng.push("ren");
+         console.log(qiushaoyun.jineng);
+        //  发现lisi的技能属性也被修改了
+         console.log(lisi.jineng);
+        
+    </script>
+
+    <button onclick="this.hide()">后山人</button>
+    <script>
+        //  为object原型对象添加方法，将影响所有函数--这样不可取
+
+        Object.prototype.hide=function(){
+            this.style.display="none";
+        };
+
+        // 了解了原型后，可以为系统对象添加方法，比如为字符串添加一截断函数。不能讲系统对象的原型直接赋值
+        String.prototype.truncate=function(len=5){
+            return this.length<=len?this:this.substr(0,len)+"...";
+        }
+        console.log("靓装眉沁绿，羞脸粉生红".truncate(8));
+
+        // Object.create--使用Object.create创建一个新对象时，使用现有对象作为新对象的原型对象
+        // 使用Object.create设置对象原型
+        let su={
+            show(){
+                return this.name;
+            }
+        };
+        let sushi=Object.create(su);
+        sushi.name="苏轼";
+        console.log(sushi);
+        console.log(sushi.show());
+
+        // 强以在设置时使用第二个参数设置新对象的属性
+        let li={   //创建一个对象li
+            show(){
+                return this.name;
+            }
+        };
+        let libai=Object.create(li,{ //创建对象libai,并让对象li做为对象libaid的原型对象
+            name:{  
+                value:"litaibai"
+            }
+        });
+        console.log(libai);  //对象libai的原型时li,然后li的原型是Object，原型链中有三级
+        
+    </script>
+    <p> __proto__----在实例化对象上存在__proto__记录了原型，所以可以通过对象访问到原型的属性或方法
+    </p>
+    <li>__proto__不是对象属性，理解为prototype的getter/setter实现，他是一个<strong>非标准定义</strong></li>
+    <li>__proto__内部使用getter/setter控制值，所以只允许对象或null</li>
+    <li>建议使用Object.setPrototypeOf与Object.getPrototypeOf替代__proto__</li>
+    <script>
+        // 下面修改对象的__proto__是不会成功的，因为__proto__内部使用getter/setter控制值，所以只允许对象或null
+        let du={}; //设置一个新对象du
+        du.__proto__="dufu"; //给对象du的原型链的__proto__设置一个值
+        console.log(du);  //打印发现，原型链上没有dufu属性，由此可见赋值不成功
+
+        // 下面定义的__proto__就会成功，因为这是一个极简对象，没有原型对象所以不会影响__proto__赋值
+        let yan=Object.create(null); //定义一个没有原型链的对象
+        yan.__proto__="yanshu";   //给这个对象定义一个__proto__属性
+        console.log(yan);   //打印后__proto__属性的值为yanshu.
     </script>
 </body>
 </html>
