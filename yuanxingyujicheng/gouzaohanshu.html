@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数</title>
+</head>
+<body>
+    <h1>原型属性</h1>
+    <p>构造函数在被new时，把构造函数的原型prototype赋值给新对象，如果对象中存在属性将使用对象属性，不再原型上查找方法</p>
+    <li>构造函数只会产生一个原型对象</li>
+    <script>
+        function li(){
+            this.show=function(){
+                return "show in object";
+            };
+        }
+        li.prototype.show=function(){
+            return "show in prototype";
+        };
+        const libai=new li();
+        console.log(libai.show());
+
+        // 对象的原型引用构造函数的原型对象，是在创建对象时确定的，当构造函数原型对象改变时影响后面的实例对象
+        function du(){}
+        du.prototype.name="dufu";
+        const du1=new du();
+        console.log(du1.name);
+
+        du.prototype={
+            name:"dugongbu"
+        };
+        const du2=new du();
+        console.log(du2.name);
+        console.log(du2);
+        console.log(du1);
+
+    </script>
+    <h1>constructor</h1>
+    <script>
+        // 构造函数的原型中包含属性constructor指向该构造函数，一下代码说明了这一点
+        function Su(name){
+            this.name=name;
+        }
+        let sushi=new Su("苏轼");
+        let suzhe=new sushi.constructor("苏辙");
+        console.log(suzhe);
+
+        // 一下代码直接设置了构造函数的原型，将造成constructor丢失
+        function Bing(name){
+            this.name=name;
+        }
+        Bing.prototype={
+            show:function(){}
+        };
+        let sanduo=new Bing("许三多");
+        // console.dir(sanduo.constructor);
+        let chengcai=new sanduo.constructor("成才");
+        console.log(chengcai);
+
+        // 正确的做法是要保证原型中的constructor指向构造函数
+        function Di(name){
+            this.name=name;
+        }
+        Di.prototype={
+            constructor:Di,
+            show:function(){}
+        };
+        let liubang=new Di("汉高祖");
+        let liyuan=new liubang.constructor("唐高祖");
+        console.log(liyuan);
+
+        // 使用优化--使用构造函数会产生函数复制，造成内存占用，及函数不能共享的问题
+        function Teacher(name){
+            this.name=name;
+            this.get=function(){
+                return this.name;
+            };
+        }
+        let chen=new Teacher("陈老师");
+        let bai=new Teacher("白杰");
+        console.log(chen.get==bai.get );
+
+        // 体验通过原型定义方法不会产生函数复制
+        function Student(name){
+            this.name=name;
+        }
+        Student.prototype.get=function(){
+            return "lieshi"+this.name;
+        };
+        let lisi=new Student("李四");
+        let wang=new Student("王五");
+        console.log(lisi.get==wang.get);
+
+        // 通过修改原型方法会影响所有对象调用，因为方法是公用的
+        lisi.__proto__.get=function(){
+            return "yingxiong"+this.name;
+        };
+        console.log(lisi.get());
+        console.log(wang.get());
+
+        // 下面演示使用原型为国歌实例共享属性
+        function xuesheng(name,age){
+            this.name=name;
+            this.age=age;
+            this.show=()=>{
+                return `你在${this.ban}的姓名:${this.name}，年龄：${this.age}`;
+            }
+        }
+        xuesheng.prototype.ban="三年二班";
+        let hong=new xuesheng("小红",12);
+        let ming=new xuesheng("小明",20);
+
+        console.log(hong.show());
+        console.log(ming.show());
+    
+        // 将方法定义在原型上，为对象共享，解决通过构造函数创建对象函数复制的内存占用问题
+        function hua(name){
+            this.name=name;
+        }
+        hua.prototype.get=function(){
+            return "花名"+this.name;
+        }
+        let yueji=new hua("月季");
+        let meigui=new hua("玫瑰");
+        console.log(yueji.get==meigui.get);
+        // 通过修改原型方法会影响所有对象调用，因为方法是共用的
+        yueji.__proto__.get=function(){
+            return "百花争艳--"+this.name;
+
+        }
+        console.log(yueji.get());
+        console.log(meigui.get());
+
+        // 使用object.assign一次设置原型方法来复用，后面会使用这个功能实现Mixin模式
+        function cai(name,age){
+            this.name=name;
+            this.age=age;
+        }
+        Object.assign(cai.prototype,{
+            getName(){
+                return this.name;
+            },
+            getAge(){
+                return this.age;
+            }
+        });
+        let tudou=new cai("土豆",10);
+        let qincai=new cai("芹菜",20);
+        console.log(tudou.getName());
+        console.log(tudou.__proto__);
+    </script>
+</body>
+</html>
