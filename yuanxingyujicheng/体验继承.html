@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>体验继承</title>
+</head>
+<body>
+<p>体验继承--下面为stu更改了原型为user的实例对象，lisi是通过构造函数stu创建的实例对象</p>
+<li>lisi在执行getName方法时会从自身并向上查找原型，这就是原型链特性</li>
+<li>当然如果把getName添加到对象上，就不会继续追溯原型链了</li>
+<script>
+    "use strict"
+    function User(){}
+    User.prototype.getName=function(){
+        return this.name;
+    };
+    function Stu(name){
+        this.name=name;
+    }
+    Stu.prototype=new User();
+    const lisi=new Stu("李四");
+
+    console.log(lisi.__proto__);
+    console.log(lisi.getName());
+
+
+</script>
+<h1>继承与多态</h1>
+<p>当对象中没有使用的属性时，JS会从原型上获取，这就是继承在JavaScript中的实现</p>
+<script>
+    // 继承实现--下面使用object.create创建对象，作为Admin、Member的原型对象来实现继承
+    function Bing(){}
+    Bing.prototype.getBingName=function(){};
+    let sanduo=new Bing();
+    console.log(Bing.prototype);
+
+    function Admin(){}
+    Admin.prototype=Object.create(Bing.prototype);//根据构造方法bing的原型创建一个admin的原型
+    Admin.prototype.role=function(){};//在admin的原型上添加role方法
+
+    function Member(){}
+    Member.prototype=Object.create(Bing.prototype);//根据构造方法bing的原型创建一个member的原型
+    Member.prototype.email=function(){};//在member的原型上添加email方法
+
+    console.log(new Admin());
+    console.log(new Member());
+
+    // 不能使用以下方式操作，因为这样会改变teacher的原型方法，这不是继承，这是改变原型
+    function Teacher(){}
+    Teacher.prototype.getTName=function(){};
+    // console.log(Teacher.prototype);
+
+    function Chen(){}
+    Chen.prototype=Teacher.prototype; //令chen的原型指向了teacher的原型，
+    console.log(Chen.prototype==Teacher.prototype);//true
+    Chen.prototype.role=function(){}; //改变了teacher.prototype
+    console.log(Chen.prototype);
+    console.log(Teacher.prototype); //发生了改变
+
+    // 构造函数--有多种方式通过构造函数创建对象
+    function cai(){}
+    console.log(cai==cai.prototype.constructor);// true,cai.prototype.constructor这个属性指向cai这个构造函数
+    let dou=new cai.prototype.constructor();
+    console.log(dou); //实例化一个cai对象
+
+    let baicai=new cai();
+    console.log(baicai);//又实例化一个cai对象
+
+    // 因为有事根据的到的对象获取构造函数，然后再创建新对象，所以需要保证构造函数存在，但如果直接设置了wang.prototype属性，会造成constructor丢失，所以需要再次设置constructor值
+    function bai(){}
+    function wang(){}
+    // console.log(baicai.constructor);
+    wang.prototype=Object.create(bai.prototype);//根据白的原型创建一个wang的原型
+    wang.prototype.role=function(){};
+
+    let wangwei=new wang();
+    console.log(wangwei.constructor);//返回了构造函数bai
+
+    wang.prototype.constructor=wang; //将wang.prototype.constructor设置为wang
+
+    let wanganshi=new wang();
+    console.log(wanganshi.constructor); //返回构造函数wang
+
+
+    // 使用object.defineProperty定义来禁止constructor属性被遍历
+    function huangdi(){}
+    function huangshang(name){
+        this.name=name;
+    }
+
+    huangshang.prototype=Object.create(huangdi.prototype);
+
+    Object.defineProperty(huangshang.prototype,"constructor",{
+        value:huangshang,
+        enumerable:false //防止被for in 遍历
+    });
+
+    let liubang=new huangshang("汉高祖");
+    for (const key in liubang) {
+        console.log(key);//没有constructor
+    }
+    console.log(liubang);
+
+
+    // 完全重写构造函数原型，只对后面应用对象有效
+    function ren(){}
+    const han=new ren()
+    console.log(ren.prototype);//构造函数ren
+    ren.prototype={  //将原型重写
+        show(){
+            return "正经人";
+        }
+    };
+    const dai =new ren();
+    console.log(dai.show());
+    console.log(ren.prototype); //show方法
+    // console.log(han.show()); //未定义方法
+
+// 方法重写--下面展示的是子类需要重写父类方法的技巧
+function Person(){}
+Person.prototype.getName=function(){
+    console.log("parent method");
+};
+
+function Usa(name){}
+Usa.prototype=Object.create(Person.prototype);
+Usa.prototype.constructor=Usa;
+
+Usa.prototype.getName=function(){
+    //调用父级同名方法
+    Person.prototype.getName.call(this);
+    console.log("child method");
+};
+
+let gaizi=new Usa();
+gaizi.getName();
+</script>
+</body>
+</html>
