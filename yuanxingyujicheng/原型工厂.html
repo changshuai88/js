@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型工厂</title>
+</head>
+<body>
+    <h1>原型工厂</h1>
+    <p>原型工厂是将继承的过程封装，使继承业务简单化</p>
+    <script>
+        function extend(sub,sup){  //关键就是这个函数，明确继承关系
+            sub.prototype=Object.create(sup.prototype);
+            sub.prototype.constructor=sub;
+        }
+
+        function Access(){}
+        function User (){}
+        function Admin(){}
+        function Member(){}
+
+        extend(User,Access);  //user继承access
+        extend(Admin,User);  //admin继承user
+        extend(Member,Access);  //member继承 access
+
+        Access.prototype.rules=function(){};
+        User.prototype.getName=function(){};
+
+        console.log(new Admin());
+        console.log(new Member());
+    </script>
+</body>
+</html>

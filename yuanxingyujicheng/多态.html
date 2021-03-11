@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多态</title>
+</head>
+<body>
+   <script>
+    //    多态--根据多种不同的形态产生不同的结果，下面会根据不同形态的对象得到了不同的结果
+    function User(){}
+    User.prototype.show=function (){
+        console.log(this.description());
+    };
+
+    function Admin(){}
+    Admin.prototype=Object.create(User.prototype);
+    Admin.prototype.description=function(){
+        return "管理员在此";
+    };
+
+    function Member(){}
+    Member.prototype=Object.create(User.prototype);
+    Member.prototype.description=function(){
+        return "我是会员";
+    };
+
+
+    function Enterprise(){}
+    Enterprise.prototype=Object.create(User.prototype);
+    Enterprise.prototype.description=function(){
+        return "企业账户";
+    };
+    for (const obj of [new Admin(),new Member(),new Enterprise()]) {
+        obj.show();
+    }
+
+
+   </script> 
+   <h1>深挖继承</h1>
+   <p>
+       继承是为了复用代码，继承的本质是将原型指向到另一个对象
+   </p>
+   <h1> 构造函数</h1>
+   <p>我们希望调用父类构造函数完成对象的属性初始化，但像下面这样使用是不会成功的，因为此时this指向了window，无法为当前对象声明属性</p>
+   <script>
+       function Bing(name){ //声明一个构造函数
+           this.name=name;  
+           console.log(this);  //因为下面用call，所以这里的对象指的是实例化的sanduo.
+       }
+       Bing.prototype.getBingName=function(){  //在bing构造函数的原型上添加方法getBingName.
+           return this.name;
+       };
+       function Zhang(name){   //声明一个构造函数zhang
+           Bing.call(this,name);   //注意用call或者apply调用bing,否则为undefined，因为bing里面的this，指向的是window。
+       }
+
+       Zhang.prototype=Object.create(Bing.prototype);//根据bing 的原型床架zhang的原型
+       Zhang.prototype.role=function(){return "成才"}; //在zhang的原型上添加role方法
+       console.log(Bing.prototype);
+       console.log(Zhang.prototype);
+       let sanduo=new Zhang("三多");  //实例化zhang
+       console.log(sanduo.getBingName());  
+       console.log(sanduo.role());
+       console.log(sanduo);
+
+
+   </script>
+</body>
+</html>

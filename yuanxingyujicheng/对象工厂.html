@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象工厂</title>
+</head>
+<body>
+    <h1>对象工厂</h1>
+    <p>在原型继承基础上，将对象的生成使用函数完成，并在函数内部为对象添加属性或方法</p>
+    <script>
+        function User(name,age){
+            this.name=name;
+            this.age=age;
+        }
+        User.prototype.show=function(){
+            console.log(this.name,this.age);
+        };
+
+        function Admin(name,age ){ //这就是一个普通的方法--因为能创建对象就被称为工厂方法
+            let instance=Object.create(User.prototype);  //创建一个对象。
+            User.call(instance,name,age);
+            instance.role=function(){
+                console.log("admin.role");
+            }
+            return instance;
+
+        }
+
+        let sanduo=Admin("三多",18); //就是普通方法，传入参数后，返回一个对象
+        sanduo.show();
+
+        console.log(sanduo);
+
+    </script>
+</body>
+</html>
