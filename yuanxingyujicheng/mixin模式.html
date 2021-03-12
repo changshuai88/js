@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mixin模式</title>
+</head>
+<body>
+    <h1>mixin模式</h1>
+    <p>JS不能实现多继承，如果要使用多个类的方法时，可以使用mixin混合模式来完成</p>
+    <li>mixin类时一个包含许多工其他类使用的方法的类</li>
+    <li>mixin类不用来继承作为其他类的父类</li>
+    <p><strong>其他语言也有类似的操作，比如php语言中可以使用trait完成类似操作</strong></p>
+    <script>
+        // 下面是示例中admin需要使用request.prototype与credit的工程，因为JS是单继承，我们不得不将无关的类链接在一下，显然下面的代码实现并不佳
+        "use strict"
+        function extend(sub,sup){
+            sub.prototype=Object.create(sup.prototype);
+            sub.prototype.constructor=sub;
+        }
+        function Credit(){}
+        function Request(){}
+        function User(name,age){
+            this.name=name;
+            this.age=age;
+        }
+
+        extend(Request,Credit);
+        extend(User,Request);
+
+        Credit.prototype.total=function(){
+            console.log("统计积分");
+        };
+
+        Request.prototype.ajax=function(){
+            console.log("请求后台");
+        };
+
+        User.prototype.show=function(){
+            console.log(this.name,this.age)
+        };
+        function Admin(...args){
+            User.apply(this,args);
+        }
+        extend(Admin,User);
+        let li=new Admin("libai",62);
+        li.show();
+        li.total();
+        li.ajax();
+
+
+    </script>
+    <script>
+        // 下面分拆功能使用mixin实现多继承，使用代码结构更清晰，只让admin继承user原型
+
+        function Nuser(name,age){
+            this.name=name;
+            this.age=age;
+        }
+
+        Nuser.prototype.show=function(){
+            console.log(this.name,this.age);
+        };
+        const Ncredit={
+            total(){
+                console.log("统计积分");
+            }
+        };
+        const Nrequest={
+            ajax(){
+                console.log("请求后台");
+            }
+        };
+
+        function Nadmin(...args){
+            Nuser.apply(this,args);
+        }
+
+        extend(Nadmin,Nuser);
+        Object.assign(Nadmin.prototype,Nrequest,Ncredit);
+        let du=new Nadmin("杜甫",58);
+        du.show();
+        du.total();
+        du.ajax();
+    </script>
+
+    <p>mixin类也可以继承其他类，比如下面的create类获取积分要请求后台，就需要继承NNrequest来完成</p>
+    <li>super是在mixin类的原型中查找，而不是在nnuser原型中</li>
+    <script>
+        function NNuser(name,age ){
+            this.name=name;
+            this.age =age;
+        }
+
+        NNuser.prototype.show=function(){
+            console.log(this.name,this.age);
+        };
+        const NNrequest={
+            ajax(){
+                return "请求后台";
+            }
+        };
+        const NNcredit={
+            __proto__:NNrequest,
+            total(){
+                console.log(super.ajax()+"，统计积分");
+            }
+        };
+        function NNadmin(...args){
+            NNuser.apply(this,args);
+        }
+        extend(NNadmin,NNuser);
+
+        Object.assign(NNadmin.prototype,NNrequest,NNcredit);
+        let bai=new NNadmin("xiaobai",18);
+        bai.show();
+        bai.total();
+        console.log(bai.ajax());
+    </script>
+</body>
+</html>
