@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类的基础知识</title>
+</head>
+<body>
+    <p>为了和其他语言继承形态一致，JS提供了class关键词用于模拟创痛的class，但底层实现机制依然是原型继承</p>
+    <p><strong>class只是语法糖为了让类的声明与继承更加简洁清晰</strong></p>
+    <script>
+        // 声明定义--可以使用类声明和赋值表达式定义类，推荐使用类声明来定义类
+        class User{}
+        console.log(new User());
+
+        // 另一种声明方式
+        let Admin=class{}
+        console.log(new Admin());
+
+        // 类方法间不需要逗号
+        class Bing{
+            sheji(){}
+            cidao(){
+                console.log("拼刺刀");
+            }
+        }
+
+        const sanduo=new Bing();
+        sanduo.cidao();
+
+        // 类class通过构造函数constructor来传递参数，下例中show为构造函数方法，getName为原型方法
+        // constructor 会在new时自动执行
+        class Shi{
+            constructor(name){
+                this.name=name;
+                this.show=function(){};
+            }
+            getName(){
+                return this.name;
+            }
+
+        }
+
+        const li=new Shi("李太白");
+        console.log(li);
+    </script>
+    <p>构造函数用于传递对象的初始参数，但不是必须定义的，如果不设置系统会设置如下类型</p>
+    <li>子构造器中调用super后才可以使用this</li>
+    <li>至于super的概念会在后面讲到</li>
+    <code>constructor(...args){
+        super(...args);    
+    }</code>
+    <p>原理分析--类其实是函数</p>
+    <script>
+        class Over{}
+        console.log(typeof Over); //function
+
+    </script>
+    <p>constructor 用于定义函数代码，下面是与普通函数的对比，结构是一致的</p>
+    <script>
+        class Zao{
+            constructor(name){
+                this.name=name;
+            }
+            show(){}
+        }
+
+        console.dir(Zao);
+        console.log(Zao==Zao.prototype.constructor);
+
+        //下面是对比的普通函数
+        function Wan(name){
+            this.name=name;
+        }
+        console.dir(Wan);
+
+        console.log(Wan==Wan.prototype.constructor);
+    // 在类中定义的方法也保存在函数原型中
+
+
+    </script>
+<p>属性定义--在class中定义的属性为每个new出的对象独立创建，下面定义了site与name两个对象属性</p>
+<script>
+    class Ci{
+        site="西江月";
+        constructor(name){
+            this.name=name;
+        }
+        show(){
+            console.log(this.site+":"+this.name);
+        }
+    }
+    let mao=new Ci("井冈山");
+    mao.show();
+
+</script>
+<h1>函数差异</h1>
+<li>class是使用函数声明类的语法糖，但也有些区别</li>
+<li>class中定义的方法不能枚举</li>
+<script>
+    class Di{
+        constructor(name){
+            this.name=name;
+        }
+        show(){
+            console.log(this.name);
+        }
+    }
+    let han=new Di("刘邦");
+    // 不会枚举出show属性
+    for (const key in han) {
+        console.log(key);
+    }
+
+    function Tang(name){
+        this.name=name;
+    }
+    Tang.prototype.show=function(){
+        console.log(this.name);
+    }
+    let yuan=new Tang("唐高祖");
+    for (const key in yuan) { //会枚举出show
+        console.log(key);
+    }
+</script>
+<h1>严格模式</h1>
+<p>class默认使用strict严格模式执行</p>
+<script>
+    class Cai{
+        constructor(name){
+            this.name=name;
+        }
+        show(){
+            function test(){
+                // 严格模式下输出undefined
+                console.log(this);
+            }
+            test();
+        }
+    }
+
+    let qincai=new Cai("芹菜");
+    qincai.show();
+
+    function Rou(name){
+        this.name=name;
+    }
+    Rou.prototype.show=function(){
+        function test(){
+            // 非严格模式输出window
+            console.log(this);
+        }
+        test();
+    };
+    let zhurou=new Rou("猪肉");
+    zhurou.show();
+</script>
+</body>
+</html>
