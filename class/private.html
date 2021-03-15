@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>private</title>
+</head>
+<body>
+    <h1>private</h1>
+    <p>private指私有属性，只在当前类可以访问到，并且不允许继承使用</p>
+    <li>为属性或方法名前加#为声明为私有属性</li>
+    <li>私有属性只能在声明的类中使用</li>
+    <script>
+        // 下面声明私有属性#host与私有方法check用于检测用户名
+        class Qin{
+            //private
+            #host="https://www.baidu.com";
+            constructor(name){
+                this.name=name;
+                this.#check(name);
+            }
+            set host(url){
+                if (!/^https?:/i.test(url)) {
+                    throw new Error("非常网址");
+                }
+                this.#host=url;
+            }
+            get host(){
+                return this.#host;
+            }
+            #check=()=>{
+                if (this.name.length<=5) {
+                    throw new Error("用户名长度不能小于五位");
+                }
+                return true;
+            };
+        }
+        let yingzheng=new Qin("扫六合，一统天下");
+        yingzheng.host="https://daqindiguo.com";
+        console.log(yingzheng.host);
+    </script>
+
+    <h1>
+        属性保护
+    </h1>
+    <p>保护属性并使用访问器访问</p>
+    <script>
+        const protecteds=Symbol("protecteds");
+        class User{
+            constructor(name){
+                this[protecteds]={name};
+            }
+            get name(){
+                return this[protecteds].name;
+            }
+            set name(value){
+                if (value.trim()=="") throw new Error("invalid params");
+                this[protecteds].name=value;
+            }
+        }
+        let li=new User("李太白");
+        li.name="苏轼";
+        console.log(li.name);
+        console.log(Object.keys(li));
+
+    </script>
+</body>
+</html>

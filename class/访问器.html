@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问器</title>
+</head>
+<body>
+    <h1>访问器</h1>
+    <p>使用访问器可以对对象的属性进行访问控制，下面是使用访问器对私有属性进行管理</p>
+    <h2>语法介绍</h2>
+    <li>使用访问器可以管控属性，有效的防止属性随意修改</li>
+    <li>访问器就是在函数前加上get/set修饰，操作属性时不需要加函数的括号()，直接用函数名</li>
+    <script>
+        class User{
+            constructor(name){
+                this.data={name};
+            }
+            get name(){
+                return this.data.name;
+            }
+            set name(value){
+                if(value.trim()=="")throw new Error("invalid params");
+                this.data.name=value;
+            }
+        }
+        let lb=new User("李白");
+        lb.name="李太白"; //此处调用方法不用加()
+        console.log(lb.name); //此处调用方法也不用加()
+    </script>
+    <h2>protected</h2>
+    <p>protected是受保护的属性修饰，不允许外部直接操作，但可以继承后在类内部访问，有一下几种方式定义</p>
+    <h4>命名保护</h4>
+    <p>将属性定义为以_开始，来告诉使用者这是一个私有属性，请不要再外部使用</p>
+    <li>外部修改私有属性时可以使用访问器setter操作</li>
+    <li>但这只是提示，就像烟盒上的吸烟有害健康，但是还可以吸</li>
+    <script>
+        class Article{
+            _host="https://houdunren.com";
+            set host(url){
+                if (!/^https:\/\//i.test(url)) {
+                    throw new Error("网址错误");
+                }
+                this._host=url;
+            }
+            lists(){
+                return `${this._host}/article`; //行规不能改，但是可以改
+            }
+        }
+        let article=new Article();
+        console.log(article.lists());
+        article.host="https://www.baidu.com"; //违反行规进行更改
+        console.log(article.lists());
+
+        // 继承时时可以使用的
+        class Common{
+            _host="https://www.baidu.com";
+            set host(url){
+                if (!/^https:\/\//i.test(url)) {
+                    throw new Error("网址错误");
+                }
+                this._host=url;
+            }
+        }
+        class Ar extends(Common){
+            lists(){
+                return `${this._host}/123456`;
+            }
+        }
+        let ar=new Ar();
+        console.log(ar.lists());
+        ar.host="https://www.sina.com";
+        console.log(ar.lists());
+    </script>
+<h3>Symbol</h3>
+<p>下面使用symbol定义私有访问属性，即在外部通过查看对象无法获取的属性</p>
+<script>
+    const protecteds=Symbol();
+    class Han{
+        constructor(){
+            this[protecteds]={};
+            this[protecteds].host="https://www.changjinshuai.com";
+        }
+        set host(url){
+            if (!/^https:\/\//i.test(url)) {
+                    throw new Error("网址错误");
+                }
+            this[protecteds].host=url;
+        }
+        get host(){
+            return this[protecteds].host;
+        }
+    }
+
+    class Tang extends Han{
+        constructor(name){
+            super();
+            this[protecteds].name=name;
+        }
+        get name(){
+            return this[protecteds].name;
+        }
+
+    
+    }
+    console.log(protecteds);
+
+    let ly=new Tang("唐高祖");
+    ly.host="https://www.datang.com";
+    console.log(ly[Symbol()]); //Symbol()唯一，此值为undefined
+    console.log(ly.name);//由于上面更改失败，所以还是为唐高祖
+
+</script>
+<h1>WeakMap</h1>
+<p>
+    weakmap是一组键/值对的集，下面利用weakmap类型特性定义私有属性
+</p>
+<script>
+    const _siyou=new WeakMap();
+    class Tg{
+        constructor(){
+            _siyou.set(this,"https://www.baidu.com");
+            
+        }
+        set siyou(url){
+            if (!/^https:\/\//i.test(url)) {
+                throw new Error("网址错误");
+            }
+            _siyou.set(this,url);
+        }
+    }
+
+    class Song extends Tg{
+        constructor(){
+            super();
+        }
+        lists(){
+            console.log(_siyou);   //146->weakmap{song=>"https://www.baidu.com"}/148->weakmap{song=>"https://www.sina.com"}
+            return `${_siyou.get(this)}/654321`;
+            
+        }
+    }
+
+    let sushi=new Song();
+    console.log(sushi.lists());
+    sushi.siyou="https://www.sina.com";
+    console.log(sushi.lists());
+</script>
+<script>
+    const prtceds=new WeakMap();
+    class Yuan{
+        constructor(){
+            prtceds.set(this,{
+                host:"https://www.baidu.com",
+                port:"80"
+            });
+        }
+        set host(url){
+            if (!/^https:\/\//i.test(url)) {
+                throw new Error("网址错误");
+            }
+            prtceds.set(this,{...prtceds.get(this),host:url});
+        }
+        set port(a){
+            prtceds.set(this,{...prtceds.get(this),port:a});
+        }
+    }
+
+    class Ming extends Yuan{
+        constructor(){
+            super();
+        }
+        lists(){
+            console.log(prtceds);
+            // return `${prtceds.get(this).host}/9999`;
+            return `${prtceds.get(this).port}/9999`;
+        }
+    }
+
+    let yuanzhang=new Ming();
+    console.log(yuanzhang.lists());
+    yuanzhang.port="8080";
+    console.log(yuanzhang.lists());
+
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静态访问</title>
+</head>
+<body>
+    <h1>静态属性</h1>
+    <p>静态属性即为类设置属性，而不是为生成的对象设置</p>
+    <script>
+        function User(){}
+        User.site="后盾人";
+        console.dir(User);
+
+        const hd=new User();
+        console.log(hd.site); //undefined
+        console.log(User.site);
+        // 在class中为属性添加static关键字即声明为静态属性
+        // 可以把为所有对象使用的值定义为静态属性
+        class Request{
+            static HOST="https://www.houdunren.com";
+            query(api){
+                return Request.HOST+"/"+api;
+            }
+        }
+        let request=new Request();
+        console.log(request.query("123456"));
+
+
+    </script>
+    <h1>静态方法</h1>
+    <p>指通过类访问不能使用对象访问的方法，比如系统的Math.round()就是静态方法</p>
+    <li>一般来讲方法不需要对象属性参与计算就可以定义为静态方法</li>
+    <script>
+        // 下面是静态方法实现原理--函数篇
+        function Bing(){
+            this.show=function(){
+                return "this is a object function";
+            };
+
+        }
+        Bing.show=function(){
+            return "welcome to shibingtuji";
+        };
+
+        const sanduo=new Bing();
+        console.dir(sanduo.show());
+        console.dir(Bing.show());
+
+        // 在class内声明的方法前使用static定义的方法即是静态方法
+        class Tang{
+            constructor(name){
+                this.name=name;
+            }
+            static create(name){
+                return new Tang(name);
+            }
+        }
+        const lsm=new Tang("唐太宗");
+        console.log(lsm);
+        // lsm.create("李世民");  //not a function
+        const ly=Tang.create("唐高祖");
+        console.log(ly);
+
+        // 下面使用静态方法在课程类中的使用
+        const data=[
+            {name:"js",price:100},
+            {name:"mysql",price:212},
+            {name:"vue.js",price:398}
+        ];
+        class Lesson{
+            constructor(data){
+                this.model=data;
+            }
+            get price(){  //使用访问器，后面调用的时候不用加()
+                return this.model.price;
+            }
+            get name(){
+                return this.model.name;
+            }
+            // 批量生成对象
+            static creatBatch(data){
+                return data.map(item=>new Lesson(item));
+            }
+            // 最贵的课程
+            static MaxPrice(collection){
+                return collection.sort((a,b)=>b.price-a.price)[0];
+            }
+        }
+
+        const lessons=Lesson.creatBatch(data);
+        console.log(lessons);
+        console.log(Lesson.MaxPrice(lessons).name);
+    </script>
+</body>
+</html>
