@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承</title>
+</head>
+<body>
+    <h1>属性继承</h1>
+    <p>属性继承原型如下</p>
+    <script>
+        function User(name){
+            this.name=name;
+        }
+        function Admin(name){
+            User.call(this,name);
+        }
+        let li=new Admin("李白");
+        console.log(li);
+
+        // 这就解释了为什么在子类构造函数中药先执行super
+        class Qin{
+            constructor(name){
+                this.name=name;
+            
+            }
+        }
+        class Han extends Qin{
+            constructor(name){
+                super(name);
+            }
+        }
+        let lb=new Han("汉高祖");
+        console.log(lb);
+
+        class Sui{
+            show(){
+                console.log("sui.show");
+            }
+        }
+
+        class Tang extends Sui{
+            info(){
+                this.show();
+            }
+        }
+
+        let ly=new Tang();
+        console.dir(ly);
+    </script>
+    <h1>方法继承</h1>
+    <p>原生的继承主要是操作原型链，实现起来比较麻烦，使用class就要简单的多了</p>
+    <li>继承时必须在子类构造函数中调用super()执行父类构造函数</li>
+    <li>super.show()执行父类方法</li>
+    <script>
+        // 下面是子类继承了父类的方法show
+        class Song{
+            constructor(name){
+                this.name=name;
+            }
+            show(){
+                return `宋朝著名词人：${this.name}`;
+            }
+        }
+
+        class Yuan extends Song{
+            constructor(name){
+                super(name);
+            }
+            run(){
+                return super.show();
+            }
+        }
+
+        const sushi=new Yuan("苏轼");
+        console.log(sushi.run());
+
+        // 可以使用extends继承表达式返回的类
+        function fanhuiduixiang(){
+            return class{
+                show(){
+                    console.log("user.show");
+                }
+            };
+        }
+        class A extends fanhuiduixiang(){
+            info(){
+                this.show();
+            }
+        }
+
+        let a =new A();
+        console.log(a);
+    </script>
+    <h1>
+        super
+    </h1>
+    <p>表示从当前原型中执行方法，super一直指向当前对象</p>
+    <script>
+        // 下面使用this模拟super，会有以下问题
+        // 但this指向当前对象，结果并不是admin的name值
+        let dufu={
+            name:"杜甫",
+            show(){
+                return this.name;
+            }
+        };
+
+        let libai={
+            __proto__:dufu,
+            name:"李白",
+            show(){
+                return this.__proto__.show();
+            }
+        };
+        console.log(libai.show());
+
+        // 为了解决以上的问题，需要嗲用父类方法时传递this
+        let duzimei={
+            name:"杜甫",
+            show(){
+                return this.name;
+            }
+        };
+        let litaibai={
+            __proto__:duzimei,
+            name:"李白",
+            show(){
+                return this.__proto__.show.call(this);
+            }
+        };
+        console.log(litaibai.show());
+
+        // 上面看似结果正常，但如果是多层继承是，会出现新的问题
+        // 因为始终传递的是当前对象this，造成从this原型循环调用
+        let suxun={
+            mingzi:"苏洵",
+            show(){
+                console.log(this.mingzi);
+            }
+        };
+        let sudp={
+            __proto__:suxun,
+            name:"苏轼",
+            show(){
+                return this.__proto__.show.call(this);
+            }
+        };
+        let suzhe={
+            __proto__:sudp,
+            name:"苏辙",
+            get(){
+                return this.__proto__.show.call(this);
+            }
+        };
+        // console.log(sudp.show());
+        // console.log(suzhe.get()); 此处反应出问题，以上的this，都是指向本对象，造成死循环
+    </script>
+<p><strong>为了解决以上问题，JS提供了super关键字</strong></p>
+<li>使用super调用时，在所有继承中this始终为调用对象</li>
+<li>super是用来查找当前对象的原型，而不像上面使用this查找原型造成死循环</li>
+<li>也就是说吧查询原型方法的事情交给了super，this只是单纯的调用对象在各个继承中使用</li>
+<script>
+    let ming={
+        show(){
+            return this.name;
+        }
+    };
+    let qing={
+        __proto__:ming,
+        name:"努尔哈赤",
+        get(){
+            return super.show(this);
+        }
+
+    };
+    let minguo={
+        __proto__:qing,
+        name:"孙中山",
+        get(){
+            return super.show();
+        }
+    };
+    console.log(minguo.get());
+    // super 只能在类或对象的方法中使用，而不能在函数中使用，下面将产生错误
+    let zhangsan={
+        name:"zhangsan",
+        show(){
+            return this.name;
+        }
+    };
+    let lisi={
+        __proto__:zhangsan,
+        name:"lisi",
+        get:function(){
+            // return super.show();  //存在super 不能执行
+        }
+    };
+    // console.log(lisi.get());//报错super keyword unexpected here
+
+</script>
+</body>
+
+</html>

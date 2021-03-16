@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承第二部分</title>
+</head>
+<body>
+    <h1>constructor</h1>
+    <p>super指调父类引用，在构造函数constructor中必须先调用super()</p>
+<li>super()指调父类的构造函数</li>
+<li>必须在constructor函数里的this调用前执行super()</li>
+<script>
+    class User{
+        constructor(name){
+            this.name=name;
+        }
+        show(){
+            console.log(this.name);
+        }
+    }
+
+    class Admin extends User{
+        constructor(name){
+            super(name);  //此处如果还有属性，应该些在super之后，super要排在第一位
+        }
+    }
+    let li=new Admin("李白");
+    li.show();
+
+    // constructor中先调用super方法的原理如下
+    function Parent(name){
+        this.name=name;
+    }
+    function Zi(...args){
+        Parent.apply(this,args);
+    }
+    Zi.prototype=Object.create(Zi.prototype);
+    Zi.prototype.constructor=Zi;
+    const du=new Zi("子美");
+    console.log(du.name);
+
+</script>
+</body>
+</html>
