@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承第三部分</title>
+</head>
+<body>
+    <h1>对象检测</h1>
+    <p>instanceof 使用instanceof用于检测，下面是在原型中的分析，</p>
+    <script>
+        function User(){}
+        function Admin(){}
+        Admin.prototype=Object.create(User.prototype);
+        let hd=new Admin();
+        console.log(hd instanceof Admin);
+        console.log(hd instanceof User);
+
+        console.log(hd.__proto__==Admin.prototype);
+        console.log(hd.__proto__.__proto__==User.prototype);
+
+        // 下面是地柜检测原型的代码，帮助你分析instanceof的原理
+        function checkPrototype(obj,constructor){ //A instaceof B===checkPrototype(A,B)
+            if (!obj.__proto__) return false;
+            if(obj.__proto__==constructor.prototype)return true;
+            return checkPrototype(obj.__proto__,constructor);
+        }
+        console.log(checkPrototype(hd,User)); //true
+
+        // class 内部实现就是基于原型，所以使用instanceof 判断和上面原型时一样的
+        class Bing{}
+        class Gql extends Bing{}
+        let sanduo=new Gql();
+        console.log(sanduo instanceof Gql);
+        console.log(sanduo instanceof Bing);
+    </script>
+    <h1>isPrototypeOf</h1>
+    <p>使用isPrototypeOf判断一个对象是否在令一个对象的原型链中，下面是原理分析</p>
+    <script>
+        const a={};
+        const b={
+            __proto__:a
+        };
+        const c={
+            __proto__:b
+        };
+        console.log(a.isPrototypeOf(b));
+        console.log(a.isPrototypeOf(c));
+
+    // 下面在class语法中使用
+    class Teacher{}
+    class Bai extends Teacher{}
+    let xiaobai=new Bai();
+    console.log(Bai.prototype.isPrototypeOf(xiaobai));
+    console.log(Teacher.prototype.isPrototypeOf(xiaobai));
+
+    </script>
+    <h1>继承内置类</h1>
+    <p>使用原型扩展内置类，内置类包括 数组，对象，字符串，等js内置的类</p>
+    <script>
+        function Arr(...args){
+            args.forEach(item=>this.push(item));
+            this.first=function(){
+                return this[0];
+            };
+            this.max=function(){
+                return this.sort((a,b)=>b-a)[0];
+            };
+        }
+        let q=[1,5,9];
+        Arr.prototype=Object.create(Array.prototype); //继承数组array，就可以使用数组的方法
+        let arr=new Arr(1,2,3,6,54,7,...q);
+        console.log(arr.first());
+        console.log(arr);
+        console.log(arr.max());
+
+        // 使用class扩展内置类
+        class NewArr extends Array{
+            constructor(...args){
+                super(...args);
+            }
+            first(){
+                return this[0];
+            }
+            add(value){
+                this.push(value);
+            }
+            remove(value){
+                let pos=this.findIndex(curValue=>{
+                    return curValue==value;
+                });
+                this.splice(pos,1);
+            }
+        }
+        let sushi=new NewArr(5,3,2,1,5,6,8);
+        console.log(sushi.length);  //自身没有定义，继承的array
+        console.log(sushi.first());
+
+        sushi.add("sudongpo");
+        console.log(sushi.join(","));
+
+        sushi.remove("5");
+        console.log(sushi.join(","));
+        
+
+    </script>
+    <h1>mixin</h1>
+    <p>关于mixin的使用在原型章节已经讨论过，在class使用也是相同的道理，JS不能实现多继承，如果要使用多个类的方法时，可以使用mixin混合模式来完成</p>
+    <li>mixin类时一个包含许多供其他类使用的方法的类</li>
+    <li>mixin类不用来继承作为其他类的父类</li>
+    <script>
+        const Tool={
+            max(key){
+                return this.data.sort((a,b)=>b[key]=a[key])[0];
+            }
+        };
+        class Lesson{
+            constructor(lessons){
+                this.lessons=lessons;
+            }
+            get data(){
+                return this.lessons;
+            }
+        }
+        Object.assign(Lesson.prototype,Tool);
+        const data=[
+        {name:"js",price:100},
+        {name:"mysql",price:212},
+        {name:"vue.js",price:98}
+        ];
+
+        let wang=new Lesson(data);
+        console.log(wang.max("price"));
+    </script>
+</body>
+</html>

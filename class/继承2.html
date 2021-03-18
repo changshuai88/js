@@ -42,5 +42,132 @@
     console.log(du.name);
 
 </script>
+<h1>父类方法</h1>
+<p>使用super可以执行父类方法</p>
+<script>
+    class Bing{
+        constructor(name){
+            this.name=name;
+        }
+        getName(){
+            return this.name;
+        }
+    }
+    class Gql extends Bing{
+        constructor(name){
+            super(name);
+        }
+    }
+    const liuyi=new Gql("伍六一");
+    console.log(liuyi.getName());
+
+    // 下面通过父类方法获取课程总价
+    class Controller{
+        sum(){
+            return this.data.reduce((t,c)=>t+c.price,0);
+        }
+    }
+    class Lesson extends Controller{
+        constructor(lessons){
+            super();
+            this.data=lessons;
+
+        }
+        info(){
+            return{
+                totalPrice:super.sum(),
+                data:this.data
+            };
+        }
+    }
+    let data=[
+        {name:"js",price:100},
+        {name:"mysql",price:212},
+        {name:"vue.js",price:98}
+    ];
+    const ke=new Lesson(data);
+    console.log(ke.info());
+</script>
+<h1>方法覆盖</h1>
+<p>子类存在父类同名方法时，使用子类方法</p>
+<script>
+    class Qin{
+        constructor(name){
+            this.name=name;
+        }
+        say(){
+            return this.name;
+        }
+    }
+    class Han extends Qin{
+        constructor(name){
+            super(name);
+        }
+        say(){
+            return "大汉:"+super.say();
+        }
+    }
+    const lb=new Han("汉高祖");
+    console.log(lb.say()); //优先使用自己的属性，自己属性没有才会去找继承
+
+    // 下面是覆盖父类方法，只回去课程名称
+    class Sui{
+        say(){
+            return this.name;
+        }
+        total(){
+            return this.data.reduce((t,c)=>t+c.price,0);
+        }
+        getByKey(key){
+            return this.data.filter(item=>item.name.includes(key));
+        }
+    }
+
+    class Tang extends Sui{
+        constructor(lessons){
+            super();
+            this.data=lessons;
+        }
+        getByKey(key){
+            return super.getByKey(key).map(item=>item.name); //对从父级继承的getBykey进行加工
+
+        }
+
+    }
+    let tgz=[
+        {name:"js",price:100},
+        {name:"mysql",price:212},
+        {name:"vue.js",price:98}
+    ];
+    const ly=new Tang(tgz);
+    console.log(ly.getByKey("js"));
+
+
+</script>
+<h1>静态继承</h1>
+<p>
+    静态的属性和方法也是可以被继承使用的，下面是原理分析
+</p>
+<script>
+    function Song(){}
+    Song.site="赵匡胤";
+    Song.url=function(){
+        return "宋太祖";
+    };
+    function Yuan(){}
+    Yuan.__proto__=Song;
+    console.dir(Yuan);
+    console.log(Yuan.url());
+
+    // 下面使用class来演示静态继承
+    class Ming{
+        static mtz="朱元璋";
+        static host(){
+            return "明太祖";
+        }
+    }
+    class Qing extends Ming{}
+    console.dir(Qing);
+</script>
 </body>
 </html>
