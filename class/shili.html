@@ -72,46 +72,54 @@
             this.el=el;
             this.timeout=5;
             this.isShow=true;
-            this.defaultHeight=this.heigth;
+            this.defaultHeight=this.height;
         }
         hide(callback){
             this.isShow=false;
+            // console.log(height);
             let id=setInterval(()=>{
-                if (this.heigth<=0) {
+                if (this.height<=0) {
                     clearInterval(id);
                     callback &&callback();
                     return;
                 }
-                this.heigth=this.heigth-1;
+                this.height=this.height-1;
             },this.timeout);
         }
         show(callback){
             this.isShow=false;
             let id=setInterval(()=>{
-                if (this.heigth>=this.defaultHeight) {
+                if (this.height>=this.defaultHeight) {
                     clearInterval(id);
                     callback &&callback();
                     return;
                 }
-                this.heigth=this.heigth+1;
+                this.height=this.height+1;
 
             },this.timeout);
         }
-        get heigth(){
-            return window.getComputedStyle(this,el).heigth.slice(0,-2)*1;
+        get height(){
+            // console.log(window.getComputedStyle(this.el).height);
+            return window.getComputedStyle(this.el).height.slice(0,-2)*1;
+            // window.getComputedStyle(this.el).heigth.slice(0,-2)*1;
         }
-        set heigth(height){
-            this.el.style.heigth=heigth+"px";
+        set height(height){
+            this.el.style.height=height+"px";
         }
     }
+
+    // let c=new Animation();
+    // console.log(c.heigth);
+
+
     class Slide {
         constructor(el){
         
             this.el=document.querySelector(el);
             this.links=this.el.querySelectorAll("dt");
-            this.panels=[...this.el.querySelectorAll("dd")].map(
-                item=>new Panel(item)
+            this.panels=[...this.el.querySelectorAll("dd")].map(item=>new Panel(item)
             );
+            // console.log(panels);
             this.bind();
         }
         bind(){
@@ -123,6 +131,7 @@
         }
         action(i){
             Panel.hideAll(Panel.filter(this.panels,i),()=>{
+                console.log(i);
                 this.panels[i].show();
             });
         }
@@ -132,6 +141,7 @@
     class Panel extends Animation{
         static num=0;
         static hideAll(items,callback){
+            // console.log(num);
             if (Panel.num>0)return ;
             items.forEach(item=>{
                 Panel.num++;
