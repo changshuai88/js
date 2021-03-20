@@ -76,7 +76,6 @@
         }
         hide(callback){
             this.isShow=false;
-            // console.log(height);
             let id=setInterval(()=>{
                 if (this.height<=0) {
                     clearInterval(id);
@@ -98,19 +97,13 @@
 
             },this.timeout);
         }
-        get height(){
-            // console.log(window.getComputedStyle(this.el).height);
+        get height(){           
             return window.getComputedStyle(this.el).height.slice(0,-2)*1;
-            // window.getComputedStyle(this.el).heigth.slice(0,-2)*1;
         }
         set height(height){
             this.el.style.height=height+"px";
         }
     }
-
-    // let c=new Animation();
-    // console.log(c.heigth);
-
 
     class Slide {
         constructor(el){
@@ -119,7 +112,6 @@
             this.links=this.el.querySelectorAll("dt");
             this.panels=[...this.el.querySelectorAll("dd")].map(item=>new Panel(item)
             );
-            // console.log(panels);
             this.bind();
         }
         bind(){
@@ -131,7 +123,6 @@
         }
         action(i){
             Panel.hideAll(Panel.filter(this.panels,i),()=>{
-                console.log(i);
                 this.panels[i].show();
             });
         }
@@ -141,7 +132,6 @@
     class Panel extends Animation{
         static num=0;
         static hideAll(items,callback){
-            // console.log(num);
             if (Panel.num>0)return ;
             items.forEach(item=>{
                 Panel.num++;
@@ -152,10 +142,8 @@
             callback && callback();
         }
         static filter(items,i){
-            return items.filter((item,index)=>index !=1);
+            return items.filter((item,index)=>index !=i);
         }
     }
-//    let s1=document.querySelector(".s1");
-//    console.log(s1);
     let c=new Slide(".s1");
 </script>
