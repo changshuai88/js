@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="module"></script>
+</head>
+<body>
+    <h1>使用分析</h1>
+    <p>项目变大时需要把不同的业务分割成多个文件，这就是模块的思想。模块时比对象与函数更大的单元，使用模块组织程序便于维护与拓展</p>
+    <p>生产环境中一般使用打包工具如webpack构建，他提供更多的功能。但学习完本章节后会再学习打包工具会变得简单</p>
+    <li>模块就是一个独立的文件，里面是函数或者类库</li>
+    <li>虽然JS没有命名空间的概念，使用模块可以解决全局变量冲突</li>
+    <li>模块需要隐藏内部实现，只对外开发接口</li>
+    <li>模块可以避免滥用全局变量，造成代码不可控</li>
+    <li>模块可以被不同的应用使用，提高编码效率</li>
+    <h1>实现原理</h1>
+    <p>
+        在过去JS不支持模块时，我们使用AMD/cmd、commonJS、UMD等形式定义模块。
+        AMD代表性的是require.js，cmd代表是淘宝的seaJS框架。
+        下面通过定义一个类似require.js的AMD模块代理引擎，来体验模块的工作原理
+    </p>
+<script>
+    let module=(function (){
+        //模块列表集合
+        const moduleLists={};
+        function define(name,modules,action){
+            modules.map((m,i)=>{
+                modules[i]=moduleLists[m];
+            });
+            //执行并保存模块
+            moduleLists[name]=action.apply(null,modules);
+        }
+        return{define};
+    })();//立即执行函数module 
+
+    //声明模块不依赖其他模块
+    module.define("hd",[],function(){
+        return{
+            show(){
+                console.log("hd module show");
+            }
+        };
+    });
+    //声明模块时依赖其他模块
+    module.define("xj",["hd"],function(hd){
+        hd.show();
+    });
+</script>
+<h1>基础知识</h1>
+<h4>标签使用</h4>
+<p>在浏览器中使用以下语法，引入脚本为模块使用，这样就可以在里面使用模块代码了
+    在HTML文件中导入模块，需要定义属性type="module"
+</p>
+<script type="module"></script>
+<h4>模块路径</h4>
+<p>在浏览器中引用模块必须添加路径如./，但在打包工具如webpack中则不需要，因为他们有自己的存放方式</p>
+<p>测试的hd.js的模块内容</p>
+<p>下面没有指定路径将会放生错误</p>
+<script type="module">
+    // import {hd} from "hd.js";  这样是错误的
+    import {hd} from './hd.js'; //这样是对的
+    console.log(hd.name);  //引入后就可以使用引入的数据了
+
+</script>
+
+
+</body>
+</html>
