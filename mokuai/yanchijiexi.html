@@ -7,6 +7,51 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>延迟解析</h1>
+    <p>模块总是会在所有HTML解析后才执行，下面的模块代码可以看到后加载的button按钮元素。</p>
+    <li>建议为用户提供加载动画提示，当模块运行时再去掉动画</li>
+    <script type="module">
+        console.log(document.querySelector("button"));
+    </script>
+    <script>
+        console.log(document.querySelector("button"));
+    </script>
+    <button>
+        李白乘舟将欲行
+    </button>
+    <h2>严格模式</h2>
+    <p>模块默认运行在严格模式，以下代码没有使用声明语句将报错</p>
+    <script type="module">
+     let   li="litaibai";
+        console.log(this);  //undefined
+    </script>
+
+    <h2>
+        作用域
+    </h2>
+    <p>模块都有独立的顶级作用域，下面的模块不能互相访问</p>
+    <script type="module">
+        // alert(li);
+
+    </script>
+    <p>单独文件作用域也是独立的，下面的模块1.2.js不能访问模块1.1.js中的数据</p>
+    <script type="mopdule" src="1.1.js"></script>
+    <script type="mopdule" src="1.2.js">
+
+    </script>
+    <h2>预解析</h2>
+    <p>模块在导入时只执行一次解析，之后的导入不会再执行模块代码，而使用第一次解析结果，并共享数据</p>
+    <li>可以在首次导入时完成一些初始化工作</li>
+    <li>如果模块有后台请求，也只执行一次即可</li>
+    <!-- <script type="module" src="hd.js">
+        //引入hd.js脚本只执行一次
+
+    </script>
+<script type="module" src="hd.js"></script>  -->
+<script type="module">
+    //下面在导入多次hd.js时只解析一次
+    import "./hd.js";
+    import "./hd.js";
+</script>
 </body>
 </html>

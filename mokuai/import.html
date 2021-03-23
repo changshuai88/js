@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导入导出</title>
+</head>
+<body>
+    <h1>导入导出</h1>
+    <p>es6使用基于文件的模块，即一个文件一个模块</p>
+    <li>使用export将开发的接口导出</li>
+    <li>使用import导入模块接口</li>
+    <li>使用*可以导入全部模块接口</li>
+    <li>导出是以引用方式导出，无论是标量还是对象，即模块内部变量发生变化将影响已经导入的变量</li>
+    <h2>导出模块</h2>
+    <p>下面定义模块li.js，使用export导出模块接口，没有导出的变量都是模块私有的</p>
+    <h2>具名导入</h2>
+    <p>下面导入上面定义的li.js模块，分别导入模块导出的内容</p>
+    <script type="module">
+        import{User,site,func} from "./li.js";
+        console.log(site);
+        console.log(User);
+        import{du,dufunc,Dufu} from "./li.js";
+        console.log(du);
+        console.log(dufunc);
+    </script>
+    <p>像下面这样在{}中导入是错误的，模块默认是在顶层静态导入，这是为了分析使用的模块方便打包</p>
+    <script type="module">
+        if (true) {
+            // import{site,func} from "./li.js";/ 报错
+        }
+    </script>
+
+<h2>批量导入</h2>
+<p>
+    如果要导入的内容比较多，可以使用*来批量导入
+</p>
+<script type="module">
+    import * as api from "./li.js";
+    console.log(api.du);
+</script>
+<h2>导入建议</h2>
+<p>因为一下几点，我们更建议使用明确导入方式</p>
+<li>使用webpack构建工具时，没有导入的功能会删除节省文件大小</li>
+<li>可以更清晰知道都使用了其他模块的那些功能</li>
+
+<h2>别名使用</h2>
+<h4>导入别名</h4>
+<p>可以为导入的模块重新命名，下面是为了测试定义的du.js模块内容</p>
+<li>有些导出的模块命名过长，起别名可以简洁</li>
+<li>本模块与导入模块重名时，可以通过起别名防止错误</li>
+<!-- export {du,func,Dufu}; -->
+<script type="module">
+    //模块导入使用as对接口重命名，本模块中已经存在func变量，需要对导入的模块重命名防止重名错误
+    import{Dufu as user, func as action,du as name} from "./du.js";
+    let func="离离原上草";
+    console.log(name);
+    console.log(user);
+    console.log(action);
+
+</script>
+
+
+</body>
+</html>

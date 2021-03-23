@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导出</title>
+</head>
+<body>
+    <h1>导出别名</h1>
+    <p>模块可以对导出给外部的功能起别名，下面是wang.js模块对导出给外部的模块功能起了别名</p>
+    <script type="module">
+        import{w,wang} from "./wang.js";
+        wang();
+    </script>
+</body>
+</html>
