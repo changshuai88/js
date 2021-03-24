@@ -13,5 +13,37 @@
         import{w,wang} from "./wang.js";
         wang();
     </script>
+
+
+<h1>默认导出</h1>
+<p>很多时候模块只是一个类，也就是说只需要导入一个内容，这可以使用默认导入。使用default定义默认导出的接口，导入时不需要使用{}</p>
+<li>可以为默认导出自定义别名</li>
+<li>只能有一个默认导出</li>
+<li>默认导出可以没有命名</li>
+<script type="module">
+    //单一导出--下面是su.js模块内容，默认只导出一个类，并且没有对类命名，这是可以的
+    import Su from "./su1.js";
+    Su.show();
+    import Sushi from "./su.js";  //这里可以是Sushi,也可以是任意变量名
+    Sushi.show();
+    
+</script>
+
+<h1>混合导出</h1>
+<p>模块可以存在默认导出与命名导出，使用export default导出默认接口，使用export{}导出普通接口</p>
+<script type="module">
+    //导入默认接口时不需要使用{}，普通接口还用{}导入
+    import ren from "./ren.js";
+    import {site ,func }from "./ren.js";
+    console.log(site);
+    ren.show();
+    // import ren,{site,func} from "./ren.js";  此语句等于上面两个导入语句
+
+    import * as api from "./ren.js";
+    api.default.show(); //批量导入，使用default获得默认导出
+</script>
+<h2>使用建议</h2>
+<li>不建议使用默认导出，会让开发者导入时随意命名</li>
+<li>如果使用默认导入最好以模块的文件名有关联，会使代码更容易阅读-- import ren from "./ren.js";</li>
 </body>
 </html>
