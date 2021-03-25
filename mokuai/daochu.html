@@ -1,14 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>导出合并</title>
+    <style>
+        td{
+            outline: solid #000 1px;
+            width: 300px;
+        }
+    </style>
 </head>
+
 <body>
     <h1>导出合并</h1>
     <h2>解决问题</h2>
     <p>可以将导入的模块重新导出使用，比如项目模块比较多如下所示，这时可以将所有模块合并到一个入口文件中。<strong>这样只需要使用一个模块入口文件，而不用关注多个模块文件</strong></p>
+
+    <script type="module">
+        import * as api from "./index.js";
+        console.log(api.du.Dufu);
+        api.sushi.show();
+        // api.du.Dufu.show();  这不成立，不知道什么原因
+        console.log(api.du.func());
+    </script>
+
+    <h1>动态加载</h1>
+    <p>使用import必须在顶层静态导入模块，而使用import()函数可以动态导入模块，它返回一个promise对象</p>
+    <h2>静态导入</h2>
+    <p>使用import顶层静态导入，像下面这样在{}中导入是错误的，这是为了分析使用的模块方便打包，所以系统禁止这种行为</p>
+    <script type="module">
+        // if (true) {  这是错的
+        //     import {du,func} from "./du.js";
+        // }
+        //动态使用--测试用的ren.js
+        //使用import()函数可以动态导入，实现按需加载 import函数返回一个promise对象
+        if (true) {
+            let zhi= import("./ren.js").then(module=>{
+                console.log(module.site);
+            });
+        }
+    </script>
+
+    <button>点我啊</button>
+    <span>下面是点击时间发生后按需要加载的模块</span>
+    <script>
+        document.querySelector("button").addEventListener("click",()=>{
+            let li=import("./ren.js").then(chu=>{
+                console.log(chu.site);
+            });
+        });
+    </script>
+    <table>
+        <thead>
+            <td>表达式</td>
+            <td>说明</td>
+        </thead>
+        <tr><td>export function show(){}</td>
+        <td>导出函数</td></tr>
+        <tr><td>export const name="李白"</td>
+        <td>导出变量</td></tr>
+        <tr><td>export class User{}</td>
+        <td>导出类</td></tr>
+        <tr><td>export default show</td>
+        <td>默认导出</td></tr>
+        <tr><td>const name="libai" <br> export{name}</td>
+        <td>导出已经存在的变量</td></tr>
+        <tr><td>export {name as li_name}</td>
+        <td>别名导出</td></tr>
+        <tr><td>import defaultVal from "ren.js"</td>
+        <td>导入默认导出</td></tr>
+        <tr><td>import {name,show}from "a.js"</td>
+        <td>导入命名导出</td></tr>
+        <tr><td>import {name as liName,show} from "a.js"</td>
+        <td>别名导入</td></tr>
+        <tr><td>import * as api from "a.js"</td>
+        <td>导入全部接口</td></tr>
+
+
+    </table>
 </body>
+
 </html>
