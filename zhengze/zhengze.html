@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>基础知识</h1>
+    <p>正则表达式是用于匹配字符串中字符组合的模式，在JavaScript中，正则表达式也是对象</p>
+    <li>正则表达式时在宿主环境下运行的，如js/php/node.js等</li>
+    <li>本章讲解的知识在其他语言环境中也是可用的，会有些函数使用上的区别</li>
+    <h2>对比分析</h2>
+    <p>与普通函数操作字符串来比较，正则表达式可以写出更简洁，功能强大的代码。</p>
+    <script>
+        // 下面使用获取字符串中的所有数字来比较函数与正则的差异
+        let li="libai1986dufu1985";
+        let nums=[...li].filter(a=>!Number.isNaN(parseInt(a)));
+        console.log(nums.join(""));
+        // 使用正则表达式将简单得多
+        console.log(li.match(/\d/g).join(""));
+
+
+    </script>
+    <h2>创建正则</h2>
+    <p>js提供字面量与对象两种方式创建正则表达式</p>
+    <script>
+        // 字面量创建--使用//包裹的字面量创建方式是推荐的做法，但他不能在其中使用变量
+        let du="baidu.com";
+        console.log(/u/.test(du));
+        // 下面尝试使用z变量时将不可以查询
+        let z="u";
+        console.log(/z/.test(du)); //false 
+        // 虽然可以使用eval转换为js语法来实现将变量解析到正则中，但是比较麻烦，所以有变量时建议使用下面的对象创建方式
+        console.log(eval(`/${z}/`).test(du));
+
+
+    </script>
+    <h2>对象创建</h2>
+    <p>当正则需要动态创建时使用对象方式</p>
+    <script>
+        let su="sushisuzizhan";
+        let su1="sushi";
+        let reg=new RegExp(su1);
+        console.log(reg.test(su));
+
+    </script>
+    <h2>根据用户输入高亮显示内容，支持用户输入正则表达式</h2>
+    <div id="content">houdunren.com</div>
+    <script>
+        const content=prompt("请输入要搜索的内容，支持正则表达式");
+        const zz=new RegExp(content,"g");
+        let body=document.querySelector("#content").innerHTML.replace(zz,str=>{
+            return `<span style="color:red">${str}</span>`;
+        });
+       document.body.innerHTML=body;
+    </script>
+
+
+</body>
+</html>

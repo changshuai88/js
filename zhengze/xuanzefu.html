@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择符</title>
+</head>
+<body>
+    <h1>选择符</h1>
+    <p>|这个符号代表选择修饰符，也就是|左右两侧有一个匹配到就可以。</p>
+    <script>
+        // 检测电话是否是上海或北京的座机
+        let tel="010-12345678";
+        // 错误结果：只匹配|左右两边任一结果
+        console.log(tel.match(/010|020\-\d{7,8}/));
+        // 正确结果：需要放在原子组中使用
+        console.log(tel.match(/(010|020)\-\d{7,8}/));
+
+        // 匹配字符是否包含houdunren或hdcms
+        const hd="houdunren";
+        console.log(/houdunren|hdcms/.test(hd));
+
+    </script>
+</body>
+</html>
