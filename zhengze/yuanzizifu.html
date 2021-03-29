@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        td{
+            outline: solid yellow 1px;
+        }
+    </style>
+    <title>元子字符</title>
+</head>
+<body>
+    <h1>元子字符</h1>
+    <p>元字符是正则表达式中的最小元素,只代表单一(一个)字符</p>
+    <h2>字符列表</h2>
+    <table>
+        <thead>
+            <td>元字符</td>
+            <td>说明</td>
+            <td>示例</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>\d</td>
+                <td>匹配任意一个数字</td>
+                <td>[0-9]</td>
+            </tr>
+            <tr>
+                <td>\D</td>
+                <td>与除了数字以外的任何一个字符匹配</td>
+                <td>[^0-9]</td>
+            </tr>
+            <tr>
+                <td>\w</td>
+                <td>与任意一个英文字母,数字或下划线匹配</td>
+                <td>[a-zA-Z]</td>
+            </tr>
+            <tr>
+                <td>\W</td>
+                <td>除了字符,数字或下划线外与任何字符匹配</td>
+                <td>[^a-zA-Z]</td>
+            </tr>
+            <tr>
+                <td>\s</td>
+                <td>任意一个空白字符匹配,如空格,制表符\t,换行符\n</td>
+                <td>[\n\f\r\t\v]</td>
+            </tr>
+            <tr>
+                <td>\S</td>
+                <td>除了空白符外任意一个字符匹配</td>
+                <td>[^\n\f\r\t\v]</td>
+            </tr>
+            <tr>
+                <td>.</td>
+                <td>匹配除换行符外的任意字符</td>
+                <td>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>使用体验</h2>
+    <script>
+        // 匹配任意数字
+        let li="maozedong 1949";
+        console.log(li.match(/\d/g));
+
+        // 匹配所有电话号码
+        let du=`张三:010-99999999,李四:020-88888888`;
+        let res=du.match(/\d{3}-\d{7,8}/g);
+        console.log(res);
+        // 获取所有用户名
+        let res1=du.match(/[^:\d-,]+/g);
+        console.log(res1);
+
+        // 匹配任意非数字
+        console.log(/\D/.test(2029)); 
+        // 匹配字母数字下划线
+        let bai="hdcms@";
+        console.log(bai.match(/\w/g));
+        // 匹配与任意一个空白字符匹配
+        console.log(/\s/.test(" "));
+        console.log(/\s/.test("\n"));
+
+        // 匹配除了空白外任意一个字符匹配
+        console.log(bai.match(/\S/g));
+
+        // 如果要匹配点则需要转义
+        let yan="houdunren@com";
+        console.log(/houdunren.com/i.test(yan));
+        console.log(/houdunren\.com/i.test(yan));
+
+        // 使用.匹配除换行符外任意字符,下面匹配不到hdcms.com因为有换行符
+        const url=`
+            https://www.houdunren.com
+            hdcms.com
+        `;
+        console.log(url.match(/.+/)[0]);
+
+        // 使用/s视为单行模式(忽略换行)时,.可以匹配所有
+        let tian=`
+        <span>
+            houdunren
+            hdcms
+            </span>
+            `;
+        let di=tian.match(/<span>.*<\/span>/s);
+        console.log(di[0]);
+
+        // 正则中空格会按普通字符对待
+        let xuan=`010 - 999999`;
+        console.log(/\d+-\d+/.test(xuan));
+        console.log(/\d+ - \d+/.test(xuan));
+    // 所有字符--可以使用[\s\S]或[\d\D]来匹配所有字符
+    let huang=tian;
+    let yu=huang.match(/<span>[\s\S]+<\/span>/);
+    console.log(yu[0]);
+    </script>
+</body>
+</html>

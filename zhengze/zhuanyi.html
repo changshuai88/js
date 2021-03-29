@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符转义</title>
+
+</head>
+<body>
+    <h1>字符转义</h1>
+    <p>转义用于改变字符的含义，用来对某个字符有多种语义时的处理</p>
+    <p>假如有这样的场景，如果我们想通过正则查找/符号，但是/在正则中有特殊的意义，如果写成///这会造成解析错误，所以要使用转义语法/\//来匹配</p>
+    <script>
+        const url="https://www.baidu.com";
+        console.log(/https:\/\//.test(url));
+
+    // 使用RegExp构建正则时在转义上会有些区别，下面是对象与字面量定义正则时区别
+    let price =21.23;
+    // 含义1：.除换行外任何字符  含义2：.普通点
+    // 含义1：d字母d9
+    console.log(/\d+\.\d+/.test(price));
+    // 字符串中\d与d是一样的，所以在new RegExp时\d即为d
+    console.log("\d"=="d"); 
+    // 使用对象定义正则时，可以先把字符串打印一样，结果是字面量一样的定义就对了
+    console.log("\\d+\\.\\d+");
+    let reg=new RegExp("\\d+\\.\\d+");
+    console.log(reg.test(price));
+
+    // 下面是网址检测中转义符使用
+    let baidu="https://www.baidu.com";
+    console.log(/https?:\/\/\w+\.\w+/.test(baidu));
+    </script>
+</body>
+</html>

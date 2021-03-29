@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        td{
+            border: blue solid 1px;
+            text-align: center;
+        }
+    </style>
+    <title>字符边界</title>
+</head>
+<body>
+    <h1>字符边界</h1>
+    <p>使用字符边界符用于控制匹配内容的开始与结束预定</p>
+    <table>
+        <thead>
+            <td>边界符</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>^</td>
+                <td>匹配字符串的开始</td>
+            </tr>
+            <tr>
+                <td>$</td>
+                <td>匹配字符串的结束，忽略换行符 </td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        // 匹配内容必须以www开始
+        const sina="www.sina.com";
+        console.log(/^www/.test(sina));
+        // 匹配内容必须以.com结束
+        const baidu="www.baidu.com";
+        console.log(/\.com$/.test(baidu));
+    </script>
+    <p>
+        检测用户名长度为3~6位,且只能为字母,如果不使用^与$限制将得不到正确结果
+    </p>
+    <input type="text" name="username">
+    <script>
+        document.querySelector(`[name="username"]`).addEventListener("keyup",function(){
+            let res=this.value.match(/^[a-z]{3,6}$/i);
+            console.log(res);
+            console.log(res?"正确":"失败");
+        });
+    </script>
+</body>
+</html>

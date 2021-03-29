@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模式修饰</title>
+    <style>
+        td{
+            border: blue solid 1px;
+            text-align: center;
+        }
+        thead{
+            background: chartreuse;
+        }
+        tr :first-child{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>模式修饰</h1>
+    <p>正则表达式在执行时会按照他们的默认执行方式进行，但有时候默认的处理方式总不能满足我们的需求，所以可以使用模式修正符更改默认方式</p>
+    <table>
+        <thead>
+            <td>
+                修饰符
+            </td>
+            <td>
+                说明
+            </td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>i</td>
+                <td>不区分大小写字母的匹配</td>
+            </tr>
+            <tr>
+                <td>g</td>
+                <td>全局搜索所有匹配内容</td>
+            </tr>
+            <tr>
+                <td>m</td>
+                <td>视为多行</td>
+            </tr>
+            <tr>
+                <td>s</td>
+                <td>视为单行，忽略换行符，使用.可以匹配所有字符</td>
+            </tr>
+            <tr>
+                <td>y</td>
+                <td>从regexp.lastIndex开始匹配</td>
+            </tr>
+            <tr>
+                <td>u</td>
+                <td>正确处理四个字符的UTF-16编码</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        // i--将所有qinshihuang统一为小写
+        let qin="qinshihuang QINSHIHUANG";
+        qin=qin.replace(/qinshihuang/gi,"qinshihuang");
+        console.log(qin);
+
+        // g--使用g修饰符可以全局操作内容
+        let han="hanwudiliuche";
+        han=han.replace(/u/,"@");
+        console.log(han); //没有使用g修饰符，只替换了一个u
+
+        wu=han.replace(/u/g,"@");
+        console.log(wu);//使用全局修饰符后替换了全部u
+
+        // m--用于将内容视为多行匹配，主要是对^和$的修饰
+        // 将下面是将以#数字开始的课程解析为对象结构，学习过后面讲到的原子组可以让代码简单些
+        let tang=`
+            #1 js,200元  #
+            #2 php,300元  #
+            #9 qinshihuang # 秦始皇
+            #3 node.js,180元 #
+        `;
+        //[{name:"js",price:"200元"}]
+        let lessons=tang.match(/^\s*#\d+\s+.+\s+#$/gm).map(v=>{ //*代表\s的一个或多个
+            v=v.replace(/\s*#\d+\s*/,"").replace(/\s+#/,"");
+            [name,price]=v.split(",");
+            return {name,price};
+        });
+        console.log(JSON.stringify(lessons,null,2));
+
+
+    </script>
+</body>
+</html>
