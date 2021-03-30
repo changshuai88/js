@@ -86,8 +86,66 @@
             return {name,price};
         });
         console.log(JSON.stringify(lessons,null,2));
+    
+    // u--每个字符都有属性，如L属性表示是字母，P表示标点符号，需要结合u模式才有效，其他属性简写可以访问属性的别名网站查看
+    let tian="qinhuanghanwu.秦皇汉武，加油！";
+    console.log(tian.match(/\p{L}+/u));
+    // 使用\p{P}属性匹配标点
+    console.log(tian.match(/\p{P}+/gu));
+    // 字符也有unicode文字系统属性script=文字系统，下面是使用\p{sc=Han}获取中文字符han为中文系统，其他语言请查看文字语言表
+    let di=`张三:010-99999999,李四:020-88888888`;
+    let res=di.match(/\p{sc=Han}+/gu);
+    console.log(res);
 
+    // 使用u模式可以正确处理四个字符的UTF-16字节编码
+    let xuan="𝒳𝒴";
+    //一下结果为乱字符
+    console.log(xuan.match(/[𝒳𝒴]/));
+    //结果为正确𝒳
+    console.log(xuan.match(/[𝒳𝒴]/u));
+    
 
+    
+
+    </script>
+    <P>lastIndex --RegExp对象lastIndex属性可以返回或者设置正则表达式开始匹配的位置
+    </p>
+    <li>必须结合g修饰符使用</li>
+    <li>对exec方法有效</li>
+    <li>匹配完成时，lastIndex会被重置为0</li>
+    <script>
+        let huang=`李白是我国古代著名诗人，李白，字太白，宇宙洪荒，李白网址是baidu.com`;
+        let ri=/李白(.{2})/g;
+        ri.lastIndex=10;//从索引10开始搜索
+        console.log(ri.exec(huang));
+        console.log(ri.lastIndex);
+    </script>
+    <h1>y</h1>
+    <script>
+        // 我们来对比使用y与g模式，使用g模式会一直匹配字符串
+        let yue="ibailitaibai";
+        let xing=/i/g;
+        console.log(xing.exec(yue));
+        console.log(xing.lastIndex);
+        console.log(xing.exec(yue));
+        console.log(xing.lastIndex);
+        console.log(xing.exec(yue));
+        console.log(xing.lastIndex);
+        console.log(xing.exec(yue));
+        console.log(xing.lastIndex);
+        console.log(xing.exec(yue));
+        console.log(xing.lastIndex);//13
+        //但使用y模式后如果从lastIndex开始匹配不成功就不继续匹配了
+        let chen=/i/y;
+        console.log(chen.exec(yue));
+console.log(chen.lastIndex);
+console.log(chen.exec(yue));
+console.log(chen.lastIndex);
+//因为使用y模式可以在匹配不到时停止匹配，在匹配下面字符中的qq时可以提高匹配效率
+let qq=`李白的QQ号是：11111111,22222222,88888888，杜甫没有QQ号`; //里面的符号要和正则里的符号一样，后者说正则里的符号设置的要和qq之间的一样
+let hao=/(\d+),?/y;
+hao.lastIndex=8;
+while ((hao1=hao.exec(qq))) console.log(hao1[1]);
     </script>
 </body>
 </html>
