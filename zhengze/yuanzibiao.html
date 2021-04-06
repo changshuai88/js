@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原子表</title>
+    <style>
+        td{
+            border: blue solid 1px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        原子表
+    </h1>
+    <p>在一组字符中匹配某个元字符，在正则表达式中通过元字符表来完成，就是放到[]方括号中。</p>
+    <h2>使用语法</h2>
+    <table>
+        <thead>
+            <td>原子表</td>
+            <td>说明</td>
+    </thead>
+    <tbody>
+        <tr>
+        <td>[]</td>
+        <td>只匹配其中的一个原子</td>
+        </tr>
+        <tr>
+            <td>[^]</td>
+            <td>只匹配除了其中字符的任意一个原子</td>
+        </tr>
+        <tr>
+            <td>[0-9]</td>
+            <td>匹配0-9任何一个数字</td>
+        </tr>
+        <tr>
+            <td>[a-z]</td>
+            <td>匹配小写a-z任何一个字母</td>
+        </tr>
+        <tr>
+            <td>[A-Z]</td>
+            <td>匹配大写A-Z任何一个字母</td>
+        </tr>
+        
+    </tbody>
+    </table>
+    <script>
+        // 实例操作--使用[]匹配其中任意字符即成功，下例中匹配ue任何一个字符，而不会当成一个整体来对待
+        const url="houdunren.com";
+        console.log(/ue/.test(url));
+        console.log(/[ue]/.test(url));
+        // 日期匹配
+        
+        let date="2021-04-06";
+        console.log(date.match(/\d{4}([-\/])\d{2}\1\d{2}/));
+
+        // 获取0~3之间的任意数字
+        const num="2";
+        console.log(/[0-3]/.test(num));
+
+        // 匹配a~f间的任意字符
+        const hd="e";
+        console.log(/[a-f]/.test(hd));
+
+        // 顺序为升序否则将报错
+        const num1="2";
+        // console.log(/[3-0]/.test(num1));
+
+        // 字母也要升序否则也报错
+        const hd1="houdunren.com";
+        // console.log(/[f-a]/.test(hd1));
+
+        // 获取所有用户名
+        let tian=`张三:010-99999999,李四:020-88888888`;
+        let res=tian.match(/[^:\d-,]+/g);
+        console.log(res);
+
+        // 原子表中有些正则字符不需要转义，如果转义也是没问题的，可以理解为在原子表中.就是小数点
+        let str="(houdunren.com)+";
+        console.table(str.match(/[()+]/g));
+        // 使用转义也没有问题
+        console.table(str.match(/[\(\)\.\+]/g));
+
+        // 可以使用[\s\S]或[\d\D]匹配到所有字符包括换行符
+        const di=/[\s\S]+/g;
+        console.log(str.match(di));
+
+    </script>
+</body>
+</html>

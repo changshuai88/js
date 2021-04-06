@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        td{
+            border: chartreuse solid 1px;
+            text-align: center;
+        }
+    </style>
+    <title>原子组</title>
+</head>
+<body>
+    <h1>原子组</h1>
+    <li>如果一次要匹配多个元子，可以通过元子组完成</li>
+    <li>元子组与原子表的差别在于元子组一次匹配多个元子，而原子表则是匹配任意一个字符</li>
+    <li>元字符组用()包裹</li>
+    <script>
+        // 下面使用元子组匹配h1标签，如果想匹配h2只需要把前面元子组改成h2即可
+        const hd=`<h1>houdunren.com</h1>`;
+        console.log(/<(h1)>.+<\/\1>/.test(hd));  //true
+    </script>
+    <h2>基本使用</h2>
+    <p>没有添加g模式修饰符时，只匹配到第一个，匹配到的信息包含以下数据</p>
+    <table>
+        <thead><td>变量</td>
+        <td>说明</td></thead>
+        <tbody>
+            <tr>
+                <td>0</td>
+                <td>匹配到的完整内容</td>
+            </tr>
+            <tr>
+                <td>1,2...</td>
+                <td>匹配到的元子组</td>
+            </tr>
+            <tr>
+                <td>index</td>
+                <td>原字符串中的位置</td>
+            </tr>
+            <tr>
+                <td>input</td>
+                <td>原字符串</td>
+                
+            </tr>
+            <tr>
+                <td>groups</td>
+                <td>命名分组</td>
+            </tr>
+        </tbody>
+    </table>
+<p>在match中使用元子组匹配，会将每个组数据返回到结果中</p>
+<li>0为匹配到的完成内容</li>
+<li>1/2为元子级内容</li>
+<li>index匹配的开始位置</li>
+<li>input原始数据</li>
+<li>groups组别名</li>
+<script>
+    let tian="houdunren.com";
+    console.log(tian.match(/houdun(ren)\.(com)/));
+
+    // 下面使用元子组匹配标题元素
+    let di=`
+        <h1>houdunren</h1>
+        <span>后盾人</span>
+        <h2>hdcms</h2>
+    `;
+    console.log(di.match(/<(h[1-6])>[\s\S]*<\/\1>/g));
+
+    // 检测0~100的数值，使用parseInt将数值转为10进制
+    console.log(/^(\d{1,2}|100)$/.test(parseInt(09,10)));
+    // console.log(parseInt(09,10).match(/^(\d{1,2}|100)$/));
+
+    // 邮箱匹配--下面使用元子组匹配邮箱
+    let qq="2233282817@qq.com";
+    let xuan=/^[\w\-]+@[\w\-]+\.(com|org|cn|net)$/i;
+    console.log(qq.match(xuan));
+
+    // 如果邮箱是以下格式shuai@sina.com.cn上面的规则将无效，需要定义一下方式
+    let qq1=`shuai@sina.com.cn`;
+    let huang=/^[\w-]+@([\w-]+\.)+(org|com|cc|cn)$/i;
+    console.log(qq1.match(huang));
+
+    // 引用分组--\n在匹配时引用元子组，$n指在替换时使用匹配的组数据，下面将标签替换为p标签
+    let yu=`
+        <h1>houdunren</h1>
+        <span>后盾人</span>
+        <h2>hdcms</h2>
+    `;
+    let zhou=/<(h[1-6])>([\s\S]*)<\/\1>/gi;
+    console.log(yu.replace(zhou,`<p>$2</p>`));
+
+    // 如果只希望组参与匹配，并不希望返回到结果中使用(?：处理，下面是获取所有域名的示例
+    let hong=`
+        https://www.houdunren.com
+        http://houdunwang.com
+        https://hscms.com
+    `;
+    let huan=/https?:\/\/((?:\w+\.)?\w+\.(?:com|org|cn))/gi;
+    while((v=huan.exec(hong))){
+        console.log(v);
+    }
+
+    // 分组别名--如果希望返回的数据更清晰，可以为元子组编号，结果将保存在返回的groups字段里
+    let qin="<h1>houdunren.com</h1>";
+    console.log(qin.match(/<(?<tag>h[1-6])>[\s\S]*<\/\1>/));
+
+    // 组别名使用?<>形式定义，下面将标签替换为p标签
+    let han=`
+        <h1>houdunren</h1>
+        <span>后盾人</span>
+        <h2>hdcms</h2>
+    `;
+    let tang=/<(?<tag>h[1-6])>(?<con>[\s\S]*)<\/\1>/gi;
+    console.log(han.replace(tang,`<p>$<con></p>`));
+</script>
+</body>
+</html>
