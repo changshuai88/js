@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        td{
+            outline: blue solid 1px;
+
+        }
+    </style>
+    <title>重复匹配</title>
+</head>
+<body>
+    <h1>基本使用</h1>
+    <p>如果要重复匹配一些内容时，我们要使用重复匹配修饰符，包括以下几种</p>
+    <table>
+        <thead>
+            <td>符号</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>*</td>
+                <td>重复零次或更多次</td>
+            </tr>
+            <tr>
+                <td>+</td>
+                <td>重复一次或更多次</td>
+            </tr>
+            <tr>
+                <td>?</td>
+                <td>重复零次或一次</td>
+            </tr>
+            <tr>
+                <td>{n}</td>
+                <td>重复n次</td>
+            </tr>
+            <tr>
+                <td>{n,}</td>
+                <td>重复n次或更多次</td>
+            </tr>
+            <tr>
+                <td>{n,m}</td>
+                <td>重复n到m次</td>
+            </tr>
+        </tbody>
+    </table>
+    <strong>因为正则最小单位是元字符，而我们很少只匹配一个元字符如a b ，所以基本上重复匹配在每条正则语句中都是必须用到的内容</strong>
+    <script>
+        // 默认情况下重复选项对每个单字符进行重复匹配，即不是贪婪匹配
+        let hd="hdddddd";
+        console.log(hd.match(/hd+/i));
+
+        // 使用元子组后则对整个组重复匹配
+        console.log(hd.match(/(hd)+/i));
+    </script>
+    <br>
+    <input type="text" name="username">
+    <script>
+        let input=document.querySelector(`[name="username"]`);
+        input.addEventListener("keyup",e=>{
+            const value=e.target.value;
+            let state=/^[a-z][\w]{2,7}$/i.test(value);
+            console.log(
+                state?"正确！" :"用户名只能是3~8位的字母或数字，并以字母开始"
+            );
+        });
+    </script>
+    <br>
+    <input type="text" name="password">
+    <script>
+        let mm=document.querySelector(`[name="password"]`);
+        mm.addEventListener("keyup",e=>{
+            const value=e.target.value.trim();
+            const regs=[/^[a-zA-Z0-9]{5,10}$/,/[A-Z]/];
+            let state=regs.every(v=>v.test(value));
+            console.log(state ? "正确！" : "密码必须包含大写字母并在5-10位之间");
+        });
+    </script>
+</body>
+</html>

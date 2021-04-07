@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        td{
+            outline: springgreen solid 1px;
+            text-align: center;
+        }
+    </style>
+    <title>禁止贪婪</title>
+</head>
+<body>
+    <h1>禁止贪婪</h1>
+    <p>正则表达式在进行重复匹配是哦，默认是贪婪匹配模式，也就是说，会尽量匹配更多的内容，但是有的时候我们并不希望他匹配更多的内容，这时可以通过?进行修饰来禁止重复匹配</p>
+    <table>
+        <thead>
+            <td>使用</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>*?</td>
+                <td>重复任意次，但尽可能少重复</td>
+            </tr>
+            <tr>
+                <td>+?</td>
+                <td>重复一次或更多次，但尽可能少重复</td>
+            </tr>
+            <tr>
+                <td>??</td>
+                <td>重复0次或1次，但尽可能少重复</td>
+            </tr>
+            <tr>
+                <td>{n,m}?</td>
+                <td>重复n到m次，但尽可能少重复</td>
+            </tr>
+            <tr>
+                <td>{n,}</td>
+                <td>重复n次以上，但尽可能少重复</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        // 下面是禁止贪婪的语法句子
+        let str="aaaaa";
+        console.log(str.match(/a+/));
+        console.log(str.match(/a+?/));
+        console.log(str.match(/a{2,3}?/));
+        console.log(str.match(/a{2,}?/));
+
+    </script>
+
+    <br>
+    <main>
+        <span>houdunwang</span>
+        <span>hdcms.com</span>
+        <span>houdunren.com</span>
+    </main>
+    <script>
+        const main=document.querySelector("main");
+        const reg=/<span>([\s\S]+?)<\/span>/gi;
+            main.innerHTML=main.innerHTML.replace(reg,(...aa)=>{
+                // console.log(pl);
+                // console.log(v);
+                console.log(aa);
+                return`<h4 style="color:red">后盾人-${aa[1]}</h4>`;
+            });
+    </script>
+    <h2>查找标题</h2>
+    <script>
+        let body=document.body.innerHTML;
+        let tian=/<(h[1-6])>[\s\S]*?<\/\1>/gi;
+        console.log(body.match(tian));
+    </script>
+</body>
+</html>

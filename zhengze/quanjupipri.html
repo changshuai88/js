@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全局匹配</title>
+</head>
+<body>
+    <h1>全局匹配 </h1>
+    <h3>问题分析</h3>
+    <p>下面是使用match全局获取页面中标签内容，但并不会返回匹配细节</p>
+    
+</body>
+<script>
+    function elem(tag){
+        console.log(tag);
+        console.log("<(" + tag + ")>.+?<\.\\1>");
+        const reg=new RegExp("<(" + tag + ")>.+?<\.\\1>", "g"); //一旦p标签换行就不能匹配了
+        return document.body.innerHTML.match(reg);
+
+    }
+    console.table(elem("p"));
+</script>
+</html>
