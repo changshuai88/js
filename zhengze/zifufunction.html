@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符方法</title>
+</head>
+<body>
+    <h1>字符方法</h1>
+    <p>下面介绍的方法是string提供的支持正则表达式的方法</p>
+    <h2>search</h2>
+    <p>search()方法用于检索字符串中指定的子字符串，也可以使用正则表达式搜索，返回值为索引位置</p>
+    <script>
+        let str="houdunren.com"
+        console.log(str.search("com")); //10 返回的是位置
+
+        // 使用正则表达式搜索
+        console.log(str.search(/\.com/i)); //.com 返回9
+
+    </script>
+    <h2>match</h2>
+    <script>
+        // 直接使用字符串搜索
+        console.log(str.match("com"));
+
+        // 使用正则获取内容，下面是简单的搜索字符串
+        let li="tangtaizonglishimin";
+        let bai=li.match(/a/);
+        console.log(bai);
+        console.log(bai[0]); //匹配的结果
+        console.log(bai["index"]); //出现的位置
+
+        // 如果使用g修饰符时，就不会有结果的详细信息了(可以使用exec)，下面是获取所有h1-6的标题元素
+
+        let body=document.body.innerHTML;
+        let result=body.match(/<(h[1-6])>[\s\S]+?<\/\1>/g);
+        console.log(result);
+    </script>
+    <h2>matchAll</h2>
+    <script>
+        // 在新浏览器中支持使用matchAll操作，并返回迭代对象
+        let su="houdunren";
+        let yan=/[a-z]/gi;
+        for (const iterator of su.matchAll(yan)) {
+            console.log(iterator);
+        }
+
+    </script>
+
+    <h2>split</h2>
+    <p>用于使用字符串或正则表达式分割字符串，下面是使用字符串分隔日期</p>
+    <script>
+        let data="2023-05-06";
+        console.log(data.split("-"));
+
+        // 如果日期的链接符不确定，那就要使用正则操作了
+        let date="2023/05-06";
+        console.log(date.split(/-|\//));
+    </script>
+
+</body>
+</html>

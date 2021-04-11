@@ -10,16 +10,43 @@
     <h1>全局匹配 </h1>
     <h3>问题分析</h3>
     <p>下面是使用match全局获取页面中标签内容，但并不会返回匹配细节</p>
+    <script>
+        function elem(tag){
+            console.log(tag);
+            console.log("<(" + tag + ")>.+?<\/\\1>");
+            const reg=new RegExp("<(" + tag + ")>.+?<\/\\1>", "g"); //一旦p标签换行就不能匹配了
+            return document.body.innerHTML.match(reg);
     
-</body>
-<script>
-    function elem(tag){
-        console.log(tag);
-        console.log("<(" + tag + ")>.+?<\.\\1>");
-        const reg=new RegExp("<(" + tag + ")>.+?<\.\\1>", "g"); //一旦p标签换行就不能匹配了
-        return document.body.innerHTML.match(reg);
+        }
+        console.table(elem("p"));
+    </script>
+    <h3>matchAll</h3>
+    <p>在新浏览器中支持使用matchAll操作，并返回迭代对象</p>
+    <script>
+        let str="houdunren";
+        let reg=/[a-z]/ig;
+        for (const iterator of str.matchAll(reg)) {
+            console.log(iterator);
+        }
+    </script>
 
-    }
-    console.table(elem("p"));
-</script>
+    <p>在原型定义matchAll方法，用于在旧浏览器中工作，不需要添加g模式运行</p>
+    <script>
+        String.prototype.matchAll=function(reg){
+            console.log(this);
+            let res=this.match(reg);
+            console.log(res);
+            if (res) {
+                let str=this.replace(res[0],"^".repeat(res[0].length));
+                let match=str.matchAll(reg)||[];
+                return [res,...match];
+            }
+        };
+        let aa="houdunren";
+        console.dir(aa.matchAll(/(U)/i));
+    </script>
+    
+
+</body>
+
 </html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>replace</title>
+    <style>
+        td{
+            outline: aqua solid 1px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>replace</h1>
+    <p>replace方法不仅可以执行基本字符替换，也可以进行正则替换，下面替换日期连接符</p>
+    <script>
+        let date ="2023/05/06";
+        console.log(date.replace(/\//g,"-"));
+    </script>
+
+    <table>
+        <thead>
+            <td>变量</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$$</td>
+                <td>插入一个$</td>
+            </tr>
+            <tr>
+                <td>$&</td>
+                <td>插入匹配的子串</td>
+            </tr>
+            <tr>
+                <td>$`</td>
+                <td>插入当前匹配的子串左边的内容</td>
+            </tr>
+            <tr>
+                <td>$'</td>
+                <td>掺入当前匹配的子串右边的内容</td>
+            </tr>
+            <tr>
+                <td>$n</td>
+                <td>假如第一个参数是RegExp对象，并且n是个小于100的非负整数，那么插入第n个括号匹配的字符串。提示：索引从1开始</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        // 在后盾人前后添加三个=
+        let tian="=后盾人=";
+        console.log(tian.replace(/后盾人/g,"$`$`$&$'$'"));
+
+        // 把电话好用-连接
+    let phone="(010)99999999 (020)88888888";
+    console.log(phone.replace(/\((\d{3,4})\)(\d{7,8})/g,"$1-$2"));
+
+    </script>
+    <p>李白是我国古代著名的诗人，李白字太白。</p>
+    <script>
+        const body=document.body;
+        body.innerHTML=body.innerHTML.replace(
+            /李白/g,
+            `<a href="https://www.baidu.com">$&</a>`
+        );
+        
+    </script>
+</body>
+</html>
