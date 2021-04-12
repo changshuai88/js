@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则方法</title>
+</head>
+<body>
+    <h1>正则方法</h1>
+    <h2>test</h2>
+    <p>test返货布尔值，检测输入的邮箱是否合法</p>
+    <input type="text" name="email">
+    <script>
+        let email=document.querySelector(`[name="email"]`);
+        email.addEventListener("keyup",e=>{
+            console.log(/^\w+@\w+\.\w+$/.test(e.target.value));
+        });
+    </script>
+    <h2>exec</h2>
+    <p>不使用g修饰符时与match方法使用相似，使用g修饰符后可以循环调用直到全部匹配完。</p>
+    <li>使用g修饰符多次操作时使用同一个正则，即把正则定义为变量使用</li>
+    <li>使用g修饰符最后匹配不到时返回null</li>
+    <p>计算内容中后盾人出现的次数</p>
+    <div class="su">后盾人不断分享视频教程，后盾人网址是houdunren.com</div>
+    <script>
+        let qin=document.querySelector(".su");
+        let reg=/(?<tag>后盾人)/g
+            let num=0;
+            while((result=reg.exec(qin.innerHTML))){
+                num++;
+            }
+            console.log(`后盾人共出现${num}次`);
+    </script>
+</body>
+</html>

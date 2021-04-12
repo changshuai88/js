@@ -68,5 +68,41 @@
         );
         
     </script>
+    <p>为链接添加上https，并不全www.</p>
+    <main>
+        <a style="color: red;" href="http://www.hdcms.com">开源系统</a>
+        <a id="11" href="http://houdunren.com">后盾人</a>
+        <a href="http://yahoo.com">雅虎</a>
+        <h4>http://www.hdcms.com</h4>
+    </main>
+    <script>
+        const main=document.querySelector("body main");
+        const qin=/(<a.*href=["'])(http)(:\/\/)(www\.)?(hdcms|houdunren)/gi;
+        main.innerHTML=main.innerHTML.replace(qin,(v,...args)=>{
+            // console.log(v);
+            // console.table(args); 
+            args[1]+="s";
+            args[3]=args[3]||"www.";
+            return args.splice(0,5).join("");
+        })
+    </script>
+    <p>将标题标签全部替换为p标签</p>
+    <article>
+        <h1>床前明月光</h1>
+        <h2>疑是地上霜</h2>
+        <h1>举头望明月</h1>
+        <script>
+            const han=/<(h[1-6])>(.*?)<\/\1>/g;
+            const artcle =document.querySelector("body article").innerHTML;
+            const aaa=artcle.replace(han,function(str,tag,content){
+                // console.log(content);
+                return `<p>${content}</p>`;
+
+            });
+            document.querySelector("body article").innerHTML=aaa;
+
+
+        </script>
+    </article>
 </body>
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        td{
+            outline: red solid 1px
+            ;
+            text-align: center;
+        }
+        .hot{
+            color: red;
+        }
+    </style>
+    <title>replace</title>
+</head>
+<body>
+    <p>删除页面中的h1-h6标签</p>
+    <h1>感时花溅泪</h1>
+    <h2>恨别鸟惊心</h2>
+    <h1>烽火连三月</h1>
+    <script>
+        const reg=/<(h[1-6])>(.*?)<\/\1>/g;
+        const body=document.body.innerHTML;
+        const html=body.replace(reg,"");
+        // console.log(html);
+        document.body.innerHTML=html;
+    </script>
+    <p>回调函数</p>
+    <p>replace支持回调函数操作，用于处理复杂的替换逻辑</p>
+    <table>
+        <thead>
+            <td>变量名</td>
+            <td>代表的值</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>match</td>
+                <td>匹配的子串，(对应上述的$&)</td>
+            </tr>
+            <tr>
+                <td>p1,p2,...</td>
+                <td>假如replace方法的抵押给参数是一个regexp对象，则代表第n个括号匹配的字符串，(对应上述的$1,$2等。)例如，如果是用/(\a+)(\b+)这个来匹配，p1就是匹配\a+,p2就是匹配的\b+</td>
+            </tr>
+            <tr>
+                <td>offset</td>
+                <td>匹配到的字符串在原字符中的偏移量，(比如，如果原字符串是“abcd”，匹配到的字符串是“bc”，那么这个参数将会是1)</td>
+            </tr>
+            <tr>
+                <td>string</td>
+                <td>被匹配的原字符串</td>
+            </tr>
+            <tr>
+                <td>NamedCaptureGroup</td>
+                <td>命名捕获组匹配的对象</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="content">后盾人不断更新优质视频教程</div>
+    <script>
+        let content=document.querySelector(".content");
+        content.innerHTML=content.innerHTML.replace("后盾人",function(search,pos,source){
+            return `<a href="https://www.houdunren.com">${search}</a>`;
+        });
+    </script>
+    <p>
+        为所有标题添加上hot类
+    </p>
+    <div class="bai">
+        <h1>houdunren</h1>
+        <h2>litaibai</h2>
+        <h1>duzimei</h1>
+    </div>
+    <script>
+        let li=document.querySelector(".bai");
+        let du=/<(h[1-6])>([\s\S]*?)<\/\1>/gi;
+        li.innerHTML=li.innerHTML.replace(du,(
+            search,//匹配到的字符
+            p1,//第一个原子组
+            p2,//第二个原子组
+            index, //索引位置
+            source//原字符
+        )=>{
+            return `<${p1} class="hot">${p2}</${p1}>`;
+
+        });
+    </script>
+</body>
+</html>
