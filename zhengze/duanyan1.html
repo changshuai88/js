@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>断言例子</title>
+</head>
+<body>
+    <h1>后盾人视频不断录制案例丰富的视频教程</h1>
+    <script>
+        let h1=document.querySelector("h1");
+        let reg=/(?<=后盾人)视频/;
+        h1.innerHTML=h1.innerHTML.replace(reg,str=>{
+            return `<a href="https://www.houdunren.com">${str}</a>`;
+
+        });
+    </script>
+    <script>
+        // 将电话号码后四位模糊处理
+        let users=`
+            李白电话：12345678901
+            杜甫电话：98765432101
+        `;
+        let qin=/(?<=\d{7})\d+\s*/g;
+        users=users.replace(qin,str=>{
+            // console.log(str);
+            return "*".repeat(4);
+        });
+        console.log(users);
+
+        // 获取标题中的内容
+        let han=`<h1>后盾人视频不断录制案例丰富的视频教程</h1>`;
+        let tang =/(?<=<h1>).*(?=<\/h1>)/g;
+        console.log(han.match(tang));
+    </script>
+</body>
+</html>

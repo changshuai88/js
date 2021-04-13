@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(?!exp)</title>
+</head>
+<body>
+    <h1>(?!exp)</h1>
+    <p>零宽负向先行断言，后面不能出现exp指定的内容</p>
+    <script>
+        // 使用(?!exp)字母后面不能为两位数字
+        let hd="houdunren12";
+        let reg=/[a-z]+(?!\d{2})/i;
+        console.log(reg.exec(hd)); //n后面是2个数字，所以没有匹配到，只匹配到houdunre
+
+        
+    </script>
+    <main>
+        <input type="text" name="username">
+    </main>
+    <script>
+        // 下例为用户名中不能出现李白
+        const input=document.querySelector(`[name="username"]`);
+        input.addEventListener("keyup",function(){
+            const qin=/^(?!.*李白.*)[a-z]{5,6}$/i;
+            console.log(this.value.match(qin));
+        });
+    </script>
+</body>
+</html>

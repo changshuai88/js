@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>断言匹配</title>
+</head>
+<body>
+    <h1>断言匹配</h1>
+    <p>断言虽然写在括号中，但它不是组，所以不会在匹配结果中保存，可以将断言理解为正则中的条件</p>
+    <h2>(?=exp)</h2>
+    <p>零宽先行断言?=exp匹配后面为exp的内容</p>
+    <main>后盾人不断分享视频教程，学习后盾人教程提升编程能力。</main>
+    <script>
+        // 把后面是教程的后盾人汉字加上链接
+        const main=document.querySelector("main");
+        const reg=/后盾人(?=教程)/gi;
+        main.innerHTML=main.innerHTML.replace(
+            reg,
+            v=>`<a href="https://houdunren.com">${v}</a>`
+        );
+
+    </script>
+
+    <script>
+        // 下面是将价格后面添加上.00    
+        let lessons=`
+            js,200元,300次
+            php,300.00元,100次
+            node.js,180元,260次
+        `;
+        let qin=/(\d+)(.00)?(?=元)/gi;
+        lessons = lessons.replace(qin,(v,...args)=>{
+            args[1]=args[1]||".00";
+            return args.splice(0,2).join("");
+        });
+        console.log(lessons);
+
+
+        </script>
+<p>使用断言验证用户名必须为5位，下面正则体现断言是不是组，并且不在匹配结果中记录</p>
+<input type="text" name="username">
+<script>
+    document.querySelector(`[name="username"]`).addEventListener("keyup",function(){
+        let reg=/^(?=[a-z]{5}$)/i;
+        console.log(reg.test(this.value));
+    });
+</script>
+<h2>(?<=exp)</h2>
+<p>零宽后行断言?<=exp匹配前面为exp的内容</p>
+<script>
+    // 匹配前面是houdunren的数字
+    let hd="houdunren789hdcms666";
+    let han=/(?<=houdunren)\d+/i;
+    console.log(hd.match(han));
+
+
+    // 匹配前后都是数字的内容
+    let tang=/(?<=\d)[a-z]+(?=\d{3})/i;
+    console.log(hd.match(tang));
+</script>
+<a href="https://baidu.com">百度</a>
+<a href="https://yahoo.com">雅虎</a>
+<script>
+    const body =document.body;
+    let song=/(?<=<a.*href=(["'])).+?(?=\1)/gi;
+    console.log(body.innerHTML.match(song));
+    body.innerHTML=body.innerHTML.replace(song,"https://houdunren.com");
+
+</script>
+</body>
+</html>

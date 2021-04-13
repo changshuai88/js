@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(?<!exp)</title>
+</head>
+<body>
+    <h1>(?&lt;!exp)</h1>
+    <p>领宽负向后行断言 前面不能出现exp指定的内容</p>
+    <script>
+        // 获取前面不是数字的字符
+        let hd="hdcms99houdunren";
+        let reg=/(?<!\d+)[a-z]+/i;
+        console.log(reg.exec(hd)); //hdcms,因为houdunren前面是99数字，而hdcms前面不是数字
+    </script>
+    
+    <main>
+        <a href="https://www.houdunren.com/1.jpg">1.jpg</a>
+        <a href="https://oss.houdunren.com/2.jpg">2.jpg</a>
+        <a href="https://cdn.houdunren.com/3.jpg">3.jpg</a>
+        <a href="https://houdunren.com/4.jpg">4.jpg</a>
+    </main>
+    <script>
+        //把所有不是以https://oss.houdunren.com开始的静态资源替换为新网址
+        const qin=document.querySelector("main");
+        const han=/https:\/\/(\w+)?(?<!oss)\..+?(?=\/)/gi;
+        qin.innerHTML=qin.innerHTML.replace(han,v=>{
+            console.log(v);
+            return "https://oss.houdunren.com";
+        });
+    </script>
+</body>
+</html>
