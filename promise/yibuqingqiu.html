@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异步请求</title>
+</head>
+<body>
+    <h1>异步请求</h1>
+    <p>使用传统的异步请求也会产生回调嵌套的问题，现在是获取向军的成绩，需要经过以下两步</p>
+    <li>根据用户名取得向军的编号</li>
+    <li>根据编号获取成绩</li>
+    <script>
+        function ajax(url,resolve,reject){
+            let xhr=new XMLHttpRequest();
+            xhr.open("GET",url);
+            xhr.send();
+            xhr.onload=function(){
+                if(this.status==200){
+                    resolve(JSON.parse(this.response));
+                }else{
+                    reject(this);
+                }
+            };
+        }
+        ajax("http://localhost:8888/php/user.php?name=向军",user=>{
+            ajax(
+                `http://localhost:8888/php/houdunren.php?id=${user["id"]}`,
+                response=>{
+                    console.log(response[0]);
+                }
+            );
+        });
+    </script>
+</body>
+</html>

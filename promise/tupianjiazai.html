@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片加载</title>
+</head>
+<body>
+    <h1>图片加载</h1>
+    <script>
+        // 下面是图片后设置图片边框，也许要使用回调函数处理，代码嵌套教复杂
+        function loadImage(file,resolve,reject){
+            const image =new Image();
+            image.src=file;
+            image.onload=()=>{
+                resolve(image);
+            };
+            image.onerror=()=>{
+                reject(new Error("load fail"));
+            };
+            document.body.appendChild(image);
+        }
+
+        loadImage(
+            "images/1.jpg",
+            image=>{
+                image.style.border="solid 5px red";
+            },
+            error=>{
+                console.log(error);
+            }
+        );
+    </script>
+</body>
+</html>

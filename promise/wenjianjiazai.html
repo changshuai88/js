@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载文件</title>
+</head>
+<body>
+    <h1>加载文件</h1>
+    <script>
+        // 下面是异步加载外部js文件，需要使用回调函数执行，并设置的错误处理的回调函数
+        function load(file,resolve,reject){
+            const script=document.createElement("script");
+            script.src=file;
+            script.onload=resolve;
+            script.onerror=reject;
+            document.body.appendChild(script);
+        }
+
+     /*    load(
+            "js/hd.js",
+            script=>{
+                console.log(`${script.path[0].src}加载成功`);
+                hd();
+            },
+            error=>{
+                console.log(`${error.srcElement.src}加载失败`);
+            }
+
+        ); */
+
+        // 如果要加载多个脚本时需要嵌套使用，下面houdunren.js依赖hd.js,需要先加载hd.js，后加载houdunren.js
+        // 不断的回调函数操作将产生回调地狱，使代码很难维护
+        load(
+            "js/hd.js",
+            script=>{
+                load(
+                    "js/houdunren.js",
+                    script=>{
+                        houdunren();
+                    },
+                    error=>{
+                        console.log(`${error.srcElement.src}加载失败`);
+                    }
+                );
+            },
+            error=>{
+                console.log(`${error.srcElement.src}加载失败`);
+            }
+        );
+    </script>
+</body>
+</html>
