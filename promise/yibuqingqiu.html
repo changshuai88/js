@@ -18,17 +18,20 @@
             xhr.send();
             xhr.onload=function(){
                 if(this.status==200){
+                    // console.log()
                     resolve(JSON.parse(this.response));
                 }else{
                     reject(this);
                 }
             };
         }
-        ajax("http://localhost:8888/php/user.php?name=向军",user=>{
+        ajax("http://localhost/php/user.php?name=向军",user=>{
+            // console.log(user);
             ajax(
-                `http://localhost:8888/php/houdunren.php?id=${user["id"]}`,
+                `http://localhost/php/houdunren.php?id=${user.id}`,
                 response=>{
-                    console.log(response[0]);
+                    console.log(response);
+                    // console.log(response[0]);
                 }
             );
         });

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异步状态</title>
+</head>
+<body>
+    <h1>异步状态</h1>
+    <p>Promise可以李姐为承诺，就像我们去KFC点餐，服务员给我们一个取餐票，这就是承诺。如果餐做好了叫我们，这就是成功。如果没有办法给我做出食物，这就是拒绝。</p>
+    <li>一个promise必须有一个then方法用于处理状态改变</li>
+    <h1>状态说明</h1>
+    <p>promise包含pending、fulfilled、rejected三种状态</p>
+    <li>pending指初始等待状态，初始化promise时的状态</li>
+    <li>resolve指已经解决，将promise状态设置为fulfilled</li>
+    <li>reject指拒绝处理，将promise状态设置为rejected</li>
+    <li>promise是生产者，通过resolve与reject函数告之结果</li>
+    <li>promise非常适合需要一定执行时间的异步任务</li>
+    <li>状态一但改变将不可更改</li>
+    <p>promise是队列状态，就像体育中的接力赛，或多米诺骨牌游戏，状态一直向后传递，当然其中任何一个promise也可以改变状态</p>
+    <script src="js/pending.js"></script>
+    <p>档更改状态后</p>
+    <script src="js/fulfilled.js"></script>
+    <p>promise创建时立即执行即同步任务，then会放在异步微任务中执行，需要等同步任务执行后才执行</p>
+    <script src="js/then.js"></script>
+    <p>promise操作都是在其他代码后执行，下面会先输出houdunren.com再弹出success</p>
+    <li>promise的then、catch、finally的方法都是异步任务</li>
+    <li>程序需要将任务执行完成后才会执行异步队列任务</li>
+    <script src="js/success.js"></script>
+</body>
+</html>
