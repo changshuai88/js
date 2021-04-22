@@ -12,20 +12,20 @@
     <li>根据用户名取得向军的编号</li>
     <li>根据编号获取成绩</li>
     <script>
-        function ajax(url,resolve,reject){
+        function ajax(url,callback){
             let xhr=new XMLHttpRequest();
             xhr.open("GET",url);
             xhr.send();
             xhr.onload=function(){
                 if(this.status==200){
-                    // console.log()
-                    resolve(JSON.parse(this.response));
+                    console.log("加载成功");
+                    callback(JSON.parse(this.response));
                 }else{
-                    reject(this);
+                    throw new Error("加载失败");
                 }
             };
         }
-        ajax("http://localhost/php/user.php?name=向军",user=>{
+        ajax(`http://localhost/php/user.php?name=向军`,user=>{
             // console.log(user);
             ajax(
                 `http://localhost/php/houdunren.php?id=${user.id}`,

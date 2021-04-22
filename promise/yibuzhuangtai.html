@@ -19,14 +19,18 @@
     <li>promise非常适合需要一定执行时间的异步任务</li>
     <li>状态一但改变将不可更改</li>
     <p>promise是队列状态，就像体育中的接力赛，或多米诺骨牌游戏，状态一直向后传递，当然其中任何一个promise也可以改变状态</p>
-    <script src="js/pending.js"></script>
+    <!-- <script src="js/pending.js"></script> -->
     <p>档更改状态后</p>
-    <script src="js/fulfilled.js"></script>
+    <!-- <script src="js/fulfilled.js"></script> -->
     <p>promise创建时立即执行即同步任务，then会放在异步微任务中执行，需要等同步任务执行后才执行</p>
-    <script src="js/then.js"></script>
+    <!-- <script src="js/then.js"></script> -->
     <p>promise操作都是在其他代码后执行，下面会先输出houdunren.com再弹出success</p>
     <li>promise的then、catch、finally的方法都是异步任务</li>
     <li>程序需要将任务执行完成后才会执行异步队列任务</li>
-    <script src="js/success.js"></script>
+    <!-- <script src="js/success.js"></script> -->
+    <p>下例在三秒后将promise状态设置为fulfilled，然后执行then方法</p>
+    <!-- <script src="js/three.js"></script> -->
+    <p>状态改变后就不能在修改了，下面先通过resolve改变为成功状态，表示promise状态已经完成，就不能使用reject更改状态了</p>
+    <script src="js/genggai.js"></script>
 </body>
 </html>
