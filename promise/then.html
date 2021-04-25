@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>then</title>
+</head>
+<body>
+    <h1>then</h1>
+    <p>
+        一个promise需要提供一个then方法访问promise结果，then用于定义当promise状态发生改变时的处理，即promise处理异步操作，then用于结果。
+    </p>
+    <p>promise就像kfc中的厨房，then就是我们用户，如果餐做好了即fulfilled，做不了拒绝即rejected状态，那么then就要对不同状态处理。</p>
+    <li>then方法必须返回promise，用户返回或系统自动返回</li>
+    <li>第一个函数在resolved状态时执行，即执行resolve时执行then第一个函数处理成功状态</li>
+    <li>第二个函数在rejected状态时执行，即执行reject时执行第二个函数处理失败状态，该函数是可选的</li>
+    <li>两个函数都接收promise传出的值作为参数</li>
+    <li>也可以使用catch来处理失败的状态</li>
+    <li>如果then返回promise，下一个then会在当前promise状态改变后执行</li>
+    <h2>语法说明</h2>
+    <p>then的语法如下，onFulfilled函数处理fulfilled状态，onRejected函数处理rejected状态</p>
+    <li>onFulfilled或onRejected不是函数将被忽略</li>
+    <li>两个函数只会被调用一次</li>
+    <li>onFulfilled在promise执行成功时调用</li>
+    <li>onRejected在promise执行拒绝时调用</li>
+    <code>promise.then(onFulfilled,onRejected)</code>
+    <h3>基础知识</h3>
+    <p>then会在promise执行完成后执行，then第一个函数在resolve成功状态执行</p>
+    <script src="js/then1.js"></script>
+    <p>then中第二个参数在失败状态执行</p>
+    <script src="js/then2.js"></script>
+    <p>如果只关心成功则不需要传递then的第二个参数</p>
+    <script src="js/then3.js"></script>
+    <p>如果只关心失败时状态，then的第一个参数传递null</p>
+    <script src="js/then4.js"></script>
+    <p>
+        promise传向then的传递值，如果then没有可处理函数，会一直向后传递
+    </p>
+    <script src="js/then5.js"></script>
+    <p>如果onFulfilled不是函数且promise执行成功，d执行成功并且返回相同值</p>
+    <script src="js/then6.js"></script>
+    <p>如果onRejected不是函数且promise决绝执行，du拒绝执行并返回相同值</p>
+    <script src="js/then7.js"></script>
+</body>
+</html>
