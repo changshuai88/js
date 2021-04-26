@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链式调用</title>
+</head>
+<body>
+    <h1>链式调用</h1>
+    <p>每次的then都是一个全新的promise，默认then返回的promise状态是fulfilled</p>
+    <!-- <script src="js/lian.js"></script> -->
+
+    <p>
+        每次的then都是一个全新的promise，不要认为上一个promise状态会影响以后then返回的状态
+    </p>
+    <!-- <script src="js/lian1.js"></script> -->
+    <p>then是对上个promise的rejected的处理，每个then会是一个新的promise，默认传递fulfilled状态</p>
+    <!-- <script src="js/lian2.js"></script> -->
+    <p>如果内部返回promise时将使用该promise</p>
+    <!-- <script src="js/lian3.js"></script> -->
+    <p>如果then返回promise时，后面的then就是对返回的promise的处理，需要等待该promise变更状态后执行</p>
+    <!-- <script src="js/lian4.js"></script> -->
+    <p>如果then返回promise时，返回的promise后面的then就是处理这个promise的</p>
+    <strong>如果不return，情况就不是这样了，即外层的then的promise和内部的promise是独立的两个promise</strong>
+    <script src="js/lian5.js"></script>
+</body>
+</html>
