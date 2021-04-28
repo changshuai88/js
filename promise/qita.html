@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>其他类型</title>
+</head>
+<body>
+    <h1>其他类型</h1>
+    <p>promise解决过程是一个抽象的操作，其需要输入一个promise和一个值，我们表示为[[resolve]](promise,x),如果x有then方法且看上去像一个promise，解决程序即尝试使promise接受x的状态，否则其用x的值来执行promise</p>
+    <h4>循环调用</h4>
+    <p>如果then返回与promise相同将禁止执行</p>
+    <!-- <script src="js/ect.js"></script> -->
+    <p>如果返回值是promise对象，则需要更新状态后，才可以继承执行后面的promise</p>
+    <!-- <script src="js/ect1.js"></script> -->
+    <h2>thenables</h2>
+    <p>包含then方法的对象就是一个promise，系统将传递resolvepromise与rejectpromise作为函数参数</p>
+    <p>下例中使用resolve或在then方法中返回了具有then方法的对象</p>
+    <li>该对象即为promise要先执行，并在方法内部更改状态</li>
+    <li>如果不更改状态，后面的then promise都为等待状态</li>
+    <!-- <script src="js/ect2.js"></script> -->
+    <p>包含then方法的对象可以当作promise来使用</p>
+    <!-- <script src="js/ajax.js"></script>
+    <script src="js/ect3.js"></script> -->
+    <p>当然也可以是类</p>
+    <!-- <script src="js/ect4.js"></script> -->
+    <p>如果对象中的then不是函数，则对象作为值传递</p>
+    <script src="js/ect5.js"></script>
+</body>
+</html>

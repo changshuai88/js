@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>catch</title>
+</head>
+<body>
+    <h1>CATCH</h1>
+    <P>下面使用未定义的变量同样会触发失败状态</P>
+    <!-- <script src="js/catch.js"></script> -->
+    <p>如果onfulfilled或onrejected抛出异常，则P2拒绝执行并返回拒因</p>
+    <!-- <script src="js/catch1.js"></script> -->
+    <p>catch用于失败状态的处理函数，等同于then(null,reject){}</p>
+    <li>建议使用catch处理错误</li>
+    <li>将catch放在最后面用于统一处理前面发生的错误</li>
+    <!-- <script src="js/catch2.js"></script> -->
+    <p>catch可以捕获之前所有promise的错误，所以建议将catch放在最后。下例中catch也可以捕获到第一个then返回的promise错误</p>
+    <!-- <script src="js/catch3.js"></script> -->
+    <p>错误是冒泡的操作的，下面没有任何一个then定义第二函数，将一直冒泡到catch处理函数</p>
+    <!-- <script src="js/catch4.js"></script> -->
+    <p>catch也可以捕获对then抛出的错误处理</p>
+    <!-- <script src="js/catch5.js"></script> -->
+    <p>catch也可以捕获其他错误，下面再then中使用了未定义的变量，将会把错误抛出到catch</p>
+    <script src="js/catch6.js"></script>
+</body>
+</html>
