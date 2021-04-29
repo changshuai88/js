@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定制错误</title>
+</head>
+<body>
+    <h1>定制错误</h1>
+    <p>可以根据不同的错误类型进行定制操作，下面将参数错误与404错误分别就行了处理</p>
+    <script>
+        class ParamError extends Error{
+            constructor(msg){
+                super(msg);
+                this.name="ParamError";
+            }
+        }
+        class HttpError extends Error{
+            constructor(msg){
+                super(msg);
+                this.name="HttpError";
+            }
+        }
+        function ajax(url){
+            return new Promise((resolve,reject)=>{
+                if (!/^http/.test(url)) {
+                    throw new ParamError("请求地址格式错误");
+                }
+                let xhr=new XMLHttpRequest();
+                xhr.open("GET",url);
+                xhr.send();
+                xhr.onload=function(){
+                    if(this.status==200){
+                        resolve(JSON.parse(this.response));
+                    }else if(this.status==400){
+                        //throw new HttpError("用户不存在")
+                        reject(new HttpError("用户不存在"));
+                    }else{
+                        reject("加载失败");
+                    }
+                };
+            });
+        }
+
+        ajax(`http://localhost:80/php/user.php?name=后盾人`)
+        .then(value=>{
+            console.log(value);
+        })
+        .catch(error=>{
+            if (error instanceof ParamError) {
+                console.log(error.message);
+            }
+            if (error instanceof HttpError) {
+                alert(error.message);
+            }
+            console.log(error);
+        });
+    </script>
+</body>
+</html>

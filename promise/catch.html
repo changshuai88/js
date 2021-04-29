@@ -23,6 +23,20 @@
     <p>catch也可以捕获对then抛出的错误处理</p>
     <!-- <script src="js/catch5.js"></script> -->
     <p>catch也可以捕获其他错误，下面再then中使用了未定义的变量，将会把错误抛出到catch</p>
-    <script src="js/catch6.js"></script>
+    <!-- <script src="js/catch6.js"></script> -->
+    <h2>使用建议</h2>
+    <p>建议将错误要交给catch处理，而不是再then中完成，不建议使用下面的方式管理错误</p>
+    <!-- <script src="js/catch7.js"></script> -->
+    <h2>处理机制</h2>
+    <p>在promise中抛出的错误也会被catch捕获</p>
+    <!-- <script src="js/catch8.js"></script> -->
+    <p>可以将上面的理解为如下代码，可以理解为内部自动执行try...catch</p>
+    <!-- <script src="js/catch9.js"></script> -->
+    <p>但像下面的在异步中throw将不会触发catch，而使用系统错误处理</p>
+    <!-- <script src="js/catch10.js"></script> -->
+    <p>下面在then方法中使用了没有定义的hd函数，也会抛出到catch执行，可以理解为内部自动执行try...catch</p>
+    <!-- <script src="js/catch11.js"></script> -->
+    <p>在catch中发生的错误也会抛给最近的错误处理</p>
+    <script src="js/catch12.js"></script>
 </body>
 </html>
