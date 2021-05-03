@@ -7,6 +7,18 @@
 </head>
 <body>
 	<p>unhandledrejection事件用于捕获到微处理的promise错误，下面的then产生的错误，但没有catch处理，这时就会触发事件，该事件有可能在以后被废除，处理方式是对没有处理的错误直接终止</p>
-	
+	<script>
+		window.addEventListener("unhandledrejection",function(event){
+			console.log(event.promise); //产生错误的promise对象
+			console.log(event.reason);//promise的reason;
+		});
+		new Promise((resolve,reject)=>{
+			resolve("success");
+
+		}).then(msg=>{
+			throw new Error("fail");
+		});
+
+	</script>
 </body>
 </html>

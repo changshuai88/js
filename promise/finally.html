@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>finally</title>
+</head>
+<body>
+	<p>无论状态是resolve或reject都会执行此动作，finally与状态无关</p>
+	<script type="text/javascript">
+		const promise=new Promise((resolve,reject)=>{
+			reject("libai ");
+		})
+		.then(msg=>{
+			console.log("resolve");
+		})
+		.catch(msg=>{
+			console.log("reject");
+		})
+		.finally(()=>{
+			console.log("resolve/reject状态都会执行");
+		})
+	</script>
+</body>
+</html>
