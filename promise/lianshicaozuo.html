@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链式操作</title>
+</head>
+<body>
+    <h1>链式操作</h1>
+    <li>每个then都是一个promise</li>
+    <li>如果then返回promise，只当promise结束后，才会继承执行下一个then</li>
+    <h2>语法介绍</h2>
+    <p>下面是对同一个promise的多个then，每个then都得到了同一个promise结果，这不是链式操作，实际使用意义不大</p>
+    <script>
+        const li=new Promise((resolve,reject)=>{
+            resolve("李白");
+        });
+        li.then(du=>{
+            du+="-libai";
+            console.log(du);
+        });
+        li.then(bai=>{
+            bai+="-taibai";
+            console.log(bai);
+        });
+    </script>
+    <p>第一个then也是promise，当没接受到结果是状态为pending</p>
+    <script>
+        const qin=new Promise((resolve,reject)=>{
+            resolve("秦始皇");
+        });
+        console.log(
+            qin.then(han=>{
+                han+="dahan";
+                console.log(han);
+            })
+        );
+    </script>
+    <p>promise中的then方法可以链接执行，then方法的返回值会传递到下一个then方法</p>
+    <li>then会返回一个promise，所以如果有多个then时会连续执行</li>
+    <li>then返回的值会作为当前promise的结果</li>
+    <p>下面是链式操作的then，即使没有return也是会执行，因为每个then会返回promise</p>
+    <script>
+    new Promise((resolve,reject)=>{
+        resolve("朕");
+    })
+    .then(sui=>{
+        sui+="yangjian";
+        console.log(sui);
+        return sui;
+    })
+    .then(tang=>{
+        tang+="/liyuan";
+        console.log(tang);
+    });
+    </script>
+    <p>then方法可以返回一个promise对象，等promise执行结束后，才会继承执行后面的then，后面的then方法就是对新返回的promise状态的处理</p>
+    <script>
+        new Promise((resolve,reject)=>{
+            resolve("第一个promise");
+        })
+        .then(msg=>{
+            console.log(msg);
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    resolve("第二个promise");
+                },3000);
+            });
+        })
+        .then(msg=>{
+            console.log(msg);
+        });
+    </script>
+    <h3>链式加载</h3>
+    <p>使用promise链式操作重构前面章节中的文件加载，使用代码会变得更清晰</p>
+    <script>
+        function load(file){
+            return new Promise((resolve,reject)=>{
+                const script =document.createElement("script");
+                script.src=file;
+                script.onload=()=>resolve(script);
+                script.onerror=()=>reject();
+                document.body.appendChild(script);
+            });
+        }
+        load("js/hd.js")
+        .then(()=>load("js/houdunren.js"))
+        .then(()=>houdunren());
+    </script>
+
+    <h3>操作元素</h3>
+    <p>下面使用promise对元素事件进行处理</p>
+    <div><h2>第九章 闭包与作用域</h2>
+    <button>收藏课程</button>
+    </div>
+<script>
+    new Promise(resovle=>{
+        document.querySelector("button").addEventListener("click",e=>{
+            resovle();
+        });
+    })
+    .then(()=>{
+        return new Promise(resolve=>{
+            setTimeout(()=>{
+                console.log("执行收藏任务");
+                resolve();
+            },2000);
+        });
+    })
+    .then(()=>{
+        return new Promise(resolve=>{
+            setTimeout(()=>{
+                console.log("更新积分");
+                resolve();
+            },2000);
+        });
+    })
+    .then(()=>{
+        console.log("收藏成功!奖励10积分");
+    })
+    .catch(error=>console.log(error));
+</script>
+</body>
+</html>
