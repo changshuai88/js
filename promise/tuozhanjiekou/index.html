@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拓展接口</title>
+</head>
+<body>
+    <h1>resolve</h1>
+    <p>使用promise.resolve方法可以快速的返回一个promise对象</p>
+    <p>根据值返回promise</p>
+    <script>Promise.resolve("后盾人").then(value=>{
+        console.log(value);
+    });</script>
+    <p>下面将请求结果缓存，如果再次请求时直接返回带值的promise</p>
+    <li>为了演示使用了定时器，你也可以在后台设置延迟响应</li>
+    <script src="/promise/js/ajax.js"></script>
+    <script src="query.js"></script>
+</body>
+</html>
