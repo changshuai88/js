@@ -15,7 +15,55 @@
     });</script>
     <p>下面将请求结果缓存，如果再次请求时直接返回带值的promise</p>
     <li>为了演示使用了定时器，你也可以在后台设置延迟响应</li>
-    <script src="/promise/js/ajax.js"></script>
-    <script src="query.js"></script>
+    <!-- <script src="/promise/js/ajax.js"></script> -->
+    <!-- <script src="query.js"></script> -->
+    <p>如果是thenable对象，会将对象包装成promise处理，这与其他promise处理方式一样的</p>
+    <script src="thanable.js"></script>
+    <h2>reject</h2>
+    <p>和Promise.resolve类似，reject生成一个失败的promise</p>
+    <script>
+        Promise.reject("fail").catch(error=>console.log(error));
+    </script>
+    <p>下面使用Project.reject设置状态</p>
+    <script>
+        new Promise(resolve=>{
+            resolve("后盾人");
+        })
+        .then(v=>{
+            if(v!="houdunren.com") return Promise.reject(new Error("fail"));
+        })
+        .catch(error=>{
+            console.log(error);
+        });
+    </script>
+    <h2>all</h2>
+    <p>使用Promise.all方法可以同时执行多个并行异步操作，比如页面加载时同进获取课程列表与推荐课程</p>
+    <li>任何一个promise执行失败就会调用catch方法</li>
+    <li>适用于一次发送多个异步操作</li>
+    <li>参数必须是可迭代类型，如array/set</li>
+    <li>成功后返回promise结果的有序数组</li>
+    <p>下例中hdcms、houdunren两个promise状态都为fulfilled时，hd状态才为fulfilled</p>
+    <script>
+        const hdcms =new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve("第一个promise");
+            },1000);
+        });
+        const houdunren=new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve("第二个promise");
+            },1000);
+        });
+        const li=Promise.all([hdcms,houdunren])  //连个promise都成功才显示，有一个不成功就报错。
+        .then(results=>{
+            console.log(results);
+        })
+        .catch(msg=>{
+            console.log(msg);
+        });
+    </script>
+
+    <p>根据用户名获取用户，有任何一个用户获取不到时，promise.all状态失败，执行catch方法</p>
+    <script src="user.js"></script>
 </body>
 </html>
