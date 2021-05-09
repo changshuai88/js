@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>race</title>
+</head>
+<body>
+    <h1>race</h1>
+    <p>使用promise.race()处理容错异步，和race单词一样哪个promise快用哪个，哪个先返回用哪个</p>
+    <li>以最快返回的promise为准</li>
+    <li>如果最快返回的状态为rejected那整个promise为rejected执行cache</li>
+    <li>如果参数不是promise，内部将自动转为promise</li>
+    <p>下面将第一次请求的异步时间调整为2秒，这时第二个先返回就用第二个</p>
+    <script>
+        const li=new Promise((resolve,reject)=>{
+            setTimeout(() => {
+                resolve("第一个promise")
+            }, 2000);
+        });
+
+        const bai=new Promise((resolve,reject)=>{
+            setTimeout(() => {
+                resolve("第二个异步")
+            }, 1000);
+        });
+
+        Promise.race([li,bai])
+        .then(results=>{
+            console.log(results);
+        })
+        .catch(msg=>{
+            console.log(msg);
+        });
+    </script>
+    <p>获取用户资料，如果两秒内没有结果，promise.race状态失败，执行catch方法</p>
+    <script src="/promise/js/ajax.js"></script>
+    <script>
+        const api="http://localhost:80/php";
+        const du=[
+            ajax(`${api}/user.php?name=向军`),
+            new Promise((a,b)=>{
+                setTimeout(() => {
+                    b(new Error("request fail"));
+                }, 2000);
+            })
+        ];
+        Promise.race(du)
+        .then(response=>{
+            console.log(response);
+        })
+        .catch(error=>{
+            console.log(error);
+        });
+    </script>
+</body>
+</html>

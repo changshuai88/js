@@ -64,6 +64,26 @@
     </script>
 
     <p>根据用户名获取用户，有任何一个用户获取不到时，promise.all状态失败，执行catch方法</p>
-    <script src="user.js"></script>
+    <!-- <script src="user.js"></script> -->
+    <p>可以将其他非promise数据添加到all中，它将被处理城promise.resovle</p>
+    <!-- <script>
+        const a=[
+            ajax(`${api}/user.php?name=向军`),
+            ajax(`${api}/user.php?name=后盾人`),
+            {id:3,name:"hdcms",email:"admin@hdcms.com"}
+        ];
+    </script> -->
+    <p>如果某一个promise没有catch处理，将使用promise.all的catch处理</p>
+    <script>
+        let p1=new Promise((resolve,reject)=>{
+            resolve("fulfilled");
+        });
+        let p2=new Promise((resolve,reject)=>{
+            reject("rejected");
+        });
+        Promise.all([p1,p2]).catch(reason=>{
+            console.log(reason);
+        });
+    </script>
 </body>
 </html>

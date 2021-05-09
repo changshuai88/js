@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>allsettled</title>
+
+</head>
+<body>
+    <p>allSettled用于处理多个promise，只关注执行完成，不关注是否全部执行成功，allSettled状态只会是fulfilled。</p>
+    <p>下面的p2返回状态为rejected，但promise.allSettled不关心，它始终将状态设置为fulfilled。</p>
+    <script>
+        const p1=new Promise((resolve,reject)=>{
+            resolve("resolved");
+
+        });
+        const p2=new Promise((resolve,reject)=>{
+            reject("rejected");
+        });
+        Promise.allSettled([p1,p2])
+        .then(msg=>{
+            console.log(msg);
+        })
+    </script>
+    <p>下面是获取用户信息，但不关注某个用户是否获取不成功</p>
+    <script src="/promise/js/ajax.js"></script>
+    <script>
+        const api="http://localhost:80/php";
+        const promises=[
+            ajax(`${api}/user.php?name=向军`),
+            ajax(`${api}/user.php?name=后盾人`)
+        ];
+        Promise.allSettled(promises).then(response=>{
+            console.log(response);
+        });
+    </script>
+</body>
+</html>
