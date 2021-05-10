@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务队列</title>
+</head>
+
+<body>
+    <h1>任务队列</h1>
+    <p>实现原理，如果then返回promise时，后面的then就时对返回的promise的处理</p>
+    <script>
+        let promise = Promise.resolve();
+        let p1 = promise.then(() => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    console.log(`p1`);
+                    resolve();
+                }, 1000);
+            });
+        });
+
+        p1.then(() => {
+            return new Promise((a, b) => {
+                setTimeout(() => {
+                    console.log(`p2`);
+                }, 1000);
+            });
+        });
+    </script>
+
+    <p>下面使用map构建的队列，有以下几点需要说明</p>
+    <li>then内部返回的promise更改外部的promise变量</li>
+    <li>为了让任务继承，执行完任务需要将promise状态修改为fulfilled</li>
+    <!-- <script src="queue.js"></script> -->
+    <p>下面再来通过reduce来实现队列</p>
+    <!-- <script src="reduce.js"></script> -->
+
+    <h2>队列请求</h2>
+    <p>下面是异步加载用户并渲染到视图中的队列实例</p>
+    <li>请在后台添加延迟脚本，以观察队列执行过程</li>
+    <li>也可以在任何promise中添加定时器观察</li>
+    <!-- <script src="user.js"></script> -->
+    <p>高可用封装--上例中处理时在队列中完成，不方便业务定制，下面将promise处理在玻璃到外部</p>
+    <p>后台处理类</p>
+    <script type="module">
+        // let url=``;
+        import houtai from "./houtai.js";
+        // houtai();
+        import duilie from "./duilie.js";
+       duilie(
+           [1,2,3].map(v=>()=>{
+               houtai(`http://localhost:80/php/qin.php?id=${v}`).then(user=>console.log(user))
+           })
+       )
+    </script>
+</body>
+
+</html>
