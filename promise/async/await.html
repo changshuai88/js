@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>await</title>
+</head>
+<body>
+    <h1>await</h1>
+    <p>使用await关键词后会等待promise完</p>
+    <li>await后面一般是promise，如果不是直接返回</li>
+    <li>await必须放在async定义的函数中使用</li>
+    <li>await用于替换then使编码更优雅</li>
+    <p>下例会在await这行暂停执行，直到等待promise返回结果后才继续执行</p>
+    <script>
+        async function qin(){
+            const han=new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    resolve("houdunren.com");
+                },2000);
+            });
+
+            let result =await han;
+            console.log(result);
+        }
+        qin();
+    </script>
+    <p>一般await后面是外部其他的promise对象</p>
+    <script>
+        async function sui(){
+            return new Promise(resolve=>{
+                setTimeout(()=>{
+                    resolve("隋炀帝");
+                },4000);
+            });
+        }
+        async function tang(){
+            let value =await sui();//等待4秒
+            console.log("李世民");
+            console.log(value);
+        }
+
+        tang();
+    </script>
+
+    <p>下面是请求后台获取用户课程成绩的示例</p>
+    <script src="/promise/js/ajax.js"></script>
+    <script>
+        async function user(){
+            let user= await ajax(`http://localhost:80/php/user.php?name=向军`);
+            let lessons=await ajax(`http://localhost:80/php/houdunren.php?id=${user.id}`);
+            console.log(lessons);
+        }
+        user();
+
+        //也可以将操作放在立即执行函数中完成
+        (async()=>{
+            let user= await ajax(`http://localhost:80/php/user.php?name=向军`);
+            let lessons=await ajax(`http://localhost:80/php/houdunren.php?id=${user.id}`);
+            console.log(lessons);
+        })();
+    </script>
+    <p>下面是使用async设置定时器，并间隔时间来输出内容</p>
+    <script>
+        async function sleep(ms=2000){
+            return new Promise(resolve=>{
+                setTimeout(resolve,ms);
+            });
+        }
+
+        async function song(){
+            for(const value of["后盾人","向军"]){
+                await sleep();
+                console.log(value);
+            }
+        }
+
+        song();
+    </script>
+</body>
+</html>

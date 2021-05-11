@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async</title>
+</head>
+<body>
+    <h1>async/await</h1>
+    <p>使用async/await是promise的语法糖，可以让编写promise更清晰易懂，也是推荐编写promise的方式</p>
+    <li>async/await本质还是promise，只是更简洁的语法糖书写</li>
+    <li>async/await使用更清晰的promise来替换promise.then/catch的方式</li>
+    <p>async--下面在hd函数前加上async，函数将返回promise，我们就可以像使用标准promise一样使用了</p>
+    <script>
+        async function hd(){
+            return "houdunren.com";
+        }
+
+        console.log(hd());
+
+        hd().then(value=>{
+            console.log(value);
+        });
+    </script>
+    <p>如果有多个await需要排队执行完成，我们可以很方便的处理多个异步队列</p>
+    <script>
+        async function qin(message){
+            return new Promise(resolve=>{
+                setTimeout(()=>{
+                    resolve(message);
+                },2000);
+            });
+        }
+
+        async function run(){
+            let h1=await qin("秦始皇");
+            console.log(h1);
+            let h2=await qin("祖龙");
+            console.log(h2);
+        }
+
+        run();
+    </script>
+</body>
+</html>
