@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>其他声明</title>
+</head>
+<body>
+    <p>函数声明</p>
+    <script src="/promise/js/ajax.js"></script>
+    <script>
+        async function get(name){
+            return await ajax(`http://localhost:80/php/user.php?name=${name}`);
+        }
+        get("后盾人").then(user=>{
+            console.log(user);
+        });
+    </script>
+
+    <p>函数表达式</p>
+    <script>
+        let han = async function(name){
+            return await ajax(`http://localhost:80/php/user.php?name=${name}`);
+        };
+        han("后盾人").then(user=>{
+            console.log(user);
+        });
+    </script>
+
+    <p>对象方法声明</p>
+    <script>
+        let sui={
+            async get(name){
+                return await ajax(`http://localhost:80/php/user.php?name=${name}`);
+            }
+        };
+
+        sui.get("后盾人").then(user=>{
+            console.log(user);
+        });
+    </script>
+
+    <p>立即执行函数</p>
+    <script>
+        (async ()=>{
+            let user =await ajax(`http://localhost:80/php/user.php?name=向军`);
+            let lessons= await ajax(
+                `http://localhost:80/php/houdunren.php?id=${user.id}`
+            );
+            console.log(lessons);
+        })();
+    </script>
+
+    <p>类方法中的使用</p>
+    <script>
+        class Tang{
+            async get(name){
+                return await ajax(`http://localhost:80/php/user.php?name=${name}`);
+            }
+        }
+
+        let tang=new Tang().get("后盾人").then(a=>{
+            console.log(a);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>错误处理</title>
+</head>
+<body>
+    <p>async内部发生的错误，会将改变promise对象为rejected状态，所以可以使用catch来处理</p>
+    <!-- <script>
+        async function qin(){
+            console.log(houdunren);
+        }
+
+        qin().catch(e=>{
+            throw new Error(e);
+        });
+
+        // console.log("a");
+    </script> -->
+
+    <p>下面是异步请求数据不存在时的错误处理</p>
+    <script src="/promise/js/ajax.js"></script>
+    <!-- <script>
+        async function get(name) {
+            return await ajax(`http://localhost:80/php/user.php?name=${name}`);
+        }
+
+        get("秦始皇").catch(e=>{
+            alert("用户不存在");
+        })
+    </script> -->
+
+    <p>如果promise被拒绝将抛出异常，可以使用try...catch处理错误</p>
+    <!-- <script>
+        async function get(name){
+            try {
+                let user=await ajax(
+                    `http://localhost:80/php/user.php?name=${name}`
+                );
+                console.log(user);
+            } catch (error) {
+                alert("用户不存在");
+            }
+        }
+        get("秦始皇");
+    </script> -->
+
+    <p>多个await时当前面的出现失败，后面的将不可以执行</p>
+    <!-- <script>
+        async function han(){
+            await Promise.reject("fail");
+            await Promise.resolve("success").then(value=>{
+                console.log(value);
+            });
+        }
+
+        han();
+    </script> -->
+
+    <p>如果对前一个错误进行了处理，后面的await可以继续执行</p>
+    <script>
+        async function sui(){
+            await Promise.reject("fail").catch(a=>console.log(a));
+            await Promise.resolve("success").then(v=>console.log(v));
+        }
+
+        sui();
+    </script>
+
+    <p>也可以使用try...catch特性忽略不必要的错误</p>
+    <script>
+        async function tang(){
+            try {
+                await Promise.reject("fail");
+            } catch (error) {}  //catch忽略错误
+                await Promise.resolve("success").then(v=>console.log(v));
+            
+        }
+        tang();
+    </script>
+
+    <p>也可以将多个await放在try...catch中统一处理错误</p>
+    <script>
+        async function ming(name){
+            const host="http://localhost:80/php";
+            try {
+                const user=await ajax(`${host}/user.php?name=${name}`);
+                const lessons = await ajax(`${host}/user/php?id=${user.id}`);
+                console.log(lessons);
+            } catch (error) {
+                console.log("用户不存在");
+            }
+        }
+
+        // ming("后盾人");
+        ming("后盾人教程");
+    </script>
+
+</body>
+</html>

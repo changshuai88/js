@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>并发执行</title>
+</head>
+<body>
+    <p>有时候需要多个await同时执行，有以下几种方法处理，下面多个await将产生等待</p>
+    <script>
+        async function p1() {
+            return new Promise(resolve=>{
+                setTimeout(()=>{
+                        console.log("houdunren");
+                        resolve();
+                    },2000);
+            });
+         }
+
+         async function p2(){
+             return new Promise(resolve=>{
+                 setTimeout(()=>{
+                     console.log("hdcms");
+                     resolve();
+                 },2000);
+             });
+         }
+
+        async function qin(){
+            await p1();
+            await p2();
+        }
+
+        // qin();  //两个前后出现
+        
+    </script>
+
+    <p>使用promise.all()处理多个promise并行执行</p>
+    <script>
+        async function han(){
+            await Promise.all([p1(),p2()]);
+        }
+
+        // han();  //两个一起出现
+    </script>
+
+
+<p>让promise先执行后在使用await处理结果</p>
+<script>
+    async function sui(){
+        let h1=p1();
+        let h2=p2();
+        await h1;
+        await h2;
+    }
+    sui();
+</script>
+</body>
+</html>

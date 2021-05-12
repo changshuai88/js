@@ -21,9 +21,9 @@ class ParamError extends Error {
       xhr.send();
       xhr.onload = function() {
         if (this.status == 200) {
-            console.log(this.response);
+            // console.log(this.response);
            let a =JSON.parse(this.response);
-            console.log(a);
+            // console.log(a);
           resolve(a);
         } else if (this.status == 404) {
           // throw new HttpError("用户不存在");
