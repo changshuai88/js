@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        *{
+            margin-left: 10px;
+        }
+        h2{
+            color:purple;
+        }
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务管理</title>
+</head>
+<body>
+    <p>javascript语言的一大特点就是单线程，也就是说一个时间只能处理一个任务。为了协调事件、用户交互、脚本、UI渲染和网络处理等行为，防止主线程的不阻塞，(事件循环)Event Loop的方案应用而生</p>
+    <p>JavaScript处理任务是在等待任务、执行任务、休眠等待新任务中不断循环中，也称这种机制为事件循环</p>
+    <li>主线程中的任务执行完后，才执行任务队列中的任务</li>
+    <li>有新任务到来时会将其放入队列，采取先进先执行的策略执行队列中的任务</li>
+    <li>比如多个settimeout同时到时间了，就要依次执行</li>
+
+    <p>任务包括script(整体代码)、settimeout、setinterval、Dom渲染、DOM事件、promise、XMLHTTPQUEST等</p>
+    <h1>原理分析</h1>
+    <p>下面通过一个例子来详细分析宏任务与微任务</p>
+    <script>
+        console.log("后盾人");
+        setTimeout(() => {
+            console.log("定时器");
+        }, 0);
+
+        Promise.resolve()
+        .then(function(){
+            console.log("promise1");
+        })
+        .then(function () {
+            console.log("promise2");
+        });
+        console.log("houdunren.com");
+    </script>
+
+    <p>1.先执行最前面的宏任务script，然后输出</p>
+    <code>script start</code>
+    <p>2.然后执行settimeout异步宏任务，并将其放入宏任务队列，等待执行</p>
+    <p>3.之后执行promise.then微任务，并将其放入微任务队列，等待执行</p>
+    <p>4.然后执行到主代码输出</p>
+    <code>script end</code>
+    <p>5.主线程所有任务处理完成</p>
+    <p>6.通过事件循环遍历微任务队列，将刚才放入的promise.then微任务读取到主线程执行，然后输出</p>
+    <code>promise1</code>
+     <p>7.之后又执行promise.then产生的新的微任务，并放入微任务队列</p>
+     <p>8.主线程任务执行完毕</p>
+     <p>9.现在事件循环遍历微任务队列，读取到promise2微任务放入主线程执行，然后输出</p>
+     <code>promise2</code>
+     <p>10.主线程任务执行完毕</p>
+     <p>11.此时微任务队列已经无任务，然后从宏任务队列中读取到settimeout任务并加入主线程，然后输出</p>
+     <code>setTimeout</code>
+     <h2>脚本加载</h2>
+     <p>引擎在执行任务时不会进行DOM渲染，所以如果把script定义在前面，要先执行完任务后再渲染DOM，建议将script放在body结束标签前</p>
+
+     <h2>定时器</h2>
+    <p>
+        定时器会放入异步任务队列，也需要等待同步任务执行完成后执行。<br>
+        下面设置了6毫秒执行，如果主线程代码执行10毫秒，定时器要等主线程执行完才执行。<br>
+        html标准规定了最小使劲按不能低于4毫秒，有些异步操作如DOM操作最低是16毫秒，总之把事件设置大些对性能更好。<br>
+
+    </p>
+    <code>setTimeout(function,6)</code>
+    <p>下面的代码会先输出houdunren.com之后输出后盾人</p>
+    <script>
+        setTimeout(() => {
+            console.log("后盾人")
+        }, 0);
+        console.log("houdunren.com");
+    </script>
+    <h3>微任务</h3>
+    <p>微任务一般由用户代码产生，微任务较宏任务执行优先级更高，promise.then是典型的微任务，实例化promise时执行的代码是同步的，便then注册的回调函数是异步微任务的。</p>
+    <p>任务的执行顺序是同步任务，微任务，宏任务，所以下面的执行结果是1，2，3，4</p>
+    <script>
+        setTimeout(() => {
+         console.log(4)   
+        });
+        new Promise(resolve=>{
+            resolve();
+            console.log(1);
+        }).then(_=>{
+            console.log(3);
+        });
+
+        console.log(2); 
+
+
+    </script>
+    <p>我们再来看下面稍复杂的任务代码</p>
+    <script>
+        setTimeout(() => {
+            console.log("定时器"); //4
+            setTimeout(() => {
+                console.log("timeout timeout");  //7
+            }, 0);
+
+            new Promise(resolve=>{
+                console.log("settimeout promise"); //5
+                resolve();
+            }).then(()=>{
+                console.log("settimeout then");  //6
+            });
+        }, 0);
+
+        new Promise(resolve=>{
+            console.log("promise");//1
+            resolve();
+        }).then(()=>{
+            console.log("then");  //3
+        });
+        console.log("祖龙");//2
+    </script>
+</body>
+</html>
