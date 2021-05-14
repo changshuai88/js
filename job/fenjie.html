@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务分解</title>
+</head>
+
+<body>
+    <p>一个比较耗时的任务可能造成浏览器卡死现象，所以可以将任务拆分为多个小异步，小任务执行，下面是一个数字统计的函数，我们发现运行时间特别长</p>
+    <script src="long.js"></script>
+    <p>现在把任务分解城小块放入任务队列，浏览器就不会出现卡死的现象了，也不会影响后续代码的执行</p>
+    <!-- <script src="short.js"></script> -->
+
+    <p>交给微任务处理时更好的选择</p>
+    <!-- <script src="wei.js"></script> -->
+</body>
+
+</html>

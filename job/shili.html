@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实例操作</title>
+    <style>
+        body{
+            padding: 30px;
+        }
+        #hd{
+            height: 30px;
+            background: greenyellow;
+            width: 0;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>进度条</h1>
+    <p>下面的定时器虽然都定时了一秒钟，但也是按先进先出原则，依次执行</p>
+    <script>
+        let i=0;
+        setTimeout(()=>{
+            console.log(++i);
+        },1000);
+
+        setTimeout(() => {
+            console.log(++i);
+        }, 1000);
+    </script>
+
+    <p>下面是一个进度条的示例，将每个数字放在一个任务中执行</p>
+    <div id="hd"></div>
+    <script>
+        function view() {
+            let i=0;
+            (function handle(){
+                hd.innerHTML=i+"%";
+                hd.style.width=i+"%";
+                if (i++<100) {
+                    setTimeout(handle,20);
+                }
+            })();
+        }
+
+        view();
+        console.log("定时器开始了....");
+    </script>
+</body>
+</html>
