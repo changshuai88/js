@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>本章来自己开发一个promise实现，提升异步编程的能力</p>
+    <p>首先声明定义类并声明promise状态与值，有以下几个细节需要注意</p>
+    <li>executor为执行者</li>
+    <li>当执行这出现异常时触发拒绝状态</li>
+    <li>使用静态属性保存状态值</li>
+    <li>状态只能改变一次，所以在resolve与reject添加条件判断</li>
+    <li>因为resolve或rejected方法在executor中调用，作用域也是executor作用域，这会造成this指向window，现在我们使用的时class定义，this为undefined</li>
+    <script src="qin.js"></script>
+    <script>
+        let p = new HD((resolve, reject) => {
+            resolve("houdunren");
+        }).then(
+            value => {
+                console.log(value);
+            },
+            reason => {
+                console.log(reason);
+            }
+        );
+        console.log("祖龙");
+    </script>
+    <h1>THEN</h1>
+    <P>现在添加then方法来处理状态的改变，有以下几点说明</P>
+    <li>1.then可以有两个参数，即成功和错误时的回调函数</li>
+    <li>2.then的函数参数都不是必须的，所以需要设置默认值为函数，用于处理当没有传递时情况</li>
+    <li>3.当执行then传递的函数发生异常时，统一交给onRejected来处理错误</li>
+    <h2>异步任务</h2>
+    <p>但上面的代码产生的promise并不是异步的，使用settimeout来将onfulfilled与onrejected作为异步宏任务来执行</p>
+
+</body>
+
+</html>
