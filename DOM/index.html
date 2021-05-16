@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+
+<body>
+    <p>作为文档html的js处理方式为dom即document object model文档对象模型，如果对html很了解使用dom并不复杂</p>
+    <p>浏览器在加载页面时会生成dom对象，以供我们使用js控制页面元素</p>
+    <h1>文档渲染</h1>
+    <p>浏览器会将html文本内容进行渲染，并生成相应的js对象，同时会对不符合规则的标签进行处理，</p>
+    <li>浏览器会将标签规范后渲染页面</li>
+    <li>目的一让页面可以正确呈现</li>
+    <li>目的二可以生成统一的js可操作对象</li>
+    <p>标签修复</p>
+    <p>在html中只有内容houdunren而没有任何标签时，浏览器会自动修复成以下格式</p>
+    <!-- <xmp>
+        <html>
+
+        <head></head>
+
+        <body>
+            houdunren
+        </body>
+
+        </html>
+    </xmp> -->
+
+    <p>下面h1标签结束错误并且属性也没有引号，浏览器在渲染中会进行修复</p>
+    <h1 id=houdunren>后盾人<h1>
+
+            <h1>表格处理</h1>
+            <p>表格table中不允许有内容，浏览器在渲染过程中会进行处理</p>
+            <p>渲染后会添加tbody标签并将table中的字符移除</p>
+            <h1>标签移动</h1>
+            <p>所有内容要写在body标签中，下面的script标签卸载了body后面，浏览器渲染后也会进行处理</p>
+            <p>操作时机--需要保证浏览器已经渲染了内容才可以读取的节点对象，下例将无法读取到节点对象</p>
+            <!-- <script src="wufaduqu.js"></script> -->
+
+            <p>不过我们可以将脚本通过事件放在页面渲染完执行</p>
+            <script src="windowonload.js"></script>
+            <p>或使用定时器将脚本设置为异步执行</p>
+            <script src="yibu.js"></script>
+            <p>也可以放在文档加载后的事件处理函数中</p>
+            <script src="shijian.js"></script>
+            <p>或者将脚本设置在外部文件并使用defer属性加载，defer即会等到dom解析后延迟执行</p>
+            <script defer="defer" src="wufaduqu.js"></script>
+
+            <h1 id="hdcms">houdunren.com</h1>
+</body>
+
+</html>
