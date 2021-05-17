@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM原型链</title>
+</head>
+
+<body>
+    <h1 id="hdcms">houdunren.com</h1>
+    <script>
+        function prototype(el) {
+            console.log(el.__proto__)
+            el.__proto__ ? prototype(el.__proto__) : '';
+        }
+        const node = document.getElementById('hdcms');
+        prototype(node);
+    </script>
+    <p>在浏览器渲染过程中会将文档内容生成为不同的对象，来对下例中的h1标签进行讨论，其他节点情况类似</p>
+    <li>不同类型节点由专有的构造函数创建对象</li>
+    <li>使用console.dir可以打印出DOM节点对象结构</li>
+    <li>节点也是对象所以也具有JS对象的特征</li>
+    <table>
+        <thead>
+            <td>原型</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Object</td>
+                <td>根对象</td>
+            </tr>
+            <tr>
+                <td>EventTarget</td>
+                <td>提供事件支持</td>
+            </tr>
+            <tr>
+                <td>Node</td>
+                <td>提供parentNode等节点操作方法</td>
+            </tr>
+            <tr>
+                <td>Element</td>
+                <td>提供getElementByTagName、querySelector等方法</td>
+            </tr>
+            <tr>
+                <td>HTMLElement</td>
+                <td>所有元素的基础类、提供className、nodeName等方法</td>
+            </tr>
+            <tr>
+                <td>HTMLHeadingElement</td>
+                <td>Head标题元素类</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

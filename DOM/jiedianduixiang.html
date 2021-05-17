@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点对象</title>
+</head>
+
+<body id="hdcms">
+    <!-- 后盾人 -->
+    <p>js中的内容成为DOM节点对象(node)，既然是对象就包括操作NODE的属性和方法</p>
+    <li>包括12中类型的节点对象</li>
+    <li>常用的节点为document、标签元素节点、文本节点、注释节点</li>
+    <li>节点均继承自NODE类型，所以拥有相同的属性或方法</li>
+    <li>document是DOM操作的起始节点</li>
+    <script>
+        //document节点nodeType为9
+        console.log(document);
+        console.log(document.nodeType);
+
+        //第一个子节点为<!DOCTYPE html>,且nodetype为10
+        console.log(document.childNodes.item(0));
+        console.log(document.childNodes.item(0).nodeType);
+
+        //body是标签节点nodeType为1
+        console.log(document.body);
+        console.log(document.body.nodeType);
+
+        //body的属性节点nodetype为2
+        console.log(document.body.attributes[0].nodeType);
+        console.log(document.body.attributes[0]);
+
+
+        //body的第一个节点为文本节点，nodetype为3
+        console.log(document.body.childNodes.item(0));
+        console.log(document.body.childNodes.item(0).nodeType);
+
+        //body的第二个节点为注释，nodetype类型为8
+        console.log(document.body.childNodes[1]);
+        console.log(document.body.childNodes[1].nodeType);
+    </script>
+</body>
+
+</html>
