@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        * {
+            padding-left: 10px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="hd"></div>
+    <p>既然DOM与我们其他JS创建的对象特征相仿，所以也可以为DOM对象添加属性或方法。</p>
+    <p>对于系统应用的属性，应该明确含义不应该随意使用，比如ID是用于标识元素唯一属性，不能用于其他目的</p>
+    <li>后面会讲到其他解决方案，来自定义属性，下面的直接修改ID属性是不建议的</li>
+    <script>
+        let hd = document.getElementById('hd');
+        hd.id = 'houdunren.com';
+        console.log(hd);
+    </script>
+    <p>title用于显示提示文档也不应该用于其他目的</p>
+    <div id="qin">秦始皇</div>
+    <script>
+        let qin = document.getElementById('qin');
+        qin.title = 'houdunren.com';
+        console.log(qin);
+    </script>
+    <p>
+        下面是为对象合并属性的示例
+    </p>
+    <div id="han">汉武帝</div>
+    <script>
+        let han = document.getElementById('han');
+        Object.assign(han, {
+            color: 'red',
+            change() {
+                this.innerHTML = "刘彻";
+                this.style.color = this.color;
+
+            },
+            onclick() {
+                this.change()
+            },
+        });
+    </script>
+
+    <p>使用对象特性更改样式属性</p>
+    <div id="sui">隋炀帝</div>
+    <script>
+        let sui = document.getElementById('sui');
+        Object.assign(sui.style, {
+            color: 'white',
+            backgroundColor: 'red',
+        });
+    </script>
+
+    <h1>DOCUMENT</h1>
+    <p>document是window对象的属性，是由HTMLDocument类实现的实例。</p>
+    <li>document包含DocumentType(唯一)或html元素(唯一)或comment等元素</li>
+    <p>原型链中也包含Node，所以可以使用有关节点操作的方法如nodeType/NodeName等</p>
+
+    <script>
+        console.dir(document.nodeType);
+        console.dir(document.nodeName);
+    </script>
+</body>
+
+</html>
