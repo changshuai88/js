@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        td {
+            outline: green solid 1px;
+        }
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>BODY</h1>
+    <h2>节点属性</h2>
+    <p>不同类型的节点拥有不同属性，下面是节点属性的说明与示例</p>
+    <h3>nodeType</h3>
+    <p>nodeType指以数值返回节点类型</p>
+    <table>
+        <thead>
+            <td>nodeType</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>元素节点</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>属性节点</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>文本节点</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>注释节点</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>document对象</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>下面是节点nodeType的示例</p>
+    <div id="qin">
+        <div class="houdunren" data="hd">houdunren.com</div>
+        <div class="hdcms">hdcms.com</div>
+        <div class="xiangjun">
+            <!-- 向军 -->
+        </div>
+    </div>
+
+    <script>
+        const qin = document.querySelector('#qin');
+        console.log(qin.nodeType);
+        console.log(qin.firstChild.nodeType);
+
+        const xj = document.querySelector('.xiangjun');
+        console.log(xj.childNodes[0].nodeType); //如果是注释的话就是8
+
+        //当然也可以使用对象的原型进行检测
+        let h1 = document.querySelector('h1');
+        let p = document.querySelector('p');
+        console.log(h1 instanceof HTMLHeadingElement);
+        console.log(p instanceof HTMLHeadingElement);
+        console.log(p instanceof Element);
+    </script>
+
+    <p>下满递归获取所有标签元素</p>
+    <div id="han">
+        <ul>
+            <li>
+                <h2><strong>后盾人</strong></h2>
+            </li>
+        </ul>
+    </div>
+    <script>
+        function all(el) {
+            let items = [];
+            [...el.childNodes].map((node) => {
+                if (node.nodeType == 1) {
+                    items.push(node, ...all(node))
+                }
+            });
+            return items;
+        }
+        let sui = document.querySelector('#han');
+        console.log(all(sui));
+
+        // console.log(all(document.body));
+    </script>
+</body>
+
+</html>

@@ -68,6 +68,40 @@
         console.dir(document.nodeType);
         console.dir(document.nodeName);
     </script>
+
+    <h1>html</h1>
+    <p>下面通过节点的nodetype来获取html元素</p>
+    <script>
+        let tang = [...document.childNodes].filter((node) => {
+            if (node.nodeType === 1) {
+                return node;
+            }
+        })[0];
+        console.log(tang);
+
+        //系统提供了简单的方式来获取html元素
+        console.log(document.documentElement);
+    </script>
+
+    <h2>文档信息</h2>
+    <p>使用title获取和设置文档标题</p>
+    <script>
+        //获取文档标题
+        console.log(document.title);
+
+        //设置文档标签
+        document.title = "DOM对象特征"
+
+        //获取当前URL
+        console.log(document.URL);
+
+        //获取域名
+        console.log(document.domain);
+
+        //获取来源地址
+
+        console.log(document.referrer);
+    </script>
 </body>
 
 </html>
