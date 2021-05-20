@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>树状节点</h1>
+    <p>下面获取标签树状结构即多级标签结构，来加深以下nodetype、nodename等知识</p>
+    <div id="qin">秦始皇</div>
+    <script>
+        function element(node) {
+            if (node.nodeType != 1) return;
+
+            let a = Array.from(node.childNodes).filter(node => node.nodeType == 1);
+            console.log(...a);
+            return a.map(node => ({
+                name: node.nodeName,
+                children: element(node),
+            }));
+
+        }
+
+        let nodes = element(document.documentElement);
+        console.log(nodes);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            padding-left: 10px;
+            outline: springgreen solid 1px;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常用元素</title>
+</head>
+
+<body>
+    <h1>常用元素</h1>
+    <p>系统针对特定标签提供了快速选择的方式</p>
+    <p>下面展示的时获取所有a标签</p>
+    <div name="app">
+        <a href="">qinshihaung</a>
+        <a href="">hangaozu</a>
+    </div>
+    <script>
+        const qin = document.links;
+        console.dir(qin);
+    </script>
+
+    <table>
+        <thead>
+            <td colspan="2">获取特定元素方法如下</td>
+        </thead>
+        <tr>
+            <td>方法</td>
+            <td>说明</td>
+        </tr>
+        <tr>
+            <td>document.documentElement</td>
+            <td>文档节点即html标签节点</td>
+        </tr>
+        <tr>
+            <td>document.body</td>
+            <td>body标签节点</td>
+        </tr>
+        <tr>
+            <td>document.head</td>
+            <td>head标签节点</td>
+        </tr>
+
+        <tr>
+            <td>document.links</td>
+            <td>超链接集合</td>
+
+        </tr>
+        <tr>
+            <td>document.anchors</td>
+            <td>所有锚点集合</td>
+        </tr>
+        <tr>
+            <td>document.forms</td>
+            <td>form表单集合</td>
+        </tr>
+        <tr>
+            <td>document.images</td>
+            <td>图片集合</td>
+        </tr>
+    </table>
+
+    <h2>节点关系</h2>
+    <p>节点是父子级嵌套与前后兄弟关系，使用DOM提供的API可以获取这种关系的元素</p>
+    <li>文本和注释也是节点，所以也在匹配结果中</li>
+    <h3>基础知识</h3>
+    <p></p>
+</body>
+
+</html>

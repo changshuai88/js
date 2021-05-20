@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            padding-left: 10px;
+            outline: green solid 1px;
+        }
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点集合</title>
+</head>
+
+<body>
+    <h1>节点集合</h1>
+    <p>nodelist与HTMLCollection都是包含多个节点标签的集合，大部分功能也是相同的</p>
+    <li>getElementBy...等方法返回的是HTMLCollection</li>
+    <li>querySelectorAll返回的是NodeList</li>
+    <li>NodeList节点列表是动态的，即内容添加后会动态获取</li>
+    <h2>length</h2>
+    <p>Nodelist与HTMLCollection包含length属性，记录了节点元素的数量</p>
+    <div name="qin">
+        <div id="mengtian">mengtian</div>
+        <div name="lisi">lisi</div>
+
+    </div>
+    <script>
+        const qin = document.getElementsByTagName('div');
+        console.log(qin);
+        for (let i = 0; i < qin.length; i++) {
+            console.log(qin[i]);
+
+        }
+    </script>
+
+    <h2>转换数组zhuanhuashuzu</h2>
+    <p>有时使用数组方法来操作节点集合，这就需要将节点集合转化为数组类型，有以下几种方式可以实现</p>
+    <script>
+        //使用call调用原型方法
+        let han = document.getElementsByTagName('h2');
+        console.log(han);
+        //使用array.from转换
+        console.log(Array.from(han));
+
+        let arr = Array.prototype.slice.call(han, 0);
+        console.log(arr[0]);
+
+        arr.map((item) => {
+            item.style.color = 'green';
+        });
+        //使用点语法转换节点为数组
+        [...han].map((item) => {
+            item.addEventListener('click', function () {
+                this.style.textTransform = 'uppercase';
+            });
+        });
+    </script>
+
+    <h2>item</h2>
+    <p>Nodelist与HTMLCollection提供了item()方法来根据索引获取元素</p>
+    <script>
+        const sui = document.getElementsByTagName('div');
+        console.log(sui.item(0));
+
+        //使用数组索引获取更方便
+        const tang = document.getElementsByTagName('div');
+        console.log(tang[0]);
+    </script>
+
+    <h2>namedItem</h2>
+    <p>HTMLCollection具有namedItem方法可以按name或id属性来获取元素</p>
+    <script>
+        console.dir(tang.namedItem('qin'));
+        console.dir(tang.namedItem('lisi'));
+
+        //也可以使用数组或属性方式获取
+        console.dir(tang['qin']);
+        console.dir(tang.lisi);
+
+        //数字索引时使用item方法，字符串索引时使用nameditem方法
+
+        console.log(tang[1]);
+        console.log(tang['lisi']);
+    </script>
+</body>
+
+</html>
