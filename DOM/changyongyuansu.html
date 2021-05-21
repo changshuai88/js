@@ -27,8 +27,8 @@
         <a href="">hangaozu</a>
     </div>
     <script>
-        const qin = document.links;
-        console.dir(qin);
+        const han = document.links;
+        console.dir(han);
     </script>
 
     <table>
@@ -75,7 +75,90 @@
     <p>节点是父子级嵌套与前后兄弟关系，使用DOM提供的API可以获取这种关系的元素</p>
     <li>文本和注释也是节点，所以也在匹配结果中</li>
     <h3>基础知识</h3>
-    <p></p>
+    <p>节点是根据HTML内容产生的，所以也存在父子、兄弟、祖先、后代等节点关系，下例中的代码就会产生这种多重关系</p>
+    <li>h1与ul是兄弟关系</li>
+    <li>span与li是父子关系</li>
+    <li>ul与span是后代关系</li>
+    <li>span与ul是祖先关系</li>
+    <div>
+        <h1>秦始皇</h1>
+        <ul>
+            <li>
+                <span>李斯</span>
+                <strong>蒙恬</strong>
+            </li>
+        </ul>
+    </div>
+
+    <p>下面是通过节点关系获取相应元素的方法</p>
+    <table>
+        <thead>
+            <td>节点属性</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>childNodes</td>
+                <td>获取所有子节点</td>
+            </tr>
+            <tr>
+                <td>parentNode</td>
+                <td>获取父节点</td>
+            </tr>
+            <tr>
+                <td>firstChild</td>
+                <td>子节点中第一个</td>
+            </tr>
+            <tr>
+                <td>lastChild</td>
+                <td>子节点中最后一个</td>
+            </tr>
+            <tr>
+                <td>nextSibling</td>
+                <td>下一个兄弟节点</td>
+            </tr>
+            <tr>
+                <td>previousSibling</td>
+                <td>上一个兄弟节点</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>子节点集合与首、尾节点获取</p>
+    <li>文本也是node所以也会在匹配当中</li>
+    <div id="qin">
+        <div class="mengtian" data="mengao">mengtian</div>
+        <div class="lisi">lisi</div>
+        <div class="zhanghan">zhanghan</div>
+    </div>
+    <script>
+        const qin = document.querySelector('#qin');
+        //所有节点包含text
+        console.log(qin.childNodes);
+        console.log(qin.firstChild);
+        console.log(qin.lastChild);
+
+        //下面通过示例操作节点关联
+        //文本也是node所以也会在匹配当中
+
+        const lisi = qin.querySelector('.lisi');
+        console.log(lisi.parentNode);
+        console.log(lisi.childNodes);
+        console.log(lisi.nextSibling);
+        console.log(lisi.previousSibling);
+
+        //document是顶级节点html标签的父节点是document
+
+        console.log(document.documentElement.parentNode === document);
+
+        //下例是查找元素的所有父节点
+        function parentNodes(node) {
+            let nodes = [];
+            while ((node = node.parentNode)) nodes.push(node);
+            return nodes;
+        }
+        const
+    </script>
+
 </body>
 
 </html>
