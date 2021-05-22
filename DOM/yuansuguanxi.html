@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding-left: 10px;
+            outline: greenyellow solid 1px;
+        }
+    </style>
+    <title>元素关系</title>
+</head>
+
+<body>
+    <h1>元素关系</h1>
+    <p>使用childNodes等获取的节点包括文本与注释，但这不是我们常用的，系统也提供了只操作元素的关系方法</p>
+    <table>
+        <thead>
+            <td>节点属性</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>parentElement</td>
+                <td>获取父元素</td>
+            </tr>
+            <tr>
+                <td>children</td>
+                <td>获取所有子元素</td>
+            </tr>
+            <tr>
+                <td>childElementCount</td>
+                <td>子标签元素的数量</td>
+            </tr>
+            <tr>
+                <td>firstElementChild</td>
+                <td>第一个子标签</td>
+            </tr>
+            <tr>
+                <td>lastElementChild</td>
+                <td>最后一个子标签</td>
+            </tr>
+            <tr>
+                <td>previousElementSibling</td>
+                <td>上一个兄弟标签</td>
+            </tr>
+            <tr>
+                <td>nextElementSibling</td>
+                <td>下一个兄弟标签</td>
+            </tr>
+            <tr>
+                <td>contains</td>
+                <td>返回布尔值，判断传入的节点是否为该节点的后代节点</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <div id="qin">
+        <div class="yingzheng" data="zulong">秦始皇</div>
+        <div class="baiqi">白起</div>
+        <div class="lisi">
+            <!-- 李斯 -->
+        </div>
+    </div>
+
+    <script>
+        const qin = document.querySelector("#qin");
+        console.log(qin.children);
+        console.log(qin.firstElementChild);
+        console.log(qin.lastElementChild);
+
+        const baiqi = document.querySelector('.baiqi');
+        console.log(baiqi.parentElement);
+
+        console.log(baiqi.previousElementSibling);
+        console.log(baiqi.nextElementSibling);
+    </script>
+
+    <p>
+        html标签的父节点是document，但父标签节点不存在
+    </p>
+    <script>
+        console.log(document.documentElement.parentNode === document);
+        console.log(document.documentElement.parentElement);
+    </script>
+</body>
+
+</html>

@@ -156,7 +156,43 @@
             while ((node = node.parentNode)) nodes.push(node);
             return nodes;
         }
-        const
+        console.log(parentNodes(lisi));
+    </script>
+
+    <P>获取所有的后代元素span的内容</P>
+    <div id="sui">
+        <span>靠山王杨林</span>
+        <div id="suimo">
+            <span>老将张须陀</span>
+            <h2>
+                <span>罗士信</span>
+            </h2>
+        </div>
+    </div>
+
+    <script>
+        let i = 0;
+
+        function getChildNodeByName(el, name) {
+            // console.log(el.childElementCount);
+            let items = [];
+            // let i = 0;
+            for (const node of el.childNodes) {
+                // i++;
+                if (node.nodeName === name.toUpperCase()) items.push(node);
+                console.log(i++);
+                console.log(node);
+                items = [...items, ...getChildNodeByName(node, name)];
+            }
+            // console.log(i);
+            return items;
+
+        }
+
+        const sui = document.getElementById('sui');
+        const nodes = getChildNodeByName(sui, 'span');
+        console.log(nodes);
+        console.log(typeof nodes[0]);
     </script>
 
 </body>

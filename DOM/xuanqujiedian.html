@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding-left: 10px;
+            outline: black solid 1px;
+        }
+    </style>
+    <title>选取节点</title>
+</head>
+
+<body>
+    <h1>选取节点</h1>
+    <p>系统提供了丰富的选择节点node的操作方法，下面我们来一一说明</p>
+    <h2>getElementById</h2>
+    <p>使用ID选择是非常方便的选择具有ID值的节点元素，但注意ID应该是唯一的</p>
+    <li>只能通过document对象上使用</li>
+    <div id="qin">秦始皇</div>
+    <div id="han">汉武帝</div>
+    <script>
+        const qin = document.getElementById('qin');
+        console.log(qin);
+
+        //下面自定义函数来支持批量按ID选择元素
+        function getByElementIds(ids) {
+            return ids.map((id) => document.getElementById(id))
+        }
+        let nodes = getByElementIds(["qin", "han"]);
+        console.log(nodes);
+    </script>
+</body>
+
+</html>
