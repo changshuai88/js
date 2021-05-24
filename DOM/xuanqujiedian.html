@@ -33,6 +33,74 @@
         let nodes = getByElementIds(["qin", "han"]);
         console.log(nodes);
     </script>
+
+    <p>拥有id的元素可作为window的属性进行访问</p>
+    <script>
+        console.log(han.innerHTML);
+    </script>
+    <p>如果声明了变量这种访问方式将无效，所以并不建议使用这种方式访问对象</p>
+    <script>
+        let han = 'liubang';
+        console.log(han.innerHTML); //undefined;
+    </script>
+
+    <p>getElementById只能通过document访问，不能通过元素读取拥有id的子元素，下面的操作将产生错误</p>
+
+    <div id="sui">
+        suiyangdi
+        <div id="limi">limi</div>
+    </div>
+
+    <script>
+        const sui = document.getElementById('sui');
+        // const limi=sui.getElementById('limi');
+        // console.log(limi); //not a function
+    </script>
+
+    <h2>getElementbyName</h2>
+    <p>使用getElementbyName获取设置了name属性的元素，虽然在div等元素上同样有效，但一般用来表单元素进行操作时使用</p>
+    <li>返回nodelist节点对象列表</li>
+    <li>弄得list顺序为元素在文档中的顺序</li>
+    <div name='jingde'>jingde</div>
+    <input type="text" name='username'>
+    <script>
+        const jingde = document.getElementsByName('jingde');
+        const username = document.getElementsByName('username');
+        console.dir(username);
+    </script>
+
+    <h3>getElementByTagName</h3>
+    <p>使用getElementsByTagName用于按标签名获取元素</p>
+    <li>返回HTMLCollection节点列表对象</li>
+    <li>是不区分大小的获取</li>
+    <div name='tang'>tang</div>
+    <div id="liyuan">
+        <div></div>
+    </div>
+    <script>
+        const divs = document.getElementsByTagName('div');
+        console.dir(divs);
+
+        //通配符
+        //可以使用通配符*获取所有元素
+        const lizhi = document.getElementsByTagName('*');
+        console.dir(lizhi);
+
+        //某个元素也可以使用通配符*获取后代元素，下面获取id为liyuan的所有后代元素
+
+        const liyuan = document.getElementsByTagName('*').namedItem('liyuan').getElementsByTagName('*');
+        console.dir(liyuan);
+    </script>
+
+    <h3>getElementsByClassName</h3>
+    <p>getElementsByClassName用于按class样式属性值获取元素集合</p>
+    <li>设置多个值时顺序无关，指包含这些class属性的元素</li>
+    <div class="song kouzhun liulang">yangliulang </div>
+    <div class="liulang">yanyanzhao</div>
+    <script>
+        const liu = document.getElementsByClassName('liulang');
+        console.log(liu.length);
+    </script>
 </body>
 
 </html>

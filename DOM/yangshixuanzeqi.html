@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>样式选择器</title>
+</head>
+
+<body>
+    <h1>样式选择器</h1>
+    <p>在CSS中可以通过样式选择器修饰元素样式，在DOM操作中也可以使用这中方式查找元素。使用过jQuery库的朋友，应该对这种选择方式印象深刻</p>
+    <p>使用getElementByTagName等方式选择元素不够灵活，建议使用下面的样式选择器操作，更加方便灵活</p>
+    <h2>querySelectorAll</h2>
+    <p>使用querySelectorAll根据CSS选择器获取Nodelist节点列表</p>
+    <li>获取的nodelist节点列表是静态的，添加或删除元素后不变</li>
+    <div class="qin">秦始皇</div>
+    <div id="qin">
+        <div class="baiqi lisi" data='mengtian'>baiqi</div>
+        <div class="lisi" data='mengtian'>lisi</div>
+    </div>
+    <script>
+        //获取所有div元素
+        const qin = document.getElementById('qin');
+        console.dir(qin);
+        const divs = qin.querySelectorAll('div');
+        console.log(divs.length);
+
+        //获取id为qin中class包含值的子元素
+        const div1 = document.querySelectorAll('#qin .lisi');
+        console.log(div1.length);
+
+        //根据元素属性值获取元素集合
+        const div2 = document.querySelectorAll(`#qin .lisi[data='mengtian']`);
+        console.log(div2.length);
+    </script>
+
+    <h2>querySelector</h2>
+    <p>querySelector使用CSS选择器获取一个元素，下面是根据属性获取单个元素</p>
+    <script>
+        const div3 = document.querySelector(`#qin .lisi[data='mengtian']`);
+        console.log(div3);
+    </script>
+
+    <h2>matches</h2>
+    <p>用于检测元素是否是指定的样式选择器匹配，下面过滤掉所有name属性的li元素</p>
+    <div id="han">
+        <li>霍去病</li>
+        <li>卫青</li>
+        <li name='dongfangshuo'>东方朔</li>
+    </div>
+    <script>
+        const han = document.getElementById('han');
+        console.log(han);
+        const dongs = [...han.querySelectorAll('li')].filter((node) => {
+            return !node.matches(`[name]`);
+        });
+        console.log(dongs);
+    </script>
+
+    <h2>closest</h2>
+    <p>查找最近的符合选择器的祖先元素(包括自身)，下例查找父级拥有.comment类的元素</p>
+    <div class="sui">
+        <ul class="sui">
+            <li>隋文帝</li>
+        </ul>
+    </div>
+    <script>
+        const li = document.getElementsByTagName('li');
+        console.log(li);
+        const sui = li[li.length - 1].closest(`.sui`);
+        console.log(sui);
+    </script>
+</body>
+
+</html>

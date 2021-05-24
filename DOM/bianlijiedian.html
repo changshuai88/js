@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遍历节点</title>
+</head>
+
+<body>
+    <div name='qin'>
+        <div class="baiqi">baiqi</div>
+        <div name='lisi'>lisi</div>
+    </div>
+    <h1>length</h1>
+    <p>根据节点列表的length属性，使用for遍历</p>
+    <script>
+        const qin = document.getElementsByTagName('div');
+        console.log(qin);
+        for (let i = 0; i < qin.length; i++) {
+            console.log(qin[i]);
+        }
+    </script>
+
+    <h1>forEach</h1>
+    <p>Nodelist节点列表也可以使用forEach来遍历，但HTMLCollection则不可以</p>
+    <script>
+        qin1 = document.querySelectorAll('div');
+        console.log(qin1);
+        qin1.forEach((node, ket) => {
+            console.log(node);
+        })
+    </script>
+
+    <h2>map</h2>
+    <p>节点集合对象原型中不存在map方法，但可以借用array的原型map方法实现遍历</p>
+    <script>
+        Array.prototype.map.call(qin1, (node, index) => {
+            console.log(node, index);
+        })
+    </script>
+
+    <p>Array.from用于将类数组转为组件，并提供第二个迭代函数。所以可以借用Array.from实现遍历</p>
+    <script>
+        Array.from(qin, (node, index) => {
+            console.log(node, index);
+        })
+    </script>
+    <p>forof--节点集合是类数组的可迭代对象，所以可以使用for...of进行遍历</p>
+    <script>
+        for (const item of qin) {
+            console.log(item);
+        }
+    </script>
+
+</body>
+
+</html>
