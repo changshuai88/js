@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静态与动态</title>
+</head>
+
+<body>
+    <p>通过getElementByTagName等getElementBy...函数获取的nodelist与HTMLCollection集合是动态的，即有元素添加或移动操作将实时反应最新状态</p>
+    <li>使用getElement...返回的都是动态的集合</li>
+    <li>使用querySelectorAll返回的是静态集合</li>
+    <h1>动态特征</h1>
+    <h1>秦始皇</h1>
+    <button id="qin">添加元素</button>
+    <button id="han">静态添加元素</button>
+    <script>
+        //下例中通过按钮动态添加元素后，获取的元素集合是动态的，而不是上次获取的固定快照
+        let h1 = document.getElementsByTagName('h1');
+        console.log(h1);
+        let btn = document.querySelector('#qin');
+        btn.addEventListener('click', () => {
+            document.querySelector('body').insertAdjacentHTML('beforeend', '<h1>白起</h1>');
+            console.log(h1);
+        });
+        //document.querySelectorAll获取的集合是静态的
+        let h2 = document.querySelectorAll('h1');
+        console.log(h2.length);
+        let btn1 = document.querySelector('#han');
+        btn1.addEventListener('click', () => {
+            document.querySelector('body').insertAdjacentHTML('beforeend', '<h1>李斯</h1>');
+            console.log(h2.length);
+        })
+    </script>
+
+    <h2>使用静态</h2>
+    <p>如果需要保存静态集合，则需要对集合进行复制</p>
+    <div id="sui">杨坚</div>
+    <div name='yangguang'>隋炀帝</div>
+    <script>
+        const sui = document.getElementsByTagName('div');
+        const yangdi = Array.prototype.slice.call(sui);
+        console.log(sui.length);
+        document.body.appendChild(document.createElement('div'));
+        console.log(sui.length);
+        console.log(yangdi.length);
+    </script>
+
+
+</body>
+
+</html>

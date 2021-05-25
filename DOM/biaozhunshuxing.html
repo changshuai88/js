@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding-left: 10px;
+        }
+    </style>
+    <title>标准属性</title>
+</head>
+
+<body>
+    <p>元素的标准属性具有相对应的DOM对象属性</p>
+    <li>操作属性区分大小写</li>
+    <li>多个单词属性命名规则为第一个单词小写，其他单词大写</li>
+    <li>属性值是多类型并不全是字符串，也可能是对象等</li>
+    <li>事件处理程序属性值为函数</li>
+    <li>style属性为CSSStyleDeclaration对象</li>
+    <li>DOM对象不同生成的属性也不同</li>
+
+    <h2>属性别名</h2>
+    <p>有些属性名与JS关键词冲突，系统已经起了别名</p>
+    <table>
+        <thead>
+            <td>属性</td>
+            <td>别名</td>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>class</td>
+                <td>className</td>
+            </tr>
+            <tr>
+                <td>for</td>
+                <td>htmlfor</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>操作属性</h2>
+    <p>元素的标准属性可以直接进行操作，下面是直接设置元素的className</p>
+    <div id="qin">
+        <div class="lisi" data='zaixaing'>lisi</div>
+        <div class="baiqi">baiqi</div>
+    </div>
+    <script>
+        const qin = document.querySelector('#qin');
+        qin.className = 'lisi baiqi';
+    </script>
+
+    <p>下面设置图像元素的标准属性</p>
+    <img src="" alt="">
+    <script>
+        let img = document.images[0];
+        img.src = 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4009812497,1310268689&fm=26&gp=0.jpg';
+        img.alt = '万茜';
+    </script>
+
+    <p>使用hidden隐藏元素</p>
+    <div id="han">大汉天子</div>
+    <script>
+        const han = document.querySelector('#han');
+        han.addEventListener('click', function () {
+            console.log(this);
+            this.hidden = true;
+        });
+    </script>
+
+    <h3>多类型</h3>
+    <p>大部分属性值都是字符串，但并不是全部，下例中需要转换为数值后进行数据运算</p>
+    <input type="text" name="age" value="88">
+    <script>
+        let input = document.getElementsByName('age').item(0);
+        input.value = parseInt(input.value) + 100;
+    </script>
+
+    <p>下面表单checked属性值为Boolean类型</p>
+    <label for="hot"><input id='hot' type="checkbox" name="hot">热门</label>
+    <script>
+        const hot = document.querySelector(`[name='hot']`);
+        hot.addEventListener('change', function () {
+            console.log(this.checked);
+        });
+    </script>
+
+    <p>属性值并都与HTML定义的值一样，下面返回的href属性值是完整链接</p>
+    <a href="#sui" id="sui">sui</a>
+    <script>
+        const sui = document.querySelector(`#sui`);
+        console.log(sui.href);
+    </script>
+
+</body>
+
+</html>
