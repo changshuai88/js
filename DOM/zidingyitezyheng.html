@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义特征</title>
+</head>
+
+<body>
+    <p>虽然可以随意定义特征并使用getAttribute等方法管理，但很容易造成与标签的现在货未来属性重名，建议使用以data-为前缀的自定义特征处理，针对这种定义方式JS也提供了接口方便操作。</p>
+    <li>元素中以data-为前缀的属性会添加到属性集中</li>
+    <li>使用元素的dataset可获取属性集中的属性</li>
+    <li>改变dataset的值也会影响到元素上</li>
+    <div class="qin" data-content="秦始皇" data-color='red'>秦始皇</div>
+
+    <script>
+        //下面演示使用属性集设置DIV标签内容
+        let qin = document.querySelector('.qin');
+        let content = qin.dataset.content;
+        console.log(content);
+        qin.innerHTML = `<span style='color:${qin.dataset.color}'>${content}</span>`;
+    </script>
+
+    <p>多个单词的特征使用驼峰命名方式读取</p>
+    <div class="han" data-title-color='red'>汉武帝</div>
+    <script>
+        let han = document.querySelector('.han');
+        han.innerHTML = `
+        <span style='color:${han.dataset.titleColor}'>${han.innerHTML}</span>
+        `;
+    </script>
+
+    <p>改变dataset值也会影响到页面元素上</p>
+    <div class="sui" data-title-color="red">隋文帝</div>
+    <script>
+        let sui = document.querySelector('.sui');
+        sui.addEventListener('click', function () {
+            this.dataset.titleColor = ['red', 'green', 'blue'][Math.floor(Math.random() * 3)];
+            this.style.color = this.dataset.titleColor;
+        })
+    </script>
+</body>
+
+</html>

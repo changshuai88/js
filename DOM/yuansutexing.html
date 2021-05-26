@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元素特性</title>
+</head>
+
+<body>
+    <p>对于标准的属性可以使用DOM属性的方式进行操作，但对于标签的非标准的定制属性则不可以，但JS提供了方法来控制标准或非标准的属性</p>
+    <p>可以理解为元素的属性分两个地方保存，DOM属性中记录标准属性，特征中记录标准和定制属性</p>
+    <li>使用特征操着时属性名称不区分大小写</li>
+    <li>特征值都为字符串类型</li>
+    <table>
+        <thead>
+            <td>方法</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>getArrtibute</td>
+                <td>获取属性</td>
+            </tr>
+            <tr>
+                <td>setAttribute</td>
+                <td>设置属性</td>
+            </tr>
+            <tr>
+                <td>removeAttribute</td>
+                <td>删除属性</td>
+            </tr>
+            <tr>
+                <td>hasAttribute</td>
+                <td>属性检测</td>
+            </tr>
+        </tbody>
+
+        <p>特征时可迭代对象，下面使用for of来进行遍历操作</p>
+
+    </table>
+    <div id="qin" content='yingzheng' color='red'>daqin</div>
+
+    <script>
+        const qin = document.querySelector('#qin');
+        for (const {
+                name,
+                value
+            } of qin.attributes) {
+            console.log(name, value);
+        };
+    </script>
+
+    <p>属性值都为字符串，所以数值类型需要进行转换</p>
+    <input type="number" name="age" value="88">
+    <script>
+        let input = document.getElementsByName('age').item(0);
+        console.log(document.getElementsByName('age'));
+
+        let value = input.getAttribute('value') * 1 + 100;
+        input.setAttribute('value', value);
+    </script>
+
+    <p>使用removeAttribute删除元素的class 属性，并通过hasAttribute进行检测删除结果</p>
+    <div class="han">hanwudi</div>
+    <script>
+        let han = document.querySelector('.han');
+        han.removeAttribute('class');
+        console.log(han.hasAttribute('class'));
+    </script>
+
+    <p>特征值与HTML定义时一致的，这和属性值时不同的</p>
+    <a href="#suiyangdi" id="sui"></a>
+    <script>
+        const sui=document.querySelector('#sui');
+        console.log(sui.href);
+
+        console.log(sui.getAttribute('href'));
+    </script>
+
+    <h2>attributes</h2>
+    <p>元素提供了attributes属性可以只读的获取元素的属性</p>
+    <div class="tang" data-content="唐太宗">李世民</div>
+    <script>
+        let tang=document.querySelector('.tang');
+        console.log(tang.attributes['class'].nodeValue);
+        console.dir(tang.attributes['data-content'].nodeValue);
+    </script>
+</body>
+
+</html>
