@@ -41,6 +41,31 @@
             this.style.color = this.dataset.titleColor;
         })
     </script>
+
+    <p>属性同步--特征和属性是记录元素属性的两个不同场所，大部分更改会进行同步操作。</p>
+    <div id="tang" class="red">唐玄宗</div>
+
+    <script>
+        //下面使用属性更改了className，会自动同步到了特征集中，反之亦然
+        const tang = document.querySelector('#tang');
+        tang.className = 'jingde';
+        console.log(tang.getAttribute('class'));
+
+        tang.setAttribute('class', 'blue');
+        console.log(tang.className);
+    </script>
+
+    <p>下面对input值使用属性设置，但并没有同步到特征</p>
+    <input type="text" name="package" value="一字并肩王">
+    <script>
+        const package = document.querySelector(`[name='package']`);
+        package.value = '薛仁贵';
+        console.log(package.getAttribute('value'));
+        //但改变input的特征value会同步到DOM对象属性
+
+        package.setAttribute('value', '薛礼');
+        console.log(package.value);
+    </script>
 </body>
 
 </html>

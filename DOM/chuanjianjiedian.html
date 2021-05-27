@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建节点</title>
+</head>
+
+<body>
+    <h1>创建节点</h1>
+    <p>创建节点的就是构建出DOM对象，然后根据需要添加到其他节点中</p>
+    <h2>creatTextNode--创建文本对象并添加到元素中</h2>
+    <div id="qin"></div>
+    <script>
+        let qin = document.querySelector('#qin');
+        let lisi = document.createTextNode('李斯');
+        qin.append(lisi);
+    </script>
+    <h2>createElement--使用createElement方法可以标签节点对象，创建span标签新节点并添加到div#app</h2>
+    <div id="han1"></div>
+    <script>
+        let han1 = document.querySelector('#han1');
+        let span = document.createElement('span');
+        span.innerHTML = '扶苏';
+        han1.append(span);
+    </script>
+
+    <p>使用promise结合节点操作来加载外部JavaScript文件</p>
+    <script>
+        function js(file) {
+            return new Promise((resolve, reject) => {
+                let js = document.createElement('script');
+                js.type = 'text/javascript';
+                js.src = file;
+                js.onload = resolve;
+                js.onerror = reject;
+                document.head.appendChild(js);
+            });
+        };
+        js('wufaduqu.js')
+            .then(() => console.log('加载成功'))
+            .catch((error) => console.log(`${error.target.src}加载失败`));
+    </script>
+
+    <p>使用同样的逻辑来实现加载CSS文件</p>
+    <script>
+        function css(file) {
+            return new Promise((resolve, reject) => {
+                let css = document.createElement('link');
+                css.rel = 'stylesheet';
+                css.href = file;
+                css.onload = resolve;
+                css.onerror = reject;
+                document.head.appendChild(css);
+            });
+        };
+        css('1.css')
+            .then(() => console.log('加载成功'));
+        // .catch((error) => console.log(`${error.target.src}加载失败`));
+    </script>
+</body>
+
+</html>
