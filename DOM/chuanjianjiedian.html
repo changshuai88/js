@@ -60,6 +60,29 @@
             .then(() => console.log('加载成功'));
         // .catch((error) => console.log(`${error.target.src}加载失败`));
     </script>
+
+    <h2>cloneNode & importNode</h2>
+    <p>使用cloneNode和document.importNode用于复制节点对象操作</p>
+    <li>cloneNode是节点方法</li>
+    <li>cloneNode参数为true时递归复制子节点即深拷贝</li>
+    <li>importNode时document对象方法</li>
+    <div id="sui">隋文帝</div>
+
+    <script>
+        //复制div节点并添加到body元素中
+        let sui = document.querySelector('#sui');
+        let sui_yangdi = sui.cloneNode(true);
+        document.body.appendChild(sui_yangdi);
+    </script>
+    <p>document.importNode方法是部分IE浏览器不支持的，也是复制节点对象的方法</p>
+    <li>第一个参数为节点对象</li>
+    <li>第二个参数为true时递归复制</li>
+    <div id="tang">唐高祖</div>
+    <script>
+        let tang = document.querySelector('#tang');
+        let tang_taizong = document.importNode(tang, true);
+        document.body.appendChild(tang_taizong);
+    </script>
 </body>
 
 </html>
