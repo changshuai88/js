@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        div {
+            padding-left: 50px;
+        }
+    </style>
+    <title>样式管理</title>
+</head>
+
+<body>
+    <h1>样式管理</h1>
+    <p>通过DOM修改样式可以通过更改元素的class属性或通过style对象设置行样式来完成。</p>
+    <li>建议使用class控制样式，将任务交给CSS处理，更简单高效</li>
+    <div id="qin" class="lisi baiqi">大秦帝国</div>
+    <script>
+        let qin = document.getElementById('qin');
+        qin.className = 'lvbuwei';
+
+        //也可以通过特征的方式来更改
+        qin.setAttribute('class', 'wangjian');
+    </script>
+
+    <h2>classList</h2>
+    <p>如果对类单独进行控制使用classlist属性操作</p>
+    <table>
+        <thead>
+            <td>方法</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>node.classList.add</td>
+                <td>添加类名</td>
+            </tr>
+            <tr>
+                <td>node.classList.remobe</td>
+                <td>删除类名</td>
+            </tr>
+            <tr>
+                <td>node.classList.toggle</td>
+                <td>切换类名</td>
+            </tr>
+            <tr>
+                <td>node.classList.contains</td>
+                <td>类名检测</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>在元素的原有class上添加新class</p>
+    <div id="han" class="zhangliang hanxin">大汉</div>
+    <script>
+        let han = document.getElementById('han');
+        han.classList.add('xiaohe');
+
+        //使用classList也可以移除class列表中的部分class
+        han.classList.remove('hanxin');
+
+        //使用toggle切换类，即类已经存在时删除，不存在时添加
+
+        han.addEventListener('click', function () {
+            this.classList.toggle('fankuai');
+        });
+
+        //使用contains检查class是否存在
+
+        console.log(han.classList.contains('zhangliang'));
+        console.log(han.classList.contains('hanxin'));
+    </script>
+
+    <h2>设置行样式</h2>
+    <p>使用style对象可以对样式属性单独设置，使用cssText可以批量设置行样式</p>
+    <h3>样式属性设置</h3>
+    <p>使用节点的style对象来设置行样式</p>
+    <li>多个单词的属性使用驼峰进行命名</li>
+    <div id="wei" class="caocao lvbu">曹操</div>
+    <script>
+        let wei = document.getElementById('wei');
+        wei.style.backgroundColor = 'red';
+        wei.style.color = 'yellow';
+        // :red;color:yellow';
+    </script>
+
+    <h3>批量设置行样式</h3>
+    <p>使用cssText属性可以批量设置行样式，属性名和写CSS一样不需要考虑驼峰命名</p>
+    <div id="shu" class="zhangfei zhaoyun">刘备</div>
+
+    <script>
+        let shu = document.getElementById('shu');
+        shu.style.cssText = 'background-color:red;color:yellow';
+
+        //也可以通过setAttribute改变style特征来批量设置样式
+        // shu.setAttribute('style', 'background-color:black;color:white');
+    </script>
+
+    <h2>获取样式</h2>
+    <p>可以通过style对象，window.window.getComputedStyle对象获取样式属性，下面进行说明</p>
+    <h4>style</h4>
+    <p>可以使用DOM对象的style属性读取行样式</p>
+    <li>style对象不能获取行样式外定义的的样式</li>
+    <div id="wu" style="background-color:red;margin:20px">孙权</div>
+    <script>
+        let wu = document.getElementById('wu');
+        console.log(wu.style.backgroundColor);
+        console.log(wu.style.margin);
+        console.log(wu.style.marginTop);
+        console.log(wu.style.paddingLeft);
+    </script>
+
+
+    <h3>getComputedStyle</h3>
+    <p>使用window.getComputedStyle可获取所有应用在元素上的样式和属性</p>
+    <li>函数的第一个参数为元素</li>
+    <li>第二个参数为伪类</li>
+    <li>这是计算后的样式属性，所以取得的单位和定义时的可能会有不同</li>
+    <div id="jin" style="background-color:blue;margin: 20px;">司马昭</div>
+    <script>
+        let jin = document.getElementById('jin');
+        let fontSize = window.getComputedStyle(jin).fontSize;
+        console.log(fontSize.slice(0, 2));
+        console.log(parseInt(fontSize));
+    </script>
+</body>
+
+</html>

@@ -144,6 +144,95 @@
         let span = document.createElement('span');
         sui.insertAdjacentHTML('beforebegin', '<h1>杨林</h1>');
     </script>
+
+    <h1>insertAdjacentElement</h1>
+    <p>insertAdjacentElement()方法将指定元素插入到元素的指定位置，包括以下位置</p>
+    <li>第一个参数是位置</li>
+    <li>第二个参数为新元素节点</li>
+    <table>
+        <thead>
+            <td>选项</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>beforebegin</td>
+                <td>元素本身前面</td>
+            </tr>
+            <tr>
+                <td>afterend</td>
+                <td>元素本身后面</td>
+            </tr>
+            <tr>
+                <td>afterbegin</td>
+                <td>元素内部前面</td>
+            </tr>
+            <tr>
+                <td>beforeend</td>
+                <td>元素内部后面</td>
+            </tr>
+        </tbody>
+
+    </table>
+    <p>在siv#tang前面插入span标签</p>
+    <div id="tang">
+        <div class="qinqiong">秦琼</div>
+        <div class="weizheng">魏征</div>
+
+    </div>
+    <script>
+    let tang=document.querySelector('#tang');
+    let jingde=document.createElement('span');
+    jingde.innerHTML='尉迟敬德';
+    tang.insertAdjacentElement('beforebegin',jingde);
+
+    </script>
+
+    <h2>古老方法</h2>
+    <p>下面列表过去使用的操作节点的方法，现在不建议使用了，但在阅读老代码时，可来此查看语法</p>
+    <table>
+        <thead>
+            <td>方法</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>appendChild</td>
+                <td>添加节点</td>
+            </tr>
+            <tr>
+                <td>insertBefore</td>
+                <td>用于插入元素到另一个元素的前面</td>
+            </tr>
+            <tr>
+                <td>removeChild</td>
+                <td>删除节点</td>
+            </tr>
+            <tr>
+                <td>replaceChild</td>
+                <td>进行节点的替换操作</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>DocumentFragment</h2>
+    <p>当对节点进行添加、删除等操作时，都会引来页面回流来重新渲染页面，即重新渲染颜色，尺寸，大小，位置等等。所以会带来对性能的影响</p>
+    <p>解决以上问题可以使用以下几种方式</p>
+    <ol>
+        <li>可以将DOM写成html字符串，然后使用innerHTML添加到页面中，但这种操作会比较 麻烦，且不方便使用节点操作的相关方法</li>
+        <li>使用createDocumentFragment来管理节点时，此时节点都在内存内，而不是DOM树中，对节点的操作不会引发页面回流，带来比较好的性能体验。</li>
+    </ol>
+    <h4>DocumentFragment特点</h4>
+    <ul>
+        <li>createDocumentFragment父节点为null</li>
+        <li>继承自node所以可以使用NODE的属性和方法</li>
+        <li>createDocumentFragment创建的时文档碎片，节点乐星nodetype为11，因为不在DOM树中所以只能通过JS进行操作</li>
+        <li>添加createDocumentFragment到DOM后，就不可以再操作createDocumentFragment元素了，这与DOM操作是不同的</li>
+        <li>将文档DOM添加到createDocumentFragment时，会移除 文档中的DOM元素</li>
+        <li>createDocumentFragment创建的节点添加到其他节点上时，会将子节点一并添加</li>
+        <li>createDocumentFragment时虚拟节点对象，不直接操作DOM所以性能好</li>
+        <li>再排序/移除等大量DOM操作时，建议使用createDocumentFragment</li>
+    </ul>
 </body>
 
 </html>
