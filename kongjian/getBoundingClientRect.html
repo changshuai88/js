@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        main {
+            padding: 200px;
+            position: relative;
+        }
+
+        #qin {
+            width: 200px;
+            background: #e34334;
+            margin: 100px;
+            padding: 50px;
+            border: 20px solid #efbc0f;
+            color: white;
+            text-align: center;
+
+        }
+    </style>
+    <title>getBoundingClientRect</title>
+</head>
+
+<body>
+    <main>
+        <div id="qin">秦始皇</div>
+
+    </main>
+    <script>
+        let qin = document.getElementById('qin');
+        let info = qin.getBoundingClientRect();
+        console.log(info);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视口与文档</title>
+</head>
+
+<body>
+    <h1>视口与文档</h1>
+    <p>首先理解视口（窗口）与文档的含义</p>
+    <li>网页喝多都是多屏（通过滚动条显示看不见的内容），所以文档尺寸一般大于视口尺寸</li>
+    <li>视口尺寸不包括浏览器工具条、菜单、标签、状态栏</li>
+    <li>当你打开控制台后，视口尺寸就相应变小</li>
+    <li>position使用文档定位，flexd使用视口定位</li>
+    <li>文档坐标在页面滚动时，不发生改变</li>
+    <li>视口坐标的操作需要考虑滚动条的位置</li>
+    <h2>视口与文档尺寸</h2>
+    <p>视口坐标需要知道滚动条位置才可以进行计算，有以下几种方式获取滚动位置</p>
+    <table>
+        <thead>
+            <td>方法</td>
+            <td>说明</td>
+            <td>注意</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>window.innerWidth</td>
+                <td>视口宽度</td>
+                <td>包括滚动条，不常用</td>
+            </tr>
+            <tr>
+                <td>window.innerHeight</td>
+                <td>视口高度</td>
+                <td>包括滚动条，不常用</td>
+            </tr>
+            <tr>
+                <td>document.documentElement.clientWidth</td>
+                <td>视口宽度</td>
+
+            </tr>
+            <tr>
+                <td>document.documentElement.clientHeight</td>
+                <td>视口高度</td>
+            </tr>
+        </tbody>
+
+    </table>
+    <h1>几何尺寸</h1>
+    <p>元素在页面中拥有多个描述几何数值的尺寸，下面截图进行形象的描述</p>
+
+    <h2>方法列表</h2>
+    <p>下面是获取尺寸的方法或属性</p>
+    <table>
+        <thead>
+            <td>方法</td>
+            <td>说明</td>
+            <td>备注</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>element.getBoundingClientRect</td>
+                <td>返回元素在视口坐标及元素大小，包括外边距，width/height与offsetWidth/offsetHeight匹配</td>
+                <td>窗口坐标</td>
+            </tr>
+            <tr>
+                <td>element.getClientRects</td>
+                <td>行级元素每行尺寸位置组成的数组</td>
+            </tr>
+            <tr>
+                <td>element.offsetParent</td>
+                <td>拥有定位属性的父级，或body/td/th/table</td>
+                <td>对于隐藏元素/body/html值为null</td>
+            </tr>
+            <tr>
+                <td>element.offsetWidth</td>
+                <td>元素宽度尺寸，包括内边距与边框和滚动条</td>
+            </tr>
+            <tr>
+                <td>element.offsetHeight</td>
+                <td>元素高度尺寸，包括内边距与边框和滚动条</td>
+            </tr>
+            <tr>
+                <td>element.odffsetLeft</td>
+                <td>相对于祖先元素的X轴坐标</td>
+            </tr>
+            <tr>
+                <td>element.odffsetTop</td>
+                <td>相对于祖先元素的Y轴坐标</td>
+            </tr>
+            <tr>
+                <td>element.clientWidth</td>
+                <td>元素宽度，不包含边框，只包含内容与内边框，行元素尺寸为0</td>
+            </tr>
+            <tr>
+                <td>element.clientHeight</td>
+                <td>元素高度，不包含边框，只包含内容与内边框，行元素尺寸为0</td>
+            </tr>
+            <tr>
+                <td>element.clientLeft</td>
+                <td>内容距离外部的距离，滚动条在左侧时包括滚动条尺寸</td>
+            </tr>
+            <tr>
+                <td>element.clientTop</td>
+                <td>内容距离外部的距离，滚动条在顶部时包括滚动条尺寸</td>
+            </tr>
+            <tr>
+                <td>element.scrollWidth</td>
+                <td>元素宽度，内容+内边距+内容溢出的尺寸</td>
+            </tr>
+            <tr>
+                <td>element.scrollHeight</td>
+                <td>元素高度，内容+内边距+内容溢出的尺寸</td>
+            </tr>
+            <tr>
+                <td>element.scrollLeft</td>
+                <td>水平滚动条左侧已经滚动的宽度</td>
+            </tr>
+            <tr>
+                <td>element.scrollTop</td>
+                <td>垂直滚动条顶部已经滚动的高度</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>getComputedStyle</h2>
+    <p>为什么不要使用getComputedStyle</p>
+    <li>尺寸设置auto时获取结果不可用</li>
+    <li>由于滚动条的存在，不同浏览器返回结果不同</li>
+    <li>当元素没有设置CSS尺寸时，获取不到相应的尺寸内容</li>
+
+    <h2>getBoundingClientRect</h2>
+    <p>使用getBoundingClientRect获取元素相对文档的几何坐标信息</p>
+
+</body>
+
+</html>
