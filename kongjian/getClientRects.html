@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getClientRects</title>
+    <style>
+        span{
+            width: 200px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>getClientRects</h1>
+    <p>getClientRects用于返回多行元素所占的尺寸，下面示例将为每行返回所占的空间尺寸</p>
+<span>网页很多都是多屏，所以文档尺寸一般大于视口尺寸,当打开控制台后，视口尺寸相应变小。网页很多都是多屏，所以文档尺寸一般大于视口尺寸,当打开控制台后，视口尺寸相应变小。网页很多都是多屏，所以文档尺寸一般大于视口尺寸,当打开控制台后，视口尺寸相应变小。</span>
+<script>
+    let span=document.querySelector('span');
+    let info=span.getClientRects();
+    console.log(info);
+</script>
+</body>
+</html>

@@ -133,6 +133,35 @@
 
     <h2>getBoundingClientRect</h2>
     <p>使用getBoundingClientRect获取元素相对文档的几何坐标信息</p>
+    <h1>getClientRects</h1>
+    <p>getClientRects用于返回多行元素所占的尺寸，下面示例将为每行返回所占的空间尺寸</p>
+    <h1>坐标点元素</h1>
+    <p>JS提供了方法获取指定坐标上的元素，如果指定坐标点在视口外，返回值为NULL</p>
+    <li>坐标都是从左上角计算，这与CSS中的right/bottom等不同</li>
+    <li>窗口坐标类似于position:fixed</li>
+    <li>文档坐标类似于position:absolute</li>
+
+    <table>
+        <thead>
+            <td>方法</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>element.elementsFromPoint</td>
+                <td>返回指定坐标点所在的元素集合</td>
+            </tr>
+            <tr>
+                <td>element.elementFromPoint</td>
+                <td>返回指定坐标点最底层的元素</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>元素集合</h1>
+    <p>返回指定坐标点上的元素集合<a href="elementsFromPoint.html">elementsFromPoint</a></p>
+    <h1>底层元素</h1>
+    <p>返回坐标点上的底层的元素<a href="elementFromPoint.html">elementFromPoint</a></p>
 
 </body>
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滚动控制</title>
+</head>
+
+<body>
+    <h1>滚动控制</h1>
+    <p>下面掌握文档货元素的滚动操作</p>
+    <h2>列表方法</h2>
+    <table>
+        <thead>
+            <td>方法</td>
+            <td>说明</td>
+            <td>说明</td>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>element.scrollLeft</td>
+                <td>获取和设置元素X轴滚动位置</td>
+            </tr>
+            <tr>
+                <td>element.scrollTop</td>
+                <td>获取和设置元素Y轴滚动位置</td>
+            </tr>
+            <tr>
+                <td>element.scroll()或element.scrollTo()</td>
+                <td>滚动到指定的具体位置</td>
+                <td>参数为对象，{top：X轴文档位置，left：Y轴文档位置，behavior：滚动方式}</td>
+            </tr>
+            <tr>
+                <td>element.scrollIntoView(bool)</td>
+                <td>定位到顶部或底部</td>
+                <td>参数为true元素定位到顶部，为false定位到窗口底部</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>文档滚动位置</h2>
+    <p>下例是查看文档滚动的X/Y坐标示例，请在控制台查看结果</p>
+    <div style="width: 3000px;height:3000px;background:#e34334"></div>
+    <script>
+        // window.onscroll = function () {
+        //     console.log(document.documentElement.scrollTop);
+        //     console.log(document.documentElement.scrollLeft);
+        // }
+
+        //也可以使用window.pageXOffset对象属性获取
+        window.onscroll = function () {
+            console.log(window.pageXOffset);
+            console.log(window.pageYOffset);
+        }
+    </script>
+
+</body>
+
+
+</html>
