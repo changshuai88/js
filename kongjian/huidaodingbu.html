@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        span {
+            width: 50px;
+            height: 50px;
+            background-color: #e34334;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+            border-radius: 10px;
+            opacity: 0;
+            transition: 1s;
+            cursor: pointer;
+        }
+
+        span.show {
+            opacity: 1;
+            transform: rotate(360deg);
+        }
+    </style>
+    <title>huidaodingbu</title>
+</head>
+
+<body>
+    <div id="qin" style="height: 2000px;">
+        大秦帝国
+    </div>
+    <span id="han">大汉</span>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            //判断是否距离页面底部200px
+            let state = document.documentElement.offsetHeight - 200 < document.documentElement.scrollTop +
+                document.documentElement.clientHeight;
+            //按钮元素
+            const span = document.querySelector('span');
+            //根据滚动位置添加或移除类
+            span.classList[state ? 'add' : 'remove']('show');
+        })
+
+        //回到顶部按钮事件
+        document.querySelector('#han').addEventListener('click', function () {
+            //平滑回滚到页面顶部
+            document.documentElement.scrollIntoView({
+                block: 'start',
+                behavior: 'smooth'
+            });
+        })
+    </script>
+</body>
+
+</html>

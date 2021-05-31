@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>悬浮广告</title>
+</head>
+
+<body>
+    <main>
+        <div id="qin" style="width: 200px;height: 200px;background:#e34334">大秦帝国</div>
+    </main>
+    <script>
+        class Ad {
+            constructor(options) {
+                // console.log(this);
+
+                this.$el = document.querySelector(options.el);
+                // console.log($el);
+                this.$options = Object.assign({
+                    timeout: 2,
+                    step: 1
+                }, options);
+                //初始移动方向，1向下/向右，-1向上/向左
+                this.x = this.y = 1;
+
+                //设置定位模式
+                this.$el.style.position = 'fixed';
+                setInterval(this.run.bind(this), this.$options.timeout);
+
+
+            }
+
+            //定时回调函数
+            run() {
+                this.$el.style.left = this.left() + 'px';
+                this.$el.style.top = this.top() + 'px';
+
+            }
+            left() {
+                let {
+                    x,
+                    width
+                } = this.$el.getBoundingClientRect();
+                let {
+                    clientWidth
+                } = document.documentElement;
+                if (x > clientWidth - width) this.x = -1;
+                if (x < 0) this.x = 1;
+
+                return x + this.x * this.$options.step;
+            }
+            top() {
+                let {
+                    y,
+                    height
+                } = this.$el.getBoundingClientRect();
+                let {
+                    clientHeight
+                } = document.documentElement;
+                if (y > clientHeight - height) this.y = -1;
+                if (y < 0) this.y = 1;
+
+                return y + this.y * this.$options.step;
+            }
+        }
+
+        new Ad({
+            el: '#qin',
+            timeout: 10,
+            step: 1
+        })
+    </script>
+</body>
+
+</html>

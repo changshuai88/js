@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        div {
+            height: 2000px;
+            background: red;
+            border-top: solid 50px #efbc0f;
+            border-bottom: solid 50px #1bb491;
+        }
+
+        span {
+            border-radius: 50%;
+            color: #fff;
+            background: #000;
+            width: 50px;
+            height: 50px;
+            display: block;
+            text-align: center;
+            line-height: 50px;
+            position: fixed;
+            top: 50%;
+            right: 50px;
+            border: solid 2px #ddd;
+        }
+    </style>
+    <title>scrollIntoView</title>
+</head>
+
+<body>
+    <div id="qin">秦始皇</div>
+    <span>霸王</span>
+
+    <script>
+        document.querySelector('span').addEventListener('click', () => {
+            let qin = document.querySelector('#qin');
+            qin.scrollIntoView({
+                block: 'end',
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>

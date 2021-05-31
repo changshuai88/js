@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元素滚动</title>
+</head>
+
+<body>
+    <div id="qin" style="width: 300px;height: 300px;border: solid 6px #e34334;overflow: auto;">
+        <div style="width:1000px;height:1000px;background: #833ca4;"></div>
+    </div>
+
+    <script>
+        const qin = document.getElementById('qin');
+        qin.addEventListener('scroll', function () {
+            console.log(this.scrollLeft);
+            console.log(this.scrollTop);
+        })
+    </script>
+</body>
+
+</html>
