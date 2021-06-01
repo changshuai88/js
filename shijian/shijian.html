@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件</title>
+</head>
+
+<body>
+    <h1>基础知识</h1>
+    <p>在文档、浏览器、标签等元素在特定状态下触发的行为即为事件，比如用户的单击行为，表单内容的改变行为即为事件，我们可以为不同的事件定义处理程序，JS使用异步事件驱动的形式管理事件</p>
+
+    <h1>事件类型</h1>
+    <p>JS为不同的事件定义的类型，也可以称为事件名称</p>
+
+    <h1>事件目标</h1>
+    <p>事件目标指产生事件的对象，比如a标签被点击那么a标签就是事件目标，元素是可以嵌套的，所以在进行一次点击行为时可能会触发多个事件目标</p>
+
+    <h1>处理程序</h1>
+    <p>事件的目的时要执行一段代码，我们程这类代码为事件处理程序，档在对象上触发事件时就会执行定义的事件处理程序</p>
+
+    <h1>HTML绑定</h1>
+    <p>可以在HTML元素上设置事件处理程序，浏览器解析后会绑定到DOM属性中</p>
+
+    <button onclick="alert('大秦帝国')">秦</button>
+    <p>往往事件处理程序业务比较复杂，所以绑定方法或函数会很常见</p>
+    <li>绑定函数或方法时需要加上括号</li>
+    <button onclick="show()">汉</button>
+    <script>
+        function show() {
+            alert('大汉帝国');
+        }
+    </script>
+
+    <p>当然也可以使用方法做为事件处理程序</p>
+    <input type="text" onkeyup="Qin.show()">
+    <script>
+        class Qin {
+            static show() {
+                console.log('秦始皇');
+            }
+        }
+    </script>
+
+    <p>也可以传递事件源对象与事件对象</p>
+    <button onclick="wei(this,'lisi','baiqi',event)">秦始皇</button>
+    <script>
+        function wei(...args) {
+            console.log(args);
+        }
+    </script>
+
+    <h1>DOM绑定</h1>
+    <p>也可以将事件处理程序绑定到DOM属性中</p>
+    <li>使用setAttribute方法设置事件处理程序无效</li>
+    <li>属性名区分大小写</li>
+    <div id="shu">刘备</div>
+    <script>
+        const shu = document.querySelector('#shu');
+        shu.onclick = function () {
+            this.style.color = 'red';
+
+        };
+    </script>
+
+    <p>
+        无法为事件类型绑定多个事件处理程序，下面绑定了多个事件处理程序，因为属性是相同的所以只有最后一个有效
+    </p>
+    <div id="wu">孙权</div>
+    <script>
+        const wu = document.querySelector('#wu');
+        wu.onclick = function () {
+            this.style.color = 'red';
+
+        };
+        wu.onclick = function () {
+            this.style.fontSize = '55px';
+        };
+    </script>
+</body>
+
+</html>

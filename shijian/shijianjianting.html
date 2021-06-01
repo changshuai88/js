@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件监听</title>
+</head>
+
+<body>
+    <h1>事件监听</h1>
+    <p>通过上面的说明我们直到使用HTML与DOM绑定事件都有缺陷，建议使用新的事件监听绑定方式addEventListener操作事件</p>
+    <p>使用addEventListener添加事件处理程序有以下几个特点</p>
+    <li>transionend/DOMContentLoaded等事件类型只能使用addEventListener处理</li>
+    <li>同以事件类型设置多个事件处理程序，按设置的顺序先后执行</li>
+    <li>也可以对未来添加的元素绑定事件</li>
+
+    <table>
+        <thead>
+            <td>方法</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>addEventListener</td>
+                <td>添加事件处理程序</td>
+            </tr>
+            <tr>
+                <td>removeEventListener</td>
+                <td>移除事件处理程序</td>
+            </tr>
+        </tbody>
+
+    </table>
+    <h2>addEventListener</h2>
+    <ol>
+        <li>参数一事件类型</li>
+        <li>参数二事件处理程序</li>
+        <li>参数三为定制的选项，可传递object或Boolean类型，后面会详细介绍使用区别</li>
+    </ol>
+
+    <h1>绑定多个事件</h1>
+    <p>使用addEventListener来多个事件处理程序</p>
+    <div id="qin">大秦帝国</div>
+    <script>
+        const qin = document.querySelector('#qin');
+        qin.addEventListener('click', function () {
+            this.style.color = 'red';
+
+        });
+        qin.addEventListener('click', function () {
+            this.style.fontSize = '55px';
+        });
+    </script>
+
+    <h2>通过对象绑定</h2>
+    <p>如果事件处理程序可以是对象，对象的handleEvent方法会做为事件处理程序执行，下面将元素的事件统一交由对象处理</p>
+    <div id="han">刘邦</div>
+    <script>
+        const han = document.querySelector('#han');
+        class Han {
+            handleEvent(e) {
+                this[e.type](e);
+            }
+            click() {
+                console.log('单击事件');
+            }
+            mouseover() {
+                console.log('鼠标移动事件');
+            }
+
+        }
+
+        han.addEventListener('click', new Han());
+        han.addEventListener('mouseover', new Han());
+    </script>
+
+    <h2>移除事件</h2>
+    <p>使用removeElementListener删除绑定的事件处理程序</p>
+    <li>事件处理程序单独定义函数或方法，这可以保证事件处理程序是同一个</li>
+    <div id="wei">曹操</div>
+    <button id="guojia">删除事件</button>
+    <script>
+        const wei = document.querySelector('#wei');
+        const guojia = document.querySelector('#guojia');
+
+        function show() {
+            console.log('官渡之战');
+        };
+        wei.addEventListener('click', show);
+        guojia.addEventListener('click', function () {
+            wei.removeEventListener('click', show);
+            console.log('再点曹操不管用了');
+        });
+    </script>
+</body>
+
+</html>
