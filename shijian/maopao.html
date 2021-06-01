@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #qin {
+            background: #34495e;
+            width: 300px;
+            padding: 30px;
+        }
+
+        #qin h2 {
+            background-color: yellow;
+            margin-right: -100px;
+        }
+    </style>
+    <title>冒泡捕获</title>
+</head>
+
+<body>
+    <h1>冒泡捕获</h1>
+    <h2>冒泡行为</h2>
+    <p>标签元素是嵌套的，在一个元素上触发的事件，同时也会向上执行父级元素的事件处理程序，一直到HTML标签元素</p>
+    <li>大部分事件都会冒泡，但像focus事件则不会</li>
+    <li>event.target可以在事件链中最底层的定义事件的对象</li>
+    <li>event.currentTarget==this即当前执行事件的对象</li>
+
+    <p>以下示例有标签的嵌套，并且父子标签都设置了事件，当在子标签上触发事件事会冒泡执行父级标签的事件</p>
+    <div id="qin">
+        <h2 id="h2">秦始皇</h2>
+    </div>
+    <script>
+        const qin = document.querySelector('#qin');
+        const h2 = document.querySelector('#h2');
+        qin.addEventListener('click', (event) => {
+            console.log(`event.currentTarget:${event.currentTarget.nodeName}`);
+            console.log(`event.target:${event.target.nodeName}`);
+            console.log('qin.event');
+        });
+        h2.addEventListener('click', () => {
+            console.log(`event.currentTarget:${event.currentTarget.nodeName}`);
+            console.log(`event.target:${event.target.nodeName}`);
+            console.log(`h2.event`);
+        })
+    </script>
+</body>
+
+</html>

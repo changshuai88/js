@@ -94,6 +94,76 @@
             console.log('再点曹操不管用了');
         });
     </script>
+
+    <h1>事件选项</h1>
+    <p>addEventListener的第三个参数为定制的选项，可传递object或boolean类型</p>
+    <p>下面是传递对象时的说明</p>
+    <table>
+        <thead>
+            <td>选项</td>
+            <td>可选参数</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>once</td>
+                <td>true/false</td>
+                <td>只执行一次事件</td>
+            </tr>
+            <tr>
+                <td>capture</td>
+                <td>true/false</td>
+
+                <td>事件是在驳货/冒泡哪个阶段执行，true：捕捉阶段，false：冒泡阶段</td>
+            </tr>
+            <tr>
+                <td>passive</td>
+                <td>true/false</td>
+                <td>声明事件里不会调用preventDefault()，可以减少系统默认行为的等待</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>下面使用once：true来指定事件只执行一次</p>
+    <button id="shu">刘备</button>
+    <script>
+        const shu = document.querySelector('#shu');
+        shu.addEventListener(
+            'click',
+            function () {
+                alert('五虎上将');
+            }, {
+                once: true
+            }
+        )
+    </script>
+
+    <p>设置{capture:true}或直接设置第三个参数为true用来在捕获阶段执行事件</p>
+    <strong>addEventListener的第三个参数传递true/false和设置{capture：true/false}是一样</strong>
+    <div id="wu" style="background-color: red;">
+        <button id="sunquan">孙权</button>
+    </div>
+    <script>
+        const wu = document.querySelector('#wu');
+        const sunquan = document.querySelector('#sunquan');
+        wu.addEventListener(
+            'click',
+            function () {
+                alert('东吴');
+            }, {
+                // capture: true
+                capture: false
+            }
+        );
+        sunquan.addEventListener(
+            'click',
+            function () {
+                alert('四大都督');
+            }, {
+                // capture: true
+                capture: false //设置{capture：false}或直接设置第三个参数为false用来在冒泡阶段执行事件
+            }
+        );
+    </script>
+
 </body>
 
 </html>
