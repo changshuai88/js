@@ -16,6 +16,24 @@
             background-color: yellow;
             margin-right: -100px;
         }
+
+        #han {
+            background: #34495e;
+            width: 300px;
+            padding: 30px;
+        }
+
+        #han h2 {
+            background-color: #f1c40f;
+            margin-right: -100px;
+        }
+
+        .shu {
+            border: solid 2px #ddd;
+            background-color: red;
+            color: white;
+
+        }
     </style>
     <title>冒泡捕获</title>
 </head>
@@ -47,7 +65,129 @@
         })
     </script>
 
+    <h2>阻止冒泡</h2>
+    <p>冒泡过程中的任何事件处理程序中，都可以执行，event.stopPropagation()方法组织继续进行冒泡传递</p>
+    <li>event.stopPropagation()用于阻止冒泡</li>
+    <li>如果同一类型事件绑定多个事件处理程序event.stopPropagation()只阻止当前的事件处理程序</li>
+    <li>event.stopImmediatePropagation()阻止事件冒泡并且阻止相同事件的其他事件处理程序被调用</li>
+    <p>下例中为h2的事件处理程序添加了阻止冒泡动作，将不会产生冒泡，也就不会执行父级中的事件处理程序了</p>
+    <div id="han">
+        <h2 id="hanxin">大汉</h2>
+    </div>
 
+    <script>
+        const han = document.querySelector('#han');
+        const hanh2 = document.querySelector('#hanxin');
+        han.addEventListener('click', (event) => {
+            console.log(`event.currentTarget:${event.currentTarget.nodeName}`);
+            console.log(`event.target:${event.target.nodeName}`);
+            console.log(`han.event`);
+        });
+        hanh2.addEventListener('click', (event) => {
+            event.stopPropagation();
+            console.log(`event.currentTarget:${event.currentTarget.nodeName}`);
+            console.log(`event.target:${event.target.nodeName}`);
+            console.log(`hanh2 event`);
+        })
+    </script>
+
+    <p>以上代码如果将stopPropagation()替换为stopImmediatePropagation(),那么H2的其他同类型的事件处理程序将不执行，同时阻止冒泡</p>
+
+    <h2>事件捕获</h2>
+    <p>事件执行顺序为 捕获>事件目标>冒泡，在向下传递到目标对象的过程即为事件捕获，事件捕获在实际使用中频率不高</p>
+
+    <li>通过设置第三个参数为true或{capture：true}在捕获阶段执行事件处理程序</li>
+    <div id="wei" style="width: 200px;height: 200px;background-color:red">
+        <h2 id="cao">曹操</h2>
+    </div>
+
+    <script>
+        const wei = document.querySelector('#wei');
+        const cao = document.querySelector('#cao');
+        wei.addEventListener('click', (event) => {
+            console.log('wei.event');
+        }, {
+            capture: true
+        });
+        cao.addEventListener('click', (event) => {
+            console.log('cao event');
+        });
+    </script>
+    <h2>事件代理</h2>
+    <p>借助冒泡思路，我们可以不为子元素设置事件，而将事件设置在父级，然后通过父级事件对象的event.target查找子元素，并对他做出处理</p>
+    <li>这在为多个元素添加相同事件时很方便</li>
+    <li>会使添加事件变得非常容易</li>
+    <p>下面时为父级UL设置事件来控制子元素li的样式切换</p>
+    <ul id="shu">
+        <li>马超</li>
+        <li>黄忠</li>
+    </ul>
+    <script>
+        'use strict'
+        const ul = document.querySelector('#shu');
+        ul.addEventListener('click', function (event) {
+            // console.log(event.target.tagName);
+            if (event.target.tagName === 'LI') event.target.classList.toggle('shu');
+        });
+    </script>
+
+    <P>可以使用事件代理来共享事件处理程序，不用为每个元素单独绑定事件</P>
+    <ul id="wu">
+        <li data-action="hidden">周瑜</li>
+        <li data-action="color" data-color="red">鲁肃</li>
+    </ul>
+    <script>
+        class Wu {
+            constructor(el) {
+                console.log(el);
+                el.addEventListener('click', (e) => {
+                    const action = e.target.dataset.action;
+                    this[action](e);
+                });
+
+            }
+
+            hidden() {
+                event.target.hidden = true;
+            }
+            color() {
+                event.target.style.color = event.target.dataset.color;
+            }
+        }
+
+        new Wu(document.querySelector('#wu'));
+    </script>
+
+    <p>下面使用事件代理实现的TAB面板效果</p>
+    <div class="sui">
+        <dl>
+            <dt data-action="toggle">韩擒虎</dt>
+            <dd data-action="hidden">来护儿</dd>
+        </dl>
+        <dl>
+            <dt data-action="toggle">李渊</dt>
+            <dd data-action="hidden" hidden>李密</dd>
+        </dl>
+    </div>
+    <script>
+        class Sui {
+            constructor(el) {
+                this.el = el;
+                el.addEventListener('click', this.handle.bind(this));
+            }
+            handle() {
+                const action = event.target.dataset.action;
+                if (action) this[action]();
+            }
+            toggle() {
+                this.el.querySelectorAll(`[data-action='hidden']`).forEach((e) => {
+                    e.hidden = true;
+                });
+                event.target.nextElementSibling.hidden = '';
+            }
+        }
+        new Sui(document.querySelector('.sui'));
+    </script>
 </body>
 
 </html>
