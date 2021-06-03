@@ -188,6 +188,71 @@
         }
         new Sui(document.querySelector('.sui'));
     </script>
+
+
+    <p>下面实现通过事件代理行为，在表单提交时禁用提交按钮，并记录提示次数</p>
+    <form action="">
+        <input type="text">
+        <button type="button" data-submit-disabled data-action="submit,counter">提交表单</button>
+    </form>
+
+    <script>
+        class Form {
+            constructor(form) {
+                this.form = form;
+                this.form.counter = 0;
+                this.form.addEventListener('click', this.handle.bind(this));
+            }
+            handle() {
+                const actions = event.target.dataset.action;
+                actions.split(',').forEach((action) => {
+                    if (this[action]) this[action]();
+                })
+            }
+            submit() {
+                event.preventDefault();
+                this.disableButton(true);
+                console.log('提交中');
+                setTimeout(() => {
+                    this.disableButton(false);
+                    console.log('提交结束');
+                }, 1000);
+
+            }
+            disableButton(state) {
+                this.form.querySelectorAll(`[data-submit-disabled]`).forEach((bt) => {
+                    bt.disabled = state;
+                });
+            }
+            counter() {
+                this.form.counter++;
+                console.log(this.form.counter);
+            }
+
+        }
+        document.querySelectorAll('form').forEach((form) => {
+            new Form(form);
+        })
+    </script>
+
+    <h2>未来元素</h2>
+    <p>下面使用事件代理来对未来元素进行事件绑定</p>
+    <div id="tang">
+        <h2 id="lizhi">贞观之治</h2>
+    </div>
+    <script>
+        function tang() {
+            console.log(this.textContent);
+        };
+        const litang = document.querySelector('#tang');
+        const lizhi = document.querySelector('#lizhi');
+        litang.addEventListener('click', () => {
+            tang.call(event.target);
+        });
+        let newH2 = document.createElement('h2');
+        newH2.textContent = '武则天';
+        litang.append(newH2);
+    </script>
 </body>
 
 </html>

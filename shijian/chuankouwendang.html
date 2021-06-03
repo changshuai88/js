@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>窗口文档</title>
+</head>
+
+<body>
+    <h1>窗口文档</h1>
+    <p>下面来学习针对窗口和文档的事件的处理</p>
+    <h2>事件类型</h2>
+    <table>
+        <thead>
+            <td>事件名</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>window.onload</td>
+                <td>文档解析及外部资源加载后</td>
+            </tr>
+            <tr>
+                <td>DOMContentLoaded</td>
+                <td>文档解析后执行，不需要等待图片/样式文件等外部资源加载，该事件只能通过addEventListener设置</td>
+            </tr>
+            <tr>
+                <td>window.beforeunload</td>
+                <td>文档刷新或关闭时</td>
+            </tr>
+            <tr>
+                <td>window.unload</td>
+                <td>文档卸载时</td>
+            </tr>
+            <tr>
+                <td>scroll</td>
+                <td>页面滚动时</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>onload</h2>
+    <p>window.onload事件在文档解析后及图片、外部样式文件等资源加载完后执行</p>
+    <script>
+        window.onload = function () {
+            alert('天王盖地虎');
+        };
+    </script>
+    <div id="qin">秦始皇</div>
+    <h2>DOMContentLoaded</h2>
+    <p>DOMContentLoaded事件在文档标签解析后执行，不需要等外部图片、样式文件、JS文件等资源加载</p>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            console.log('宝塔镇河妖');
+        });
+    </script>
+    <div id="han">汉武帝</div>
+
+    <h2>beforeunload</h2>
+    <p>当浏览器串口关闭或者刷新时，会触发beforeunload事件，可以取消关闭或刷新页面</p>
+    <li>返回值为非空字符串时，有些浏览器会作为弹出的提示信息内容</li>
+    <li>部分浏览器使用addEventListener无法绑定事件</li>
+    <script>
+        window.onbeforeunload = function (e) {
+            return '真的要离开吗？';
+        };
+    </script>
+
+    <h2>unload</h2>
+    <p>window.unload事件在文档资源被卸载时执行，在beforeunload后执行</p>
+    <li>不能执行alert/confirm等交互指令</li>
+    <li>发生错误也不会阻止页面关闭或刷新</li>
+    <script>
+        window.addEventListener('unload', function (e) {
+            localStorage.setItem('name', 'bob chang');
+        });
+    </script>
+
+</body>
+
+</html>

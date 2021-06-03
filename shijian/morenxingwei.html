@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>默认行为</title>
+</head>
+
+<body>
+    <p>JS中有些对象会设置默认事件处理程序，比如A链接在点击时会进行跳转</p>
+    <p>一般默认处理程序会在用户定义的处理程序后执行，所以我们可以在我们定义的事件处理中取消默认事件处理程序的执行</p>
+    <li>使用onlick绑定的事件处理程序，return false 可以阻止默认行为</li>
+    <li>推荐使用event.preventDefault()阻止默认行为</li>
+    <p>下面阻止超链接的默认行为</p>
+    <a href="http://www.changjinshuai.cn">天工平地机配件</a>
+    <script>
+        document.querySelector('a').addEventListener('click', () => {
+            event.preventDefault();
+            alert(event.target.innerText);
+        });
+    </script>
+</body>
+
+</html>

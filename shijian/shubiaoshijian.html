@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠标事件</title>
+</head>
+
+<body>
+    <h1>事件类型</h1>
+    <p>针对鼠标操作的行为有多种事件类型</p>
+    <li>鼠标事件会触发在Z-INDEX层级最高的那个元素上</li>
+    <table>
+        <thead>
+            <td>事件名</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>click</td>
+                <td>鼠标单击事件，同时触发mousedown/mouseup</td>
+            </tr>
+            <tr>
+                <td>dblclick</td>
+                <td>鼠标双击事件</td>
+            </tr>
+            <tr>
+                <td>contextmenu</td>
+                <td>点击右键后显示的所在环境的菜单</td>
+            </tr>
+            <tr>
+                <td>mousedown</td>
+                <td>鼠标按下</td>
+            </tr>
+            <tr>
+                <td>mouseup</td>
+                <td>鼠标抬起时</td>
+            </tr>
+            <tr>
+                <td>mousemove</td>
+                <td>鼠标移动时</td>
+            </tr>
+            <tr>
+                <td>mouseover</td>
+                <td>鼠标移动时</td>
+            </tr>
+            <tr>
+                <td>mouseout</td>
+                <td>鼠标从元素上离开时</td>
+            </tr>
+            <tr>
+                <td>mouseup</td>
+                <td>鼠标抬起时</td>
+            </tr>
+            <tr>
+                <td>mouseenter</td>
+                <td>鼠标移入时触发，不产生冒泡行为</td>
+            </tr>
+            <tr>
+                <td>mouseleave</td>
+                <td>鼠标移出时触发，不产生冒泡行为</td>
+            </tr>
+            <tr>
+                <td>oncopy</td>
+                <td>复制内容时触发</td>
+            </tr>
+            <tr>
+                <td>scroll</td>
+                <td>元素滚动时，可以为元素设置overflow:auto；产生滚动条来测试</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>事件对象</h2>
+    <p>鼠标事件产生的事件对象包含相应的属性</p>
+    <table>
+        <thead>
+            <td>属性</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>which</td>
+                <td>执行mousedown/mouseup时，显示所按的键1左键，2中键，3右键</td>
+            </tr>
+            <tr>
+                <td>clientX</td>
+                <td>相对窗口X坐标</td>
+            </tr>
+            <tr>
+                <td>clienY</td>
+                <td>相对窗口Y坐标</td>
+            </tr>
+            <tr>
+                <td>pageX</td>
+                <td>相对于文档的X坐标</td>
+            </tr>
+            <tr>
+                <td>pageY</td>
+                <td>相对于文档的Y坐标</td>
+            </tr>
+            <tr>
+                <td>offseX</td>
+                <td>目标元素内部的X坐标</td>
+            </tr>
+            <tr>
+                <td>offsetY</td>
+                <td>目标元素内部的Y坐标</td>
+            </tr>
+            <tr>
+                <td>altKey</td>
+                <td>是否按了alt键</td>
+            </tr>
+            <tr>
+                <td>ctrlKey</td>
+                <td>是否按了ctrl键</td>
+            </tr>
+            <tr>
+                <td>shiftKey</td>
+                <td>是否按了shift键</td>
+            </tr>
+            <tr>
+                <td>metaKey</td>
+                <td>是否按了媒体键</td>
+            </tr>
+            <tr>
+                <td>relatedTarget</td>
+                <td>mouseover事件时从那个元素来的，mouseout事件时指要移动到的元素，当无来源或移动到窗口外时为null</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>relatedTarget</h2>
+    <p>relatedTarget是控制鼠标移动事件的来源，和目标对象的</p>
+    <li>如果移动过快会跳转中间对象</li>
+    <a href="relatedTarget.html">relatedTarget</a>
+
+    <h2>moserenter与mouseleave</h2>
+    <p>moserenter与mouseleave事件从子元素移动到父元素时不触发父元素事件</p>
+    <a href="moserenter.html">moserenter</a>
+</body>
+
+</html>
