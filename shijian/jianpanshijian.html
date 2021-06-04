@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘事件</title>
+</head>
+
+<body>
+    <h2>键盘事件</h2>
+    <p>针对键盘输入操作的行为有多种事件类型</p>
+    <table>
+        <thead>
+            <td>事件名</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Keydown</td>
+                <td>键盘按下时，一直按键不松开时keydowmn事件会重复触发</td>
+            </tr>
+            <tr>
+                <td>keyup</td>
+                <td>按键抬起时</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <h2>事件对象</h2>
+    <p>键盘事件产生的事件对象包含相对应的属性</p>
+    <table>
+        <thead>
+            <td>属性</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>keyCode</td>
+                <td>返回键盘的ASCII字符数字</td>
+            </tr>
+            <tr>
+                <td>code</td>
+                <td>按键码，字符以key开始，数字以Digit开始，特殊字符有专属名字，左右ALT键字符不同。不同布局的键盘值会不同</td>
+            </tr>
+            <tr>
+                <td>key</td>
+                <td>按键的字符含义表示，大小写不同，不能区分左右alt等，不同语言操作系统下值会不同</td>
+            </tr>
+            <tr>
+                <td>altkey</td>
+                <td>是否按了alt键</td>
+            </tr>
+            <tr>
+                <td>ctrlkey</td>
+                <td>是否按了ctrl键</td>
+            </tr>
+            <tr>
+                <td>shiftkey</td>
+                <td>是否按了shift键</td>
+            </tr>
+            <tr>
+                <td>metakey</td>
+                <td>是否按了媒体键</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>表单事件</h2>
+    <p>下面是可以用在表单上的事件类型</p>
+    <table>
+        <thead>
+            <td>事件类型</td>
+            <td>说明</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>focus</td>
+                <td>获取焦点事件</td>
+            </tr>
+            <tr>
+                <td>blur</td>
+                <td>失去焦点事件</td>
+            </tr>
+            <tr>
+                <td>element.focus()</td>
+                <td>让元素强制获取焦点</td>
+            </tr>
+            <tr>
+                <td>element.blur()</td>
+                <td>让元素失去焦点</td>
+            </tr>
+            <tr>
+                <td>change</td>
+                <td>文本框在内容发生改变并失去焦点时触发，select/checkbox/radio选项改变时触发事件</td>
+            </tr>
+            <tr>
+                <td>input</td>
+                <td>input、textarea或select元素的value被修改时，会触发input事件，而change是鼠标离开后或选择一个不同的option时触发</td>
+            </tr>
+            <tr>
+                <td>submit</td>
+                <td>提交表单</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

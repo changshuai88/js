@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #app {
+            background: red;
+            padding: 80px;
+            width: 500px;
+        }
+
+        #cms {
+            background: teal;
+            padding: 30px;
+        }
+    </style>
+    <title>moserenter</title>
+</head>
+
+<body>
+    <div id="app">
+        秦始皇
+        <div id="cms">汉武帝</div>
+    </div>
+    <script>
+        const app = document.querySelector('#app');
+        const cms = document.querySelector('#cms');
+
+        app.addEventListener('moserenter', () => {
+            console.log('app');
+        });
+        cms.addEventListener('moserenter', () => {
+            console.log('cms');
+        });
+    </script>
+</body>
+
+</html>
