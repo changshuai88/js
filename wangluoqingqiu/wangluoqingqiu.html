@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>网络请求</title>
+</head>
+<body>
+	<h1>基础知识</h1>
+	<p>浏览器天生具有发送http请求的能力，比如在地址栏输入内容，提交form表单等，本章来学习通过js程序来管理http请求的能力</p>
+	<p>使用js脚本发送http请求，不会带来页面的刷新，所以用户体验非常好</p>
+	<h2>XMLHttpRequest</h2>
+	<p>使用XMLHttpRequest发送请求，是一种存在很久的方案，现代浏览器支持使用fetch的异步请求方式，fetch基于promise异步操作体验更好</p>
+	<h2>基本使用</h2>
+	<p>使用XMLHttpRequest发送请求需要执行以下几步</p>
+	<ol>
+		<li>使用new XMLHttpRequest创建xhr对象</li>
+		<li>xhr.open初始化请求参数</li>
+		<li>xhr.send发送网络请求</li>
+		<li>xhr.onload监听请求结果</li>
+		<li>xhr.onerror请求终端等错误发生时的处理</li>
+	</ol>
+
+	<h2>响应类型</h2>
+	<p>通过设置xhr.responseType对响应结果进行声明，来对结果自动进行处理。</p>
+	<p>下面是可以使用的响应类型</p>
+	<table>
+		<thead>
+			<td>类型</td>
+			<td>说明</td>
+		</thead>
+		<tbody>
+			<tr>
+				<td>text</td>
+				<td>响应结果为文本</td>
+			</tr>
+			<tr>
+				<td>json</td>
+				<td>响应内容为JSON，系统会自动将结果转为JSON 对象</td>
+			</tr>
+			<tr>
+				<td>blob</td>
+				<td>二进制数据响应</td>
+			</tr>
+			<tr>
+				<td>document</td>
+				<td>XML DOCUMENT内容</td>
+			</tr>
+		</tbody>
+	</table>
+
+<h2>响应结果</h2>
+<p>xhr.onload用于处理响应完毕后的处理</p>
+<p>使用以下属性来处理结果</p>
+<li>xhr.status为http状态码，如404/422/403等，当为200时为正确响应</li>
+<li>xhr.statusText HTTP状态码内容，200时为ok，404为not found</li>
+<li>xhr.response服务器端响应的内容</li>
+
+
+<script type="text/javascript">
+	
+	const xhr=new XMLHttpRequest();
+	xhr.timeout=5000;
+	xhr.open('GET','hd.php');
+	xhr.send();
+	xhr.onload=function(){
+		if (xhr.status=200) {
+			console.log(xhr.response);
+		}else{
+			console.log(`${xhr.status}:${xhr.statusText}`);
+		}
+	};
+	xhr.onerror=function(error){
+		console.log(error);
+	};
+</script>
+
+</body>
+</html>
