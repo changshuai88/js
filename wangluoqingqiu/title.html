@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" id="form">
+        <input type="text" name="title">
+        <input type="submit">
+    </form>
+    <script>
+        const form = document.getElementById('form');
+        form.addEventListener('submit', function () {
+            //阻止默认提交行为
+            event.preventDefault();
+
+            post('http://localhost/php/hd.php', new FormData(this));
+        });
+
+        function post(url, data) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.send(data);
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    console.log(xhr.response);
+                } else {
+                    console.log(`${xhr.status}:${xhr.statusText}`);
+                };
+            };
+        }
+    </script>
+</body>
+
+</html>
