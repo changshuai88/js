@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        div{
+        div {
             width: 100px;
             height: 100px;
             background: yellowgreen;
@@ -14,9 +15,10 @@
     </style>
     <title>promise</title>
 </head>
+
 <body>
     <h1>Promise</h1>
-    <p>javascript中存在很多异步操作，，promise将异步操作队列化，按照期望的顺序执行，返回符合预期的结果，可以通过链式调用多个promise达到我们的目的</p>
+    <p>javascript中存在很多异步操作，promise将异步操作队列化，按照期望的顺序执行，返回符合预期的结果，可以通过链式调用多个promise达到我们的目的</p>
     <p>
         promise在各种开源库中已经实现，现在标准化后被浏览器默认支持。
     </p>
@@ -30,25 +32,26 @@
     <p>下面是一个定时器执行结束后，执行另一个定时器，这种嵌套造成代码不易阅读</p>
     <div></div>
     <script>
-        function interval(callback,delay=100){
-            let id=setInterval(()=>callback(id),delay);
+        function interval(callback, delay = 100) {
+            let id = setInterval(() => callback(id), delay);
         }
 
-        const div=document.querySelector("div");
-        interval(timeId=>{
-            const left=parseInt(window.getComputedStyle(div).left);
-            div.style.left = left +10+"px";
-            if(left >200){
+        const div = document.querySelector("div");
+        interval(timeId => {
+            const left = parseInt(window.getComputedStyle(div).left);
+            div.style.left = left + 10 + "px";
+            if (left > 200) {
                 clearInterval(timeId);
-                interval(timeId=>{
-                    const width=parseInt(window.getComputedStyle(div).width);
-                    div.style.width=width-1+"px";
-                    if (width<=0) {
+                interval(timeId => {
+                    const width = parseInt(window.getComputedStyle(div).width);
+                    div.style.width = width - 1 + "px";
+                    if (width <= 0) {
                         clearInterval(timeId);
                     }
-                },10);
+                }, 10);
             }
-        },100);
+        }, 100);
     </script>
 </body>
+
 </html>
