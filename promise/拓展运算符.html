@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 拓展运算符
+        // 1.数据结构必须满足的条件，具有interator接口数据结构
+        // 例如：array string map set
+        let one = [1, 2, 3, 4];
+        console.dir(one);
+        console.log(...one);
+        console.log(one[Symbol.iterator]());
+        let three = ["libai", "dufu"];
+        console.log(...three[0])
+        let two = {
+            id: 1,
+            name: "libai",
+            sex: "man"
+        }
+
+        let c = [...one];
+        one[1] = 5;
+        console.log(one);
+        console.log(c);
+        // console.log(...two);
+
+        const map = new Map([
+            ['name', 'libai'],
+            ['title', 'taibai']
+        ]);
+        console.log(map);
+        map.has('name');
+        map.get('name');
+
+        console.log(map.size);
+        console.log(map.keys());
+        console.log(map.entries());
+    </script>
+</body>
+
+</html>
